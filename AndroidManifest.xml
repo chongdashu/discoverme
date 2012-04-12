@@ -39,9 +39,6 @@
         <activity android:name=".BasicItemActivity" />
         <activity android:name=".XmlItemActivity" />
         	
-        <activity 
-            android:name=".TweakedItemViewActivity"
-            android:theme="@style/Theme.GDCatalog.TweakedItems" />
             
         <activity android:name=".SegmentedActivity" />
 		<activity android:name=".ActionBarActivity" />
