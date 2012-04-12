@@ -18,6 +18,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        
+        <activity
+        	android:name=".EventsActivity"
+         	android:label="EventsActivityLabel"/>
+        
+        
+        
+        
+        
+        
+        <activity
+        	android:name=".InfoTabActivity"
+         	android:label="@string/general_info_label"/>
+        <activity android:name=".WebContentActivity" />
+        <activity android:name=".AboutActivity" />
+        
+        
+        <activity android:name=".BasicItemActivity" />
+        <activity android:name=".XmlItemActivity" />
+        	
+        <activity 
+            android:name=".TweakedItemViewActivity"
+            android:theme="@style/Theme.GDCatalog.TweakedItems" />
+            
+        <activity android:name=".SegmentedActivity" />
+		<activity android:name=".ActionBarActivity" />
+        <activity android:name=".TabbedActionBarActivity" />
+        <activity android:name=".TabbedActionBarActivity$FakeActivity" />
+        	
+        <activity android:name=".QuickActionActivity" />
+        <activity android:name=".SimpleAsyncImageViewActivity" />
+		<activity android:name=".AsyncImageViewListActivity" />
+		
+		<activity android:name=".MapPinMapActivity" />
+		<activity android:name=".PagedScrollViewActivity" />
+		<activity android:name=".PagedViewActivity" />
     </application>
 
 </manifest>
