@@ -39,7 +39,7 @@
     <string name="show_image_1">Set image 1</string>
     <string name="show_image_2">Set image 2</string>
     <string name="show_image_3">Set image 3</string>
-    
+    <color name="maroon">#960C0C</color>
     <string name="first_screen">First screen</string>
     
     <string name="refresh_pressed">You\'ve just pressed a ActionBarItem.Type.Refresh button</string>
