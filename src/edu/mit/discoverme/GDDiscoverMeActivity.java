@@ -29,6 +29,8 @@ public class GDDiscoverMeActivity extends Activity {
         Intent intent = new Intent(GDDiscoverMeActivity.this, MapTestActivity.class);
 		// Uncomment next line to launch map:
 		// startActivity(intent);
+        
+        // ethan's part
     }
     
     private OnClickListener onEventClick = new OnClickListener() {
