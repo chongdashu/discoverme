@@ -36,8 +36,8 @@
         
          <activity
         	android:name=".FriendsListActivity"
-         	android:label="FriendsListActivityLabel"/>
-        
+         	android:label="FriendsListActivityLabel"
+         	android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
         
         
          <activity
