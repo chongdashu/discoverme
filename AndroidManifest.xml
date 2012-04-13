@@ -5,7 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="4" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    
+      <!--  (culim) Map View Stuff -->
+	
+    
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
@@ -19,15 +23,28 @@
             </intent-filter>
         </activity>
         
+        <uses-library android:name="com.google.android.maps"  />
+	
+        
+        	<activity android:name=".MapTestActivity" android:label="HelloGmaps"
+     android:theme="@android:style/Theme.NoTitleBar"/>
         
         <activity
         	android:name=".EventsActivity"
          	android:label="EventsActivityLabel"/>
         
+        <activity
+        	android:name=".PhilActivity"
+         	android:label="PhilActivityLabel"/>
         
+         <activity
+        	android:name=".DialogBoxActivity"
+         	android:label="Example Dialog Box"/>
         
-        
-        
+        <activity
+        	android:name=".FriendListActivity"
+         	android:label="Friends"
+         	android:theme="@android:style/Theme.Dialog"/>
         
         <activity
         	android:name=".InfoTabActivity"
