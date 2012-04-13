@@ -24,6 +24,11 @@ public class GDDiscoverMeActivity extends Activity {
         
         ImageButton notif = (ImageButton) (findViewById(R.id.notificationButton));
         notif.setOnClickListener(onNotificationClick);
+
+        // (culim) testing map
+        Intent intent = new Intent(GDDiscoverMeActivity.this, MapTestActivity.class);
+		// Uncomment next line to launch map:
+		// startActivity(intent);
     }
     
     private OnClickListener onEventClick = new OnClickListener() {
