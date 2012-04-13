@@ -4,6 +4,10 @@
     <string name="hello">Hello World, GDDiscoverMeActivity!</string>
     <string name="app_name">GDDiscoverMe</string>
     
+    <string name ="events">This is the events page</string>
+    <string name = "friends">This is the friends page</string>
+    <string name = "notifications">This is the notifications page</string>
+    
     <!-- Release key is in the p_strings.xml file ignored by Git -->
 	<string name="google_map_api_key_debug">0IgVgWFseCoAyOOEFSXlrEhfjQE99UGBY_sh2CA</string>
 	

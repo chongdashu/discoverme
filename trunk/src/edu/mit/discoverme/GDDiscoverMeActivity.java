@@ -6,21 +6,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class GDDiscoverMeActivity extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.toolbar);
         
-        Button button = (Button) (findViewById(R.id.button1));
-        button.setText(R.string.button_text_friend);
+        ImageButton friend = (ImageButton) (findViewById(R.id.friendButton));
+//        button.setText(R.string.button_text_friend);
+        friend.setOnClickListener(onFriendClick);
         
-        button.setOnClickListener(onButton1Click);
+        ImageButton event = (ImageButton) (findViewById(R.id.eventButton));
+        event.setOnClickListener(onEventClick);
+        
+        ImageButton notif = (ImageButton) (findViewById(R.id.notificationButton));
+        notif.setOnClickListener(onNotificationClick);
     }
     
-    private OnClickListener onButton1Click = new OnClickListener() {
+    private OnClickListener onEventClick = new OnClickListener() {
         public void onClick(View v) {
           // do something when the button is clicked
         	
@@ -28,6 +34,25 @@ public class GDDiscoverMeActivity extends Activity {
         	startActivity(intent);
         }
     };
+    
+    private OnClickListener onFriendClick = new OnClickListener() {
+   		public void onClick(View v) {
+			// TODO Auto-generated method stub
+   			Intent intent = new Intent(GDDiscoverMeActivity.this, FriendsActivity.class);
+    		startActivity(intent);		
+		}
+	};
+	
+	private OnClickListener onNotificationClick = new OnClickListener() {
+		
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent(GDDiscoverMeActivity.this, NotificationsActivity.class);
+			startActivity(intent);
+		}
+	};
+	
+	
     
     
 }
