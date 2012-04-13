@@ -2,38 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/photo"
+    android:fillViewport="true"
     android:orientation="vertical" >
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:text="" />
 
     <LinearLayout
         android:id="@+id/top_menu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
         android:layout_gravity="center"
-        android:gravity="center">
-        
+        android:gravity="center"
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_text_friend" />
+            android:onClick="onMouseclick1"
+            android:text="@string/friends" />
+
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Events" />
+            android:text="@string/events" />
+
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Notifications" />
-
+            android:text="@string/notifications" />
     </LinearLayout>
+
+    
+<!-- 
+    <TextView
+        android:id="@+id/list_friends"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15" />
+-->
 
 </LinearLayout>

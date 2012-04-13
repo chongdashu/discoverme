@@ -30,7 +30,9 @@
     <string name="async_image_view_list_view_label">AsyncImageView in ListView</string>
     <string name="map_pin_drawable_label">MapPinDrawable</string>
     <string name="paged_view_label">PagedView &amp; PageIndicator</string>
-    
+    <string name="friends_popup_label">Friends</string>
+    <string name="events_popup_label">Events</string>
+    <string name="notifications_popup_label">Notifications</string>
     <string name="about">About</string>
     <string name="license">License</string>
     
@@ -52,5 +54,6 @@
     <string name="image_for_position">Image for position </string>
     
     <string name="about_content">GreenDroid is a development library for the Android platform. It is intented to make UI developments easier and consistent through your applications.\n\nThe GreenDroid project has been initiated by <a href="http://www.cyrilmottier.com">Cyril Mottier</a></string>
+    <string name="add_button">+</string>
 
 </resources>
