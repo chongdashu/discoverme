@@ -34,9 +34,11 @@
         	android:name=".EventsActivity"
          	android:label="EventsActivityLabel"/>
         
-        <activity
-        	android:name=".PhilActivity"
-         	android:label="PhilActivityLabel"/>
+         <activity
+        	android:name=".FriendsListActivity"
+         	android:label="FriendsListActivityLabel"/>
+        
+        
         
          <activity
         	android:name=".DialogBoxActivity"

@@ -31,13 +31,22 @@ public class GDDiscoverMeActivity extends Activity {
 		// startActivity(intent);
         
         // ethan's part
+
+
+		// TextView view = (TextView) findViewById(R.id.list_friends);
+		// String s = "";
+		// for (int i = 0; i < 100; i++) {
+		// s += "vogella.com ";
+		// }
+		// view.setText(s);
     }
     
-    private OnClickListener onEventClick = new OnClickListener() {
+    private final OnClickListener onButton1Click = new OnClickListener() {
         public void onClick(View v) {
           // do something when the button is clicked
         	
-        	Intent intent = new Intent(GDDiscoverMeActivity.this, EventsActivity.class);
+			Intent intent = new Intent(GDDiscoverMeActivity.this,
+					FriendsListActivity.class);
         	startActivity(intent);
         }
     };
