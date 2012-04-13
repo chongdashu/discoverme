@@ -40,7 +40,7 @@ public class GDDiscoverMeActivity extends Activity {
 		// view.setText(s);
     }
     
-    private final OnClickListener onButton1Click = new OnClickListener() {
+	private final OnClickListener onFriendClick = new OnClickListener() {
         @Override
 		public void onClick(View v) {
           // do something when the button is clicked
@@ -51,21 +51,22 @@ public class GDDiscoverMeActivity extends Activity {
         }
     };
     
-    private final OnClickListener onFriendClick = new OnClickListener() {
-   		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-   			Intent intent = new Intent(GDDiscoverMeActivity.this, FriendsActivity.class);
-    		startActivity(intent);		
-		}
-	};
+	// private final OnClickListener onFriendClick = new OnClickListener() {
+	// @Override
+	// public void onClick(View v) {
+	// // TODO Auto-generated method stub
+	// Intent intent = new Intent(GDDiscoverMeActivity.this,
+	// FriendsActivity.class);
+	// startActivity(intent);
+	// }
+	// };
 	
 	private final OnClickListener onEventClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
-					FriendsActivity.class);
+					EventsActivity.class);
 			startActivity(intent);
 		}
 	};
