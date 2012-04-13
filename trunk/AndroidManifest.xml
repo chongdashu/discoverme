@@ -38,16 +38,18 @@
         	android:name=".FriendsListActivity"
          	android:label="FriendsListActivityLabel"
          	android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
-        
-        
          <activity
         	android:name=".DialogBoxActivity"
          	android:label="Example Dialog Box"/>
+         
+         <activity
+        	android:name=".CreateEventActivity"
+         	android:label="Create An Event"
+         	android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
         
-        <activity
-        	android:name=".FriendListActivity"
-         	android:label="Friends"
-         	android:theme="@android:style/Theme.Dialog"/>
+         <activity
+        	android:name=".EthanActivity"
+         	android:label="Ethan's First Activity"/>
         
         <activity
         	android:name=".InfoTabActivity"
