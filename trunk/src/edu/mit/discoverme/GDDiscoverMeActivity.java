@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class GDDiscoverMeActivity extends Activity {
@@ -42,7 +41,8 @@ public class GDDiscoverMeActivity extends Activity {
     }
     
     private final OnClickListener onButton1Click = new OnClickListener() {
-        public void onClick(View v) {
+        @Override
+		public void onClick(View v) {
           // do something when the button is clicked
         	
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
@@ -51,16 +51,28 @@ public class GDDiscoverMeActivity extends Activity {
         }
     };
     
-    private OnClickListener onFriendClick = new OnClickListener() {
-   		public void onClick(View v) {
+    private final OnClickListener onFriendClick = new OnClickListener() {
+   		@Override
+		public void onClick(View v) {
 			// TODO Auto-generated method stub
    			Intent intent = new Intent(GDDiscoverMeActivity.this, FriendsActivity.class);
     		startActivity(intent);		
 		}
 	};
 	
-	private OnClickListener onNotificationClick = new OnClickListener() {
+	private final OnClickListener onEventClick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent(GDDiscoverMeActivity.this,
+					FriendsActivity.class);
+			startActivity(intent);
+		}
+	};
+
+	private final OnClickListener onNotificationClick = new OnClickListener() {
 		
+		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(GDDiscoverMeActivity.this, NotificationsActivity.class);
