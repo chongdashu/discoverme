@@ -2,5 +2,6 @@
 
   <color name="activity_title">#808080</color>
   <color name="activity_bg">#FFFFFF</color>
+  <color name="Black">#000000</color>
     
 </resources>

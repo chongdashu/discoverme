@@ -5,7 +5,8 @@
     android:fillViewport="true"
     android:orientation="vertical">
 	
-   
+   
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -24,7 +25,7 @@
         <Button
             android:id="@+id/button1"
             style="?android:attr/buttonStyleSmall"
-            android:background="@android:drawable/btn_default_small"
+            android:background="@android:drawable/btn_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
