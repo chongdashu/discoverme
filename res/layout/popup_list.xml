@@ -4,19 +4,35 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    android:orientation="vertical" >
-
-    <include layout="@layout/toolbar_only" />
-    
-        
-    <LinearLayout
-        android:id="@+id/friendsTopBar"
+    android:orientation="vertical"
+    android:background="@drawable/photo" >
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar_only" />
+       
+    <RelativeLayout
+        android:id="@+id/popup_area"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="wrap_content" 
         android:layout_gravity="right"
         android:gravity="right"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:visibility="gone">
 
+        <TextView
+            android:id="@+id/popupName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="0dip"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:paddingTop="0dip"
+            android:text="Popup Name"
+            android:textColor="@color/white"
+            android:textSize="30dip" />
+        
         <Button
             android:id="@+id/buttonAdd"
             android:height="8dip"
@@ -25,21 +41,23 @@
             android:onClick="onMouseclick1"
             android:text="@string/add_button" 
             android:layout_marginRight="20dip"
-             android:layout_marginTop="18dip"
-             android:padding="0dip"/>        
+            android:layout_marginTop="10dip"
+            android:layout_alignParentRight="true"
+            android:padding="0dip"/>        
         
-    </LinearLayout>
-        
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_marginBottom="15dip"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        
-        
-         />
+
+	    <ListView
+	        android:id="@android:id/list"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_gravity="center"
+	        android:layout_marginTop="42dip"
+	        android:layout_marginBottom="17dip"
+	        android:layout_marginLeft="22dip"
+	        android:layout_marginRight="22dip"
+	         />
+	     </RelativeLayout>
+	    
+    
 
 </LinearLayout>

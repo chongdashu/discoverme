@@ -43,6 +43,10 @@
          	android:label="FriendsListActivityLabel"
          	android:theme="@android:style/Theme.Black.NoTitleBar"/>
          <activity
+        	android:name=".HomepageActivity"
+         	android:label="HomepageActivityLabel"
+         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
+         <activity
         	android:name=".ProfileActivity"
          	android:label="ProfileActivityLabel"
          	android:theme="@android:style/Theme.Black.NoTitleBar"/>
