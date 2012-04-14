@@ -106,4 +106,49 @@
         <item>this is going on for ever </item>
         <item>please shut up</item>
     </string-array>
+    <string-array name="pending_friend_array">
+        <item>Christina</item>
+        <item>Zoey</item>
+        <item>Bob</item>
+    </string-array>
+    
+    
+    <string-array name="name_array">
+        <item>annie</item>
+        <item>bobby</item>
+        <item>carl</item>
+        <item>zoey</item>
+    </string-array>
+    <string-array name="email_array">
+        <item>annie at mit.edu</item>
+        <item>Christina at mit.edu</item>
+        <item>Zoey at mit.edu</item>
+        <item>Bob at mit.edy</item>
+    </string-array>
+    <string-array name="phone_array">
+        <item>617 473 5389</item>
+        <item>617 433 8989</item>
+        <item>857 800 8347</item>
+        <item>893 859 9384</item>
+    </string-array>
+    <string-array name="address_array">
+        <item>32D 210</item>
+        <item>4 110</item>
+        <item>5 101</item>
+        <item>32G 800</item>
+    </string-array>
+    <string-array name="friend_type_array">
+        <item>friend</item>
+        <item>stranger</item>
+        <item>pending</item>
+        <item>stranger</item>
+    </string-array>
+    
+    <string name="typeFriend">friend</string>
+    <string name="typeStranger">stranger</string>
+    <string name="typePending">pending</string>
+    
+    <string name="addAsFriendButtonText"> Add as Friend </string>
+    <string name="addPendingYesButtonText"> Approve Friend Request </string>
+    <string name="addPendingNoButtonText"> Decline Friend Request </string>
 </resources>
