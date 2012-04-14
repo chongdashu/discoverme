@@ -6,39 +6,108 @@
     android:fillViewport="true"
     android:orientation="vertical" >
 
+    
+      
 <LinearLayout
        android:layout_width="fill_parent"
        android:layout_height="100dip"
        android:orientation="vertical" >
    </LinearLayout>
-  
+    
+    <TextView
+        android:id="@+id/personName"
+        android:layout_width="fill_parent"
+        android:layout_height="75dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingBottom="0dip"
+        android:paddingTop="0dip"
+        android:textColor="@color/maroon"
+        android:textSize="35dip"
+        android:text="my name is here"
+        />
+        
    <LinearLayout
+       
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:orientation="vertical" >
-        <EditText
-       android:id="@+id/editText2"
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-       android:ems="10"
-       android:inputType="textEmailAddress" />
+        
+    <EditText
+        android:id="@+id/personEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:editable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="textEmailAddress" />
 
    <EditText
-       android:id="@+id/editText3"
+       android:id="@+id/personPhone"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
+       android:padding="10dip"
+       android:editable="false"
        android:ems="10"
+       android:focusable="false"
        android:inputType="phone" />
 
    <EditText
-       android:id="@+id/editText4"
+       android:id="@+id/personAddress"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
+       android:padding="10dip"
+       android:editable="false"
        android:ems="10"
+       android:focusable="false"
        android:inputType="textPostalAddress" />
        
    </LinearLayout>
-
+ <LinearLayout
+       
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical" 
+      android:layout_gravity="center_horizontal|bottom"
+       android:gravity="center_horizontal|bottom"
+       android:layout_marginTop="50dip">
+  
+   <Button
+       android:id="@+id/addAsFriendButton"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:text="@string/addAsFriendButtonText"/>
+    
+     
+   </LinearLayout>
    
+<LinearLayout
+       
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_gravity="center"
+       android:gravity="center"
+       >
+ 
+ <Button
+     android:id="@+id/addPendingYesButton"
+     android:layout_width="128dp"
+     android:layout_height="wrap_content"
+     android:text="@string/addPendingYesButtonText"
+     android:layout_marginRight="20dip" />
+ 
+   <Button
+       android:id="@+id/addPendingNoButton"
+       android:layout_width="112dp"
+       android:layout_height="wrap_content"
+       android:text="@string/addPendingNoButtonText" 
+       android:layout_marginLeft="20dip"/>
+ 
+  </LinearLayout>
+   
+ 
 
+ 
 </LinearLayout>

@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class PopupListActivity extends ListActivity {
 	
@@ -75,8 +74,28 @@ public class PopupListActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// When clicked, show a toast with the TextView text
-				Toast.makeText(getApplicationContext(),
-						((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(getApplicationContext(),
+				// ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+
+				if (popup.equals("friendss")) {
+				Intent intent = new Intent(PopupListActivity.this,
+						ProfileActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra("personName", ((TextView) view).getText());
+				startActivity(intent);
+
+				finishActivity(-1);
+				} else if (popup.equals("eventss")) {
+					// this will actually go to viiew event page
+					Intent intent = new Intent(PopupListActivity.this,
+							EventsActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.putExtra("eventName", ((TextView) view).getText());
+					startActivity(intent);
+
+					finishActivity(-1);
+				}
+
 			}
 		});
 	}
@@ -91,7 +110,7 @@ public class PopupListActivity extends ListActivity {
 			} else {
 				Intent intent = new Intent(PopupListActivity.this,
 					PopupListActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
 			intent.putExtra("popupCode", "friendss");
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
