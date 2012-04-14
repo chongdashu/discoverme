@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="time" 
+        android:focusableInTouchMode="false"
         />
 
     <LinearLayout
@@ -102,12 +103,13 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/create_event_edittext_location"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPostalAddress" />
+            android:inputType="textPostalAddress"
+            android:focusableInTouchMode="false" />
 
     </LinearLayout>
    
