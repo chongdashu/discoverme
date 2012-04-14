@@ -93,15 +93,15 @@
  
  <Button
      android:id="@+id/addPendingYesButton"
-     android:layout_width="128dp"
-     android:layout_height="wrap_content"
+     android:layout_width="128dip"
+     android:layout_height="60dip"
      android:text="@string/addPendingYesButtonText"
      android:layout_marginRight="20dip" />
  
    <Button
        android:id="@+id/addPendingNoButton"
-       android:layout_width="112dp"
-       android:layout_height="wrap_content"
+       android:layout_width="128dp"
+       android:layout_height="60dip"
        android:text="@string/addPendingNoButtonText" 
        android:layout_marginLeft="20dip"/>
  

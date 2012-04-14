@@ -47,13 +47,17 @@ public class ProfileActivity extends Activity {
 				R.array.friend_type_array);
 
 		int key = 0;
-		for (int i = 0; i < 3; i++)
+		int len = names.length;
+		for (int i = 0; i < len; i++)
 			// make this number(3) adaptive
 			if (names[i].equals(personName.trim())) {
 				key = i;
 				break;
 			}
 
+		String stF = getString(R.string.typeFriend);
+		String stS = getString(R.string.typeStranger);
+		String stP = getString(R.string.typePending);
 		profileType = types[key];
 		nameField.setText(personName);
 		emailField.setText(emails[key]);
@@ -61,17 +65,17 @@ public class ProfileActivity extends Activity {
 		addressField.setText(addresss[key]);
 		profileType = types[key];
 		// this check should be
-		if (profileType.equals("friend")) {
+		if (profileType.equals(stF)) {
 			nameField.setText(personName);
 			add.setVisibility(View.GONE);
 			approve.setVisibility(View.GONE);
 			decline.setVisibility(View.GONE);
-		} else if (profileType.equals("stranger")) {
+		} else if (profileType.equals(stS)) {
 			nameField.setText(personName);
 			add.setVisibility(View.VISIBLE);
 			approve.setVisibility(View.GONE);
 			decline.setVisibility(View.GONE);
-		} else if (profileType.equals("pending")) {
+		} else if (profileType.equals(stP)) {
 			nameField.setText(personName);
 			add.setVisibility(View.GONE);
 			approve.setVisibility(View.VISIBLE);
@@ -92,7 +96,8 @@ public class ProfileActivity extends Activity {
 				finishActivity(-1);
 			// and flash a message on screen saying friend added
 			Toast.makeText(getApplicationContext(),
-					"added as Friend", Toast.LENGTH_SHORT).show();
+					getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT)
+					.show();
 			// and then go back to previous page
 
 		}
@@ -106,7 +111,8 @@ public class ProfileActivity extends Activity {
 				finishActivity(-1);
 			// and flash a message on screen saying something
 			Toast.makeText(getApplicationContext(),
-					"Approved as Friend", Toast.LENGTH_SHORT).show();
+					getString(R.string.addPendingYesMesg), Toast.LENGTH_SHORT)
+					.show();
 			// and then go back to previous page
 		}
 	};
@@ -119,7 +125,8 @@ public class ProfileActivity extends Activity {
 				finishActivity(-1);
 			// and flash a message on screen saying something
 			Toast.makeText(getApplicationContext(),
-					"Declined Friend Request", Toast.LENGTH_SHORT).show();
+					getString(R.string.addPendingNoMesg), Toast.LENGTH_SHORT)
+					.show();
 			// and then go back to previous page
 		}
 	};
