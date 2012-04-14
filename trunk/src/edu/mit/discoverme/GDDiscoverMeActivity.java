@@ -48,6 +48,7 @@ public class GDDiscoverMeActivity extends Activity {
         	
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
 					PopupListActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			intent.putExtra("popupCode", "friendss");
 			startActivity(intent);
         	
