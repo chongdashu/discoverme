@@ -1,11 +1,14 @@
 package edu.mit.discoverme;
 
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 public class CreateEventActivity extends Activity {
 
@@ -24,6 +27,13 @@ public class CreateEventActivity extends Activity {
 		// Set up listeners for "Selecting Location"
 		EditText editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
 		editTextLocation.setOnClickListener(onEditTextLocationClick);
+
+		// Set up the Time Picker
+		CustomTimePicker timePicker = (CustomTimePicker) (findViewById(R.id.create_event_timepicker));
+		Date date = new Date();
+		timePicker.setCurrentHour(date.getHours());
+		timePicker.setCurrentMinute(date.getMinutes());
+
 	}
 
 	private OnClickListener onEditTextParticipantsClick = new OnClickListener() {
@@ -31,8 +41,9 @@ public class CreateEventActivity extends Activity {
 			// Do something when "Select Participants" is clicked.
 
 			// We launch the "Select Participants Activity"
-			Intent intent = new Intent(CreateEventActivity.this, ParticipantListingActivity.class);
-			//intent.putExtra("popupCode", "eventss");
+			Intent intent = new Intent(CreateEventActivity.this,
+					ParticipantListingActivity.class);
+			// intent.putExtra("popupCode", "eventss");
 			startActivity(intent);
 		}
 	};
@@ -42,8 +53,9 @@ public class CreateEventActivity extends Activity {
 			// Do something when "Select Location" is clicked.
 
 			// We launch the "Select Location from Map Activity"
-			Intent intent = new Intent(CreateEventActivity.this, MapTestActivity.class);
-			//intent.putExtra("popupCode", "eventss");
+			Intent intent = new Intent(CreateEventActivity.this,
+					MapTestActivity.class);
+			// intent.putExtra("popupCode", "eventss");
 			startActivity(intent);
 
 		}

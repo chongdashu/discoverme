@@ -25,10 +25,10 @@ public class GDDiscoverMeActivity extends Activity {
         notif.setOnClickListener(onNotificationClick);
 
         // (culim) testing map
-        Intent intent = new Intent(GDDiscoverMeActivity.this, MapTestActivity.class);
+        Intent intent = new Intent(GDDiscoverMeActivity.this, CreateEventActivity.class);
 		// Uncomment next line to launch map:
 
-		// startActivity(intent);
+		startActivity(intent);
         
         // ethan's part
 

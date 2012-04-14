@@ -3,24 +3,47 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    android:orientation="vertical"
-     >
-
+    android:orientation="vertical">
+	
+   
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:background="@color/activity_title">
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/title_bar" >
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.90"
             android:text="Create New Event"
-            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            />
+            android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonStyleSmall"
+            android:background="@android:drawable/btn_default_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:text="Done"
+            android:enabled="false" />
     </LinearLayout>
-
+    
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+    	android:orientation="vertical">
+        
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -34,7 +57,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textCapWords" >
+        android:inputType="textCapWords" 
+        android:background="@android:drawable/editbox_background">
 
         <requestFocus />
     </EditText>
@@ -44,10 +68,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Event Start Time:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        />
 
-    <TimePicker
-        android:id="@+id/timePicker1"
+    <edu.mit.discoverme.CustomTimePicker
+        android:id="@+id/create_event_timepicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:soundEffectsEnabled="true" />
@@ -66,6 +91,7 @@
         android:ems="10"
         android:inputType="time" 
         android:focusableInTouchMode="false"
+        android:background="@android:drawable/editbox_background"
         />
 
     <LinearLayout
@@ -109,8 +135,11 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPostalAddress"
-            android:focusableInTouchMode="false" />
+            android:focusableInTouchMode="false"
+            android:background="@android:drawable/editbox_background" />
 
     </LinearLayout>
-   
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
+
