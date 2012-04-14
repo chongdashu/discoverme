@@ -3,6 +3,7 @@ package edu.mit.discoverme;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,8 +33,9 @@ public class PopupListActivity extends ListActivity {
 
 		ImageButton notif = (ImageButton) (findViewById(R.id.notificationButton));
 		notif.setOnClickListener(onNotificationClick);
-
 		
+		LinearLayout popupPage = (LinearLayout) findViewById(R.id.popup_layout_page);
+
 		Intent intent = getIntent();
 		popup = intent.getStringExtra("popupCode");// savedInstanceState.getInt("popupCode");
 
@@ -41,19 +44,32 @@ public class PopupListActivity extends ListActivity {
 		b.setOnClickListener(onAddClick);
 
 		if (popup.equals("friendss")) {
+			Drawable newMarker = PopupListActivity.this.getResources()
+					.getDrawable(R.drawable.photo_friend_popup);
+			popupPage.setBackgroundDrawable(newMarker);
+
 			String[] friends = getResources().getStringArray(
 					R.array.friends_array);
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 					friends));
 			b.setVisibility(View.VISIBLE);
 
+
 		} else if (popup.equals("eventss")) {
+			Drawable newMarker = PopupListActivity.this.getResources()
+					.getDrawable(R.drawable.photo_event_popup);
+			popupPage.setBackgroundDrawable(newMarker);
+
 			String[] events = getResources().getStringArray(
 					R.array.events_array);
 			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 					events));
 			b.setVisibility(View.VISIBLE);
 		} else if (popup.equals("notifss")) {
+			Drawable newMarker = PopupListActivity.this.getResources()
+					.getDrawable(R.drawable.photo_notif_popup);
+			popupPage.setBackgroundDrawable(newMarker);
+
 			String[] events = getResources().getStringArray(
 					R.array.notifs_array);
 			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
@@ -90,6 +106,7 @@ public class PopupListActivity extends ListActivity {
 					Intent intent = new Intent(PopupListActivity.this,
 							EventsActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
 					intent.putExtra("eventName", ((TextView) view).getText());
 					startActivity(intent);
 
@@ -112,7 +129,9 @@ public class PopupListActivity extends ListActivity {
 					PopupListActivity.class);
 
 			intent.putExtra("popupCode", "friendss");
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION
+						| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
 				startActivity(intent);
 
 				finishActivity(-1);
@@ -132,7 +151,9 @@ public class PopupListActivity extends ListActivity {
 				Intent intent = new Intent(PopupListActivity.this,
 					PopupListActivity.class);// EventsActivity.class);
 			intent.putExtra("popupCode", "eventss");
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION
+						| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
 			startActivity(intent);
 				finishActivity(-1);
 			}
@@ -150,7 +171,8 @@ public class PopupListActivity extends ListActivity {
 			Intent intent = new Intent(PopupListActivity.this,
 					PopupListActivity.class);// NotificationsActivity.class);
 			intent.putExtra("popupCode", "notifss");
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION
+						| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 				finishActivity(-1);
 			}
