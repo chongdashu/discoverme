@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
+import android.widget.*;
 
 public class GDDiscoverMeActivity extends Activity {
     /** Called when the activity is first created. */
@@ -23,7 +23,13 @@ public class GDDiscoverMeActivity extends Activity {
         
         ImageButton notif = (ImageButton) (findViewById(R.id.notificationButton));
         notif.setOnClickListener(onNotificationClick);
-
+        
+        Button back = (Button)(findViewById(R.id.backButton));
+        back.setOnClickListener(onBackClick);
+        
+        Button next = (Button)(findViewById(R.id.nextButton));
+        next.setOnClickListener(onNextClick);
+        
         // (culim) testing map
         Intent intent = new Intent(GDDiscoverMeActivity.this, CreateEventActivity.class);
 		// Uncomment next line to launch map:
@@ -75,6 +81,24 @@ public class GDDiscoverMeActivity extends Activity {
 					PopupListActivity.class);// NotificationsActivity.class);
 			intent.putExtra("popupCode", "notifss");
 			startActivity(intent);
+		}
+	};
+	
+	private final OnClickListener onNextClick = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+	
+	private final OnClickListener onBackClick = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
 		}
 	};
 	
