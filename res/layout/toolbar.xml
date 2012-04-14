@@ -4,34 +4,56 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@android:drawable/screen_background_light">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/action_bar_bg"
-        android:gravity="center" >
-
-        <ImageButton
-            android:id="@+id/friendButton"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/action_bar_btn_friends"
-            android:background="@null" />
+            android:background="@drawable/action_bar_bg"
+            android:gravity="center" >
 
-        <ImageButton
-            android:id="@+id/eventButton"
+            <ImageButton
+                android:id="@+id/friendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/action_bar_btn_friends" />
+
+            <ImageButton
+                android:id="@+id/eventButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/action_bar_btn_events" />
+
+            <ImageButton
+                android:id="@+id/notificationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/action_bar_btn_notifications" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/action_bar_btn_events"
-            android:background="@null" />
-
-        <ImageButton
-            android:id="@+id/notificationButton"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="Back" />
+
+        <Button
+            android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/action_bar_btn_notifications"
-            android:background="@null" />
-        
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="Next" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
