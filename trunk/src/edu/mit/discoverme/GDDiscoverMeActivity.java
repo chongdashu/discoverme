@@ -28,7 +28,7 @@ public class GDDiscoverMeActivity extends Activity {
         Intent intent = new Intent(GDDiscoverMeActivity.this, CreateEventActivity.class);
 		// Uncomment next line to launch map:
 
-		startActivity(intent);
+		// startActivity(intent);
         
         // ethan's part
 
