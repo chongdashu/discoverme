@@ -11,12 +11,12 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context mContext;
 
-	public HelloItemizedOverlay(Drawable defaultMarker, Context context) {
+	public SelectEventLocationItemizedOverlay(Drawable defaultMarker, Context context) {
 		super(boundCenterBottom(defaultMarker));
 		populate();
 		mContext = context;

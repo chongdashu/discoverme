@@ -54,7 +54,7 @@ public class CreateEventActivity extends Activity {
 
 			// We launch the "Select Location from Map Activity"
 			Intent intent = new Intent(CreateEventActivity.this,
-					MapTestActivity.class);
+					SelectEventLocationActivity.class);
 			// intent.putExtra("popupCode", "eventss");
 			startActivity(intent);
 

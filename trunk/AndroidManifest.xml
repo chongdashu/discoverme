@@ -60,6 +60,11 @@
          	android:theme="@android:style/Theme.Black.NoTitleBar"/>
          
          <activity
+        	android:name=".SelectEventLocationActivity"
+         	android:label="Select Event location"
+         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
+         
+         <activity
         	android:name=".ParticipantListingActivity"
          	android:label="Select participants"
          	android:theme="@android:style/Theme.Black.NoTitleBar"/>
