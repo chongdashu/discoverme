@@ -1,6 +1,7 @@
 package edu.mit.discoverme;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,6 +62,8 @@ public class ParticipantListingActivity extends Activity {
 		setContentView(R.layout.participant_list);
 
 		ListView l = (ListView) findViewById(R.id.participant_listview);
+		l.setBackgroundColor(Color.WHITE);
+		l.setCacheColorHint(Color.WHITE);
 		l.setAdapter(new ArrayAdapter<String>(this, R.layout.participant_row, COUNTRIES));
 		l.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView arg0, View v, int arg2,

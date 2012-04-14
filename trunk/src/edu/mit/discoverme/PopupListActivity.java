@@ -2,6 +2,7 @@ package edu.mit.discoverme;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,6 +65,8 @@ public class PopupListActivity extends ListActivity {
 		}
 
 		ListView lv = getListView();
+		lv.setBackgroundColor(Color.WHITE);
+		lv.setCacheColorHint(Color.WHITE);
 		lv.setTextFilterEnabled(true);
 
 		lv.setOnItemClickListener(new OnItemClickListener() {
