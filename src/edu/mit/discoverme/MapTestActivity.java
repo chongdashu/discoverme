@@ -1,6 +1,9 @@
 package edu.mit.discoverme;
 
+import java.util.List;
+
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,6 +14,8 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 public class MapTestActivity extends MapActivity {
 	
@@ -86,6 +91,16 @@ public class MapTestActivity extends MapActivity {
         // mapController.setCenter(test);
         // mapController.setZoom(15);
         mapController.animateTo(test);
+        
+        // Begin tutorial
+        List<Overlay> mapOverlays = mapView.getOverlays();
+        Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
+        HelloItemizedOverlay itemizedoverlay = new HelloItemizedOverlay(drawable, this);
+        
+        OverlayItem overlayitem = new OverlayItem(test, "Chong-U", "Chong-U Lim");
+        
+        itemizedoverlay.addOverlay(overlayitem);
+        mapOverlays.add(itemizedoverlay);
 	}
 
 	@Override
