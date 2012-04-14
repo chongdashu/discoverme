@@ -3,7 +3,6 @@ package edu.mit.discoverme;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,13 +39,16 @@ public class PopupListActivity extends ListActivity {
 		popup = intent.getStringExtra("popupCode");// savedInstanceState.getInt("popupCode");
 
 		Button b = (Button) findViewById(R.id.buttonAdd);
+		TextView p = (TextView) findViewById(R.id.popupName);
 
 		b.setOnClickListener(onAddClick);
 
 		if (popup.equals("friendss")) {
-			Drawable newMarker = PopupListActivity.this.getResources()
-					.getDrawable(R.drawable.photo_friend_popup);
-			popupPage.setBackgroundDrawable(newMarker);
+			// Drawable newMarker = PopupListActivity.this.getResources()
+			// .getDrawable(R.drawable.photo);// _friend_popup);
+			// popupPage.setBackgroundDrawable(newMarker);
+
+			p.setText("Friends");
 
 			String[] friends = getResources().getStringArray(
 					R.array.friends_array);
@@ -56,26 +58,27 @@ public class PopupListActivity extends ListActivity {
 
 
 		} else if (popup.equals("eventss")) {
-			Drawable newMarker = PopupListActivity.this.getResources()
-					.getDrawable(R.drawable.photo_event_popup);
-			popupPage.setBackgroundDrawable(newMarker);
+			// Drawable newMarker = PopupListActivity.this.getResources()
+			// .getDrawable(R.drawable.photo);// _event_popup);
+			// popupPage.setBackgroundDrawable(newMarker);
 
 			String[] events = getResources().getStringArray(
 					R.array.events_array);
 			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 					events));
 			b.setVisibility(View.VISIBLE);
+			p.setText("Events");
 		} else if (popup.equals("notifss")) {
-			Drawable newMarker = PopupListActivity.this.getResources()
-					.getDrawable(R.drawable.photo_notif_popup);
-			popupPage.setBackgroundDrawable(newMarker);
+			// Drawable newMarker = PopupListActivity.this.getResources()
+			// .getDrawable(R.drawable.photo);// _notif_popup);
+			// popupPage.setBackgroundDrawable(newMarker);
 
 			String[] events = getResources().getStringArray(
 					R.array.notifs_array);
 			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 					events));
 			b.setVisibility(View.GONE);
-
+			p.setText("Notifications");
 
 		}
 
@@ -83,7 +86,6 @@ public class PopupListActivity extends ListActivity {
 		lv.setBackgroundColor(Color.WHITE);
 		lv.setCacheColorHint(Color.WHITE);
 		lv.setTextFilterEnabled(true);
-
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			// start an intent here to move to "view friend activity"
 			@Override

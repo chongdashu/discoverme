@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 public class GDDiscoverMeActivity extends Activity {
     /** Called when the activity is first created. */
@@ -31,10 +32,11 @@ public class GDDiscoverMeActivity extends Activity {
         next.setOnClickListener(onNextClick);
         
         // (culim) testing map
-        Intent intent = new Intent(GDDiscoverMeActivity.this, CreateEventActivity.class);
+		Intent intent = new Intent(GDDiscoverMeActivity.this,
+				HomepageActivity.class);
 		// Uncomment next line to launch map:
 
-		// startActivity(intent);
+		startActivity(intent);
         
         // ethan's part
 

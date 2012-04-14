@@ -279,4 +279,5 @@
     <string name="addAsFriendMesg"> Added as Friend </string>
     <string name="addPendingYesMesg"> Approved Friend Request </string>
     <string name="addPendingNoMesg"> Declined Friend Request </string>
+    
 </resources>
