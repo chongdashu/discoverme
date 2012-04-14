@@ -26,8 +26,8 @@ public class GDDiscoverMeActivity extends Activity {
 
         // (culim) testing map
         Intent intent = new Intent(GDDiscoverMeActivity.this, MapTestActivity.class);
-
 		// Uncomment next line to launch map:
+
 		// startActivity(intent);
         
         // ethan's part
@@ -47,27 +47,20 @@ public class GDDiscoverMeActivity extends Activity {
           // do something when the button is clicked
         	
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
-					FriendsListActivity.class);
-        	startActivity(intent);
+					PopupListActivity.class);
+			intent.putExtra("popupCode", "friendss");
+			startActivity(intent);
+        	
         }
     };
-    
-	// private final OnClickListener onFriendClick = new OnClickListener() {
-	// @Override
-	// public void onClick(View v) {
-	// // TODO Auto-generated method stub
-	// Intent intent = new Intent(GDDiscoverMeActivity.this,
-	// FriendsActivity.class);
-	// startActivity(intent);
-	// }
-	// };
-	
+
 	private final OnClickListener onEventClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
-					EventsActivity.class);
+					PopupListActivity.class);// EventsActivity.class);
+			intent.putExtra("popupCode", "eventss");
 			startActivity(intent);
 		}
 	};
@@ -77,7 +70,9 @@ public class GDDiscoverMeActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent(GDDiscoverMeActivity.this, NotificationsActivity.class);
+			Intent intent = new Intent(GDDiscoverMeActivity.this,
+					PopupListActivity.class);// NotificationsActivity.class);
+			intent.putExtra("popupCode", "notifss");
 			startActivity(intent);
 		}
 	};

@@ -55,5 +55,55 @@
     
     <string name="about_content">GreenDroid is a development library for the Android platform. It is intented to make UI developments easier and consistent through your applications.\n\nThe GreenDroid project has been initiated by <a href="http://www.cyrilmottier.com">Cyril Mottier</a></string>
     <string name="add_button">+</string>
-
+    
+    
+    <string-array name="friends_array">
+        <item>annie</item>
+        <item>bobby</item>
+        <item>carl</item>
+        <item>dan</item>
+        <item>eli</item>
+        <item>farina</item>
+        <item>george</item>
+        <item>henna</item>
+        <item>iram</item>
+        <item>jane</item>
+        <item>karl</item>
+        <item>laila</item>
+        <item>mashal</item>
+        <item>nyan</item>
+        <item>omer</item>
+        <item>petunia</item>
+        <item>quin</item>
+        <item>rena</item>
+        <item>sonny</item>
+        <item>tania</item>
+        <item>umer</item>
+        <item>veena</item>
+        <item>waqar</item>
+        <item>xio</item>
+        <item>yawar</item>
+        <item>zain</item>
+    </string-array>
+	<string-array name="events_array">
+        <item>project meeting</item>
+        <item>premeeting meeting</item>
+        <item>lunch</item>
+        <item>coffee</item>
+        <item>dinner</item>
+        <item>shopping</item>
+        <item>homework</item>
+        <item>dinner again</item>
+        <item>shopping again</item>
+        <item>homework 3</item>
+    </string-array>
+    <string-array name="notifs_array">
+        <item>you added a friend</item>
+        <item>someone added you as friend</item>
+        <item>Bobby invited you to event</item>
+        <item>you are still working</item>
+        <item>your project is not done yet</item>
+        <item>this is going on for ever </item>
+        <item>please shut up</item>
+    </string-array>
 </resources>
