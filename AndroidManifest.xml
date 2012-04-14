@@ -35,7 +35,7 @@
          	android:label="EventsActivityLabel"/>
         
          <activity
-        	android:name=".FriendsListActivity"
+        	android:name=".PopupListActivity"
          	android:label="FriendsListActivityLabel"
          	android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
          <activity
