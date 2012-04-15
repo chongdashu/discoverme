@@ -17,6 +17,12 @@ public class ProfileActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile);
 
+		Button back = (Button) (findViewById(R.id.backButton));
+		back.setOnClickListener(onBackClick);
+
+		Button next = (Button) (findViewById(R.id.nextButton));
+		next.setVisibility(View.GONE);
+
 		String profileType;
 		String personName;
 
@@ -93,12 +99,11 @@ public class ProfileActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			// go back to last page
-				finishActivity(-1);
 			// and flash a message on screen saying friend added
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT)
 					.show();
-			// and then go back to previous page
+			finish();
 
 		}
 	};
@@ -108,12 +113,11 @@ public class ProfileActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			// go back to last page
-				finishActivity(-1);
 			// and flash a message on screen saying something
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.addPendingYesMesg), Toast.LENGTH_SHORT)
 					.show();
-			// and then go back to previous page
+			finish();
 		}
 	};
 	private final OnClickListener onDeclineClick = new OnClickListener() {
@@ -122,12 +126,22 @@ public class ProfileActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			// go back to last page
-				finishActivity(-1);
 			// and flash a message on screen saying something
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.addPendingNoMesg), Toast.LENGTH_SHORT)
 					.show();
-			// and then go back to previous page
+			finish();
+		}
+	};
+
+	private final OnClickListener onBackClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// go back to last page
+			finish();
+
 		}
 	};
 
