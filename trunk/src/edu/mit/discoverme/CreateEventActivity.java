@@ -36,13 +36,27 @@ public class CreateEventActivity extends Activity {
 
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case (1000): {
+			if (resultCode == Activity.RESULT_OK) {
+				String location = data.getStringExtra("LocationName");
+				editTextLocation = (EditText)(findViewById(R.id.create_event_edittext_location));
+				editTextLocation.setText(location);
+			}
+			break;
+		}
+		}
+	}
+
 	private OnClickListener onEditTextParticipantsClick = new OnClickListener() {
 		public void onClick(View v) {
 			// Do something when "Select Participants" is clicked.
 
 			// We launch the "Select Participants Activity"
-			Intent intent = new Intent(CreateEventActivity.this,
-					ParticipantListingActivity.class);
+			Intent intent = new Intent(CreateEventActivity.this, ParticipantListingActivity.class);
 			// intent.putExtra("popupCode", "eventss");
 			startActivity(intent);
 		}
@@ -53,10 +67,9 @@ public class CreateEventActivity extends Activity {
 			// Do something when "Select Location" is clicked.
 
 			// We launch the "Select Location from Map Activity"
-			Intent intent = new Intent(CreateEventActivity.this,
-					SelectEventLocationActivity.class);
+			Intent intent = new Intent(CreateEventActivity.this, SelectEventLocationActivity.class);
 			// intent.putExtra("popupCode", "eventss");
-			startActivity(intent);
+			startActivityForResult(intent, 1000);
 
 		}
 	};
