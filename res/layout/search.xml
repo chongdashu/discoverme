@@ -4,7 +4,10 @@
     android:layout_height="fill_parent"
     android:background="@color/white"
     android:orientation="vertical" >
-<!--     <TextView -->
+<include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/navbar_only" /><!--     <TextView -->
 <!--         android:layout_width="wrap_content" -->
 <!--         android:layout_height="wrap_content" /> -->
 <!--     <AutoCompleteTextView -->

@@ -2,17 +2,16 @@ package edu.mit.discoverme;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.*;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.*;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class SearchActivity extends ListActivity{
@@ -30,6 +29,12 @@ public class SearchActivity extends ListActivity{
 	    
 	    self = this;
 	    
+		Button back = (Button) (findViewById(R.id.backButton));
+		back.setOnClickListener(onCancelClick);
+
+		Button next = (Button) (findViewById(R.id.nextButton));
+		next.setVisibility(View.INVISIBLE);
+
 //	    //create generic array of strings to work with
 //	    String[] searchList;
 	    
@@ -61,7 +66,7 @@ public class SearchActivity extends ListActivity{
 	    
 	    
 	}
-	private TextWatcher watcher = new TextWatcher(){
+	private final TextWatcher watcher = new TextWatcher(){
 
 		@Override
 		public void afterTextChanged(Editable arg0) {
@@ -100,7 +105,16 @@ public class SearchActivity extends ListActivity{
 		}
 		
 	};
+	private final OnClickListener onCancelClick = new OnClickListener() {
 
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// go back to last page
+			finish();
+
+		}
+	};
 
 //	@Override
 //	public Filter getFilter() {
@@ -149,4 +163,6 @@ public class SearchActivity extends ListActivity{
 //		
 //	}
 	
+	
+
 }
