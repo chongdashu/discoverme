@@ -20,7 +20,9 @@ public class StateManager extends Application {
 	private String[] locations;
 	private String[] eventType;
 	private String[] time;
+	private String[] eventOriginator;
 
+	
 	public void start() {
 		setFriendsFromHD();
 		setDirectoryFromHD();
@@ -32,6 +34,7 @@ public class StateManager extends Application {
 		setLocationsFromHD();
 		setEventTypeFromHD();
 		setTimeFromHD();
+		setEventOriginatorFromHD();
 	}
 	/* people thing implemented below */
 	public String[] getPendingReq() {
@@ -133,6 +136,14 @@ public class StateManager extends Application {
 		this.time = time;
 	}
 
+	public String[] getEventOriginator() {
+		return eventOriginator;
+	}
+
+	public void setEventOriginator(String[] eventOriginator) {
+		this.eventOriginator = eventOriginator;
+	}
+
 	public void setEventsFromHD() {
 		this.events = getResources().getStringArray(R.array.events_array);
 	}
@@ -155,6 +166,10 @@ public class StateManager extends Application {
 		this.time = getResources().getStringArray(R.array.time_array);
 	}
 
+	public void setEventOriginatorFromHD() {
+		this.eventOriginator = getResources().getStringArray(
+				R.array.event_originator);
+	}
 	/* events thing implemented above */
 
 }
