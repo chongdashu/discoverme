@@ -13,7 +13,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,7 +28,7 @@ public class HomepageActivity extends MapActivity {
 
 	private String popup;
 	private TextView p;
-	private Button b;
+	private ImageButton b;
 	private int poped;
 
 	private ImageButton friend;
@@ -52,7 +51,7 @@ public class HomepageActivity extends MapActivity {
 		notif = (ImageButton) (findViewById(R.id.notificationButton));
 		notif.setOnClickListener(onNotificationClick);
 
-		b = (Button) findViewById(R.id.buttonAdd);
+		b = (ImageButton) findViewById(R.id.buttonAdd);
 		b.setOnClickListener(onAddClick);
 
 		p = (TextView) findViewById(R.id.popupName);
