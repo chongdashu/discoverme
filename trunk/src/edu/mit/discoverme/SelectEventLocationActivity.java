@@ -44,13 +44,23 @@ public class SelectEventLocationActivity extends MapActivity {
 		String bestProvider = locationManager.getBestProvider(criteria, true);
 
 		Location locLast = locationManager.getLastKnownLocation(bestProvider);
-		float lat = (float) locLast.getLatitude();
-		float lng = (float) locLast.getLongitude();
+		GeoPoint test;
+		if (locLast != null)
+		{
+			float lat = (float) locLast.getLatitude();
+			float lng = (float) locLast.getLongitude();
 
-		GeoPoint test = new GeoPoint((int) (lat * 1000000),
-				(int) (lng * 1000000));
-		System.out.println("lat:" + lat + ", lng:" + lng);
-		// mapController.setCenter(test);
+			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+			System.out.println("lat:" + lat + ", lng:" + lng);
+		}
+		else
+		{
+			float lat = 42.360383f;
+			float lng = -71.090899f;
+
+			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+			System.out.println("lat:" + lat + ", lng:" + lng);
+		}
 		mapController.setZoom(18);
 		mapController.animateTo(test);
 
