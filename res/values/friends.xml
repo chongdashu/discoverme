@@ -1,7 +1,6 @@
 <resources>
     <string-array name="friends_array">
         <item>annie</item>
-        <item>bobby</item>
         <item>carl</item>
         <item>dan</item>
         <item>eli</item>
@@ -48,14 +47,21 @@
         <item>this is going on for ever </item>
         <item>please shut up</item>
     </string-array>
-    <string-array name="pending_friend_array">
+    
+    
+    <string-array name="pending_response_array">
+        <item>farina</item>
+        <item>Zoey</item>
+        <item>Bob</item>
+    </string-array>
+    <string-array name="pending_request_array">
         <item>Christina</item>
         <item>Zoey</item>
         <item>Bob</item>
     </string-array>
     
     
-    <string-array name="name_array">
+    <string-array name="directory_array">
         <item>annie</item>
         <item>bob</item>
         <item>bobby</item>
@@ -180,33 +186,33 @@
         <item>39D 210</item>
     </string-array>
     <string-array name="friend_type_array">
-        <item>friend</item>
-        <item>stranger</item>
-        <item>pending</item>
+       <item>friend</item>
         <item>stranger</item>
         <item>friend</item>
-        <item>stranger</item>
-        <item>pending</item>
-        <item>stranger</item>
+    <item>friend</item>
         <item>friend</item>
-        <item>stranger</item>
-        <item>pending</item>
+        <item>friend</item>
+        <item>pendingRequest</item>
         <item>stranger</item>
         <item>friend</item>
         <item>stranger</item>
-        <item>pending</item>
+        <item>pendingResponse</item>
         <item>stranger</item>
         <item>friend</item>
         <item>stranger</item>
-        <item>pending</item>
+        <item>pendingResponse</item>
         <item>stranger</item>
         <item>friend</item>
         <item>stranger</item>
-        <item>pending</item>
+        <item>pendingResponse</item>
         <item>stranger</item>
-        <item>pending</item>
+        <item>friend</item>
         <item>stranger</item>
-        <item>pending</item>
+        <item>pendingResponse</item>
+        <item>stranger</item>
+        <item>pendingResponse</item>
+        <item>stranger</item>
+        <item>pendingResponse</item>
         <item>stranger</item>
         <item>friend</item>
     </string-array>

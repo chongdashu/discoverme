@@ -57,6 +57,7 @@ public class HomepageActivity extends MapActivity {
 
 	private ListView lv;
 
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,6 +79,8 @@ public class HomepageActivity extends MapActivity {
 		popup = "none";
 		poped = 0;
 		hideEverything();
+
+		//
 
 		// friend.setSelected(true);
 		// event.setSelected(true);
@@ -213,6 +216,8 @@ public class HomepageActivity extends MapActivity {
 	}
 
 	private final void fillPopup() {
+		StateManager appState = ((StateManager) getApplicationContext());
+		String[] friends = appState.getFriends();//
 
 		LinearLayout popupPage = (LinearLayout) findViewById(R.id.popup_layout_page);
 		Drawable newMarker = HomepageActivity.this.getResources().getDrawable(
@@ -220,10 +225,10 @@ public class HomepageActivity extends MapActivity {
 		popupPage.setBackgroundDrawable(newMarker);
 
 		if (popup.equals("friendss")) {
-			String[] friends = getResources().getStringArray(
-					R.array.friends_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					friends));
+			// String[] friends = getResources().getStringArray(
+			// R.array.friends_array);
+			//
+			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, friends));
 			b.setVisibility(View.VISIBLE);
 
 			p.setText("Friends");
