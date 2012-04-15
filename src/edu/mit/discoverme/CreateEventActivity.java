@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 public class CreateEventActivity extends Activity {
 
+	Button next;
+	
 	protected EditText editTextTitle;
 	protected EditText editTextParticipants;
 	protected EditText editTextLocation;
@@ -29,7 +31,7 @@ public class CreateEventActivity extends Activity {
 		back.setText("Back");
 		back.setOnClickListener(onCancelClick);
 
-		Button next = (Button) (findViewById(R.id.nextButton));
+		next = (Button) (findViewById(R.id.nextButton));
 		next.setText("Send Invite");
 		next.setOnClickListener(onPublishClick);
 

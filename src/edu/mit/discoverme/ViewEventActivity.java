@@ -2,6 +2,7 @@ package edu.mit.discoverme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.maps.GeoPoint;
 
@@ -53,7 +54,21 @@ public class ViewEventActivity extends CreateEventActivity {
 	}
 
 	private void inititialize() {
-
+		
+		next.setVisibility(View.INVISIBLE);
+		
+		editTextTitle.setFocusable(false);
+		editTextLocation.setFocusable(false);
+		editTextParticipants.setFocusable(false);
+		check.setFocusable(false);
+		timePicker.setFocusable(false);
+		
+		editTextTitle.setEnabled(false);
+		editTextLocation.setEnabled(false);
+		editTextParticipants.setEnabled(false);
+		check.setEnabled(false);
+		timePicker.setEnabled(false);
+		
 		editTextTitle.setText(eventTitle);
 		editTextParticipants.setText(Utils.foldParticipantsList(participants));
 		if (closedEvent) {
