@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -46,7 +48,7 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 	@Override
 	public boolean onTap(final GeoPoint p, final MapView mapView) {
 		boolean tapped = super.onTap(p, mapView);
-		if (!tapped) {
+		if (!tapped && mOverlays.size() == 0) {
 			 final OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", "Building 32, Stata Center");
 			 addOverlay(overlayitem);
 			 
@@ -65,15 +67,28 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
   	               // Do whatever you want for 'Yes' here. 
   	        	   // MyActivity.this.finish();
   	        	   
-  	        	   dialog.cancel();
-  	        	 
-  	        	   Activity mapActivity = (Activity) mContext;
-  	        	 
-  	        	   Intent resultIntent = mapActivity.getIntent();
-  	        	   resultIntent.putExtra("LocationName", selectedLocationName );
+  	        	   dialog.dismiss();
   	        	   
-  	        	   mapActivity.setResult(Activity.RESULT_OK, resultIntent);
-  	        	   mapActivity.finish();
+  	        	   Activity activity = (Activity)(mContext);
+  	        	   LinearLayout confirmationArea = (LinearLayout)(activity.findViewById(R.id.select_event_location_confirmation_area));
+  	        	   confirmationArea.setVisibility(View.VISIBLE);
+  	        	   
+  	        	   TextView tv = (TextView)(activity.findViewById(R.id.select_event_location_name));
+  	        	   tv.setText(selectedLocationName);
+  	        	   
+  	        	   SelectEventLocationActivity selectEventActivity = (SelectEventLocationActivity)activity;
+  	        	   selectEventActivity.setSelectionlocation(selectedLocationName);
+  	        	   
+  	        	   selectEventActivity.drawMapLinesTo(p);
+  	        	 
+  	        	   // Uncomment this when ready.
+//  	        	   Activity mapActivity = (Activity) mContext;
+//  	        	 
+//  	        	   Intent resultIntent = mapActivity.getIntent();
+//  	        	   resultIntent.putExtra("LocationName", selectedLocationName );
+//  	        	   
+//  	        	   mapActivity.setResult(Activity.RESULT_OK, resultIntent);
+//  	        	   mapActivity.finish();
   	           }
   	       })
   	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -107,6 +122,11 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 	
 	public void removeOverlay(OverlayItem overlay) {
 		mOverlays.remove(overlay);
+		populate();
+	}
+	
+	public void clearOverlays() {
+		mOverlays.clear();
 		populate();
 	}
 

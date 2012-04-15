@@ -1,20 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-      <include
+    android:orientation="vertical" >
+
+    <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         layout="@layout/navbar_only" />
-      
-    	<com.google.android.maps.MapView
-		    android:id="@+id/select_event_location_mapview"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:clickable="true"
-		    android:apiKey="@string/google_map_api_key_cu"
-/>
-</LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <com.google.android.maps.MapView
+            android:id="@+id/select_event_location_mapview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/select_event_location_confirmation_area"
+            android:apiKey="@string/google_map_api_key_cu"
+            android:clickable="true" />
+
+        <LinearLayout
+            android:id="@+id/select_event_location_confirmation_area"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_weight="0.9">
+
+                <TextView
+                    android:id="@+id/select_event_location_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You have selected:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/select_event_location_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="Small Text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/select_event_location_btn_change"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Change" 
+                android:layout_weight="0.1"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
