@@ -19,23 +19,27 @@ import android.widget.TextView;
 
 public class HomepageActivity extends ListActivity {
 
-	String popup;
-	TextView p;
-	Button b;
-	int poped;
+	private String popup;
+	private TextView p;
+	private Button b;
+	private int poped;
+
+	private ImageButton friend;
+	private ImageButton event;
+	private ImageButton notif;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.popup_list);
 
-		ImageButton friend = (ImageButton) (findViewById(R.id.friendButton));
+		friend = (ImageButton) (findViewById(R.id.friendButton));
 		friend.setOnClickListener(onFriendClick);
 
-		ImageButton event = (ImageButton) (findViewById(R.id.eventButton));
+		event = (ImageButton) (findViewById(R.id.eventButton));
 		event.setOnClickListener(onEventClick);
 
-		ImageButton notif = (ImageButton) (findViewById(R.id.notificationButton));
+		notif = (ImageButton) (findViewById(R.id.notificationButton));
 		notif.setOnClickListener(onNotificationClick);
 
 		b = (Button) findViewById(R.id.buttonAdd);
@@ -45,6 +49,10 @@ public class HomepageActivity extends ListActivity {
 		popup = "none";
 		poped = 0;
 		hideEverything();
+
+		// friend.setSelected(true);
+		// event.setSelected(true);
+		// notif.setSelected(true);
 
 
 
@@ -57,11 +65,12 @@ public class HomepageActivity extends ListActivity {
 
 			System.out.println("friend clicked");
 			System.out.println(" while the pop is " + popup);
-			if (poped == 1 && popup.equals("friendss")) {
+			if (poped==1 && popup.equals("friendss")) {
 				hideEverything();
 			} else {
 				popup = "friendss";
 				showEverything();
+
 			}
 
 		}
@@ -73,7 +82,7 @@ public class HomepageActivity extends ListActivity {
 			// TODO Auto-generated method stub
 			System.out.println("event clicked");
 			System.out.println(" while the pop is " + popup);
-			if (poped == 1 && popup.equals("eventss")) {
+			if (poped==1 && popup.equals("eventss")) {
 				hideEverything();
 			} else {
 
@@ -91,7 +100,7 @@ public class HomepageActivity extends ListActivity {
 			// TODO Auto-generated method stub
 			System.out.println("notif clicked");
 			System.out.println(" while the pop is " + popup);
-			if (poped == 1 && popup.equals("notifss")) {
+			if (poped==1 && popup.equals("notifss")) {
 				hideEverything();
 
 			} else {
@@ -130,6 +139,9 @@ public class HomepageActivity extends ListActivity {
 		popupArea.setVisibility(View.GONE);
 		LinearLayout popupPage = (LinearLayout) findViewById(R.id.popup_layout_page);
 		popupPage.setBackgroundDrawable(null);
+		friend.setSelected(false);
+		event.setSelected(false);
+		notif.setSelected(false);
 	}
 
 	private final void showEverything() {
@@ -147,13 +159,23 @@ public class HomepageActivity extends ListActivity {
 		Drawable newMarker = HomepageActivity.this.getResources().getDrawable(
 				R.drawable.photo);// _friend_popup);
 		popupPage.setBackgroundDrawable(newMarker);
+		
+		
 		if (popup.equals("friendss")) {
 			String[] friends = getResources().getStringArray(
 					R.array.friends_array);
 			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 					friends));
 			b.setVisibility(View.VISIBLE);
+
 			p.setText("Friends");
+			
+			friend.setSelected(true);
+			event.setSelected(false);
+			notif.setSelected(false);
+			
+			
+			
 		} else if (popup.equals("eventss")) {
 
 			String[] events = getResources().getStringArray(
@@ -162,6 +184,10 @@ public class HomepageActivity extends ListActivity {
 					events));
 			b.setVisibility(View.VISIBLE);
 			p.setText("Events");
+
+			friend.setSelected(false);
+			event.setSelected(true);
+			notif.setSelected(false);
 		} else if (popup.equals("notifss")) {
 
 			String[] events = getResources().getStringArray(
@@ -170,6 +196,9 @@ public class HomepageActivity extends ListActivity {
 					events));
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
+			friend.setSelected(false);
+			event.setSelected(false);
+			notif.setSelected(true);
 
 		}
 
