@@ -50,6 +50,9 @@
          	android:theme="@android:style/Theme.Black.NoTitleBar"
          	/>
          <activity
+             android:name=".SearchActivity"
+             android:label="SearchActivityLabel"/>
+         <activity
         	android:name=".DialogBoxActivity"
          	android:label="Example Dialog Box"/>
          
