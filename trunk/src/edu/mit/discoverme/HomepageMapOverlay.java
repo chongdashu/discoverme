@@ -2,8 +2,8 @@ package edu.mit.discoverme;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import com.google.android.maps.MapView;
@@ -16,6 +16,12 @@ public class HomepageMapOverlay extends BalloonItemizedOverlay<OverlayItem> {
 
 	public HomepageMapOverlay(Context context, MapView mapView) {
 		super(boundCenterBottom(context.getResources().getDrawable(R.drawable.marker)), mapView);
+		populate();
+		mContext = context;
+	}
+	
+	public HomepageMapOverlay(Drawable defaultMarker, Context context, MapView mapView) {
+		super(boundCenterBottom(defaultMarker), mapView);
 		populate();
 		mContext = context;
 	}
