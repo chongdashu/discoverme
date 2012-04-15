@@ -31,6 +31,12 @@ public class GDDiscoverMeActivity extends Activity {
         Button next = (Button)(findViewById(R.id.nextButton));
         next.setOnClickListener(onNextClick);
         
+		StateManager appState = ((StateManager) getApplicationContext());
+		appState.setFriendsFromHD();
+		appState.setDirectoryFromHD();
+		appState.setPendingRequestsFromHD();
+		appState.setPendingResponseFromHD();
+
         // (culim) testing map
 		Intent intent = new Intent(GDDiscoverMeActivity.this,
 				HomepageActivity.class);

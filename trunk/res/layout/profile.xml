@@ -75,7 +75,21 @@
       android:layout_gravity="center_horizontal|bottom"
        android:gravity="center_horizontal|bottom"
        android:layout_marginTop="50dip">
-  
+  
+     <Button
+         android:id="@+id/pendingResponseButton"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:clickable="false"
+         android:enabled="false"
+         android:focusable="false"
+         android:text="@string/pendingResponseButtonText" />
+     <Button
+         android:id="@+id/deleteFriendButton"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/deleteFriendButtonText" />
+
    <Button
        android:id="@+id/addAsFriendButton"
        android:layout_width="fill_parent"

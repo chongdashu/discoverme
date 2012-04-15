@@ -61,12 +61,16 @@
     
     <string name="typeFriend">friend</string>
     <string name="typeStranger">stranger</string>
-    <string name="typePending">pending</string>
+    <string name="typePendingReq">pendingRequest</string>
+    <string name="typePendingRes">pendingResponse</string>
     
     <string name="addAsFriendButtonText"> Add as Friend </string>
+    <string name="deleteFriendButtonText"> Delete Friend </string>
+    <string name="pendingResponseButtonText"> Added as Friend waiting for response</string>
     <string name="addPendingYesButtonText"> Approve Friend Request </string>
     <string name="addPendingNoButtonText"> Decline Friend Request </string>
     <string name="addAsFriendMesg"> Added as Friend </string>
+    <string name="deleteFriendMesg"> Friend Deleted </string>
     <string name="addPendingYesMesg"> Approved Friend Request </string>
     <string name="addPendingNoMesg"> Declined Friend Request </string>
     <string name="publishEventMesg"> Event Invitation is Sent to all participants</string>

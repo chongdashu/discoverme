@@ -12,12 +12,12 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchActivity extends ListActivity{
 	
@@ -52,7 +52,7 @@ public class SearchActivity extends ListActivity{
 	    popup = intent.getStringExtra("popupCode");
 	    
 	    if(popup.equals("friendss")){
-	    	searchList = getResources().getStringArray(R.array.friends_array);
+			searchList = getResources().getStringArray(R.array.directory_array);
 	    }
 	    else if(popup.equals("eventss")){
 	    	searchList = getResources().getStringArray(R.array.events_array);

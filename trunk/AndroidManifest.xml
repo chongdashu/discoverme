@@ -10,8 +10,11 @@
     
       <!--  (culim) Map View Stuff -->
 	
+	
+	
     
     <application
+        android:name=".StateManager" 
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
