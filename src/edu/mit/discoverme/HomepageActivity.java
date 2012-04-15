@@ -154,7 +154,8 @@ public class HomepageActivity extends MapActivity {
 			// TODO Auto-generated method stub
 			if (popup.equals("friendss")) {
 				// it should go to search page
-				Intent intent = new Intent(HomepageActivity.this, CreateEventActivity.class);// NotificationsActivity.class);
+				Intent intent = new Intent(HomepageActivity.this, SearchActivity.class);// NotificationsActivity.class);
+				intent.putExtra("popupCode", popup);
 				startActivity(intent);
 			}
 			if (popup.equals("eventss")) {
