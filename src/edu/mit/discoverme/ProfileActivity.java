@@ -54,17 +54,17 @@ public class ProfileActivity extends Activity {
 
 		StateManager appState = ((StateManager) getApplicationContext());
 		String[] names = appState.getDirectoryNames();
-		String[] emails = appState.getDirectory_emails();
-		String[] phones = appState.getDirectory_phones();
-		String[] addresss = appState.getDirectory_addresses();
+//		String[] emails = appState.getDirectory_emails();
+//		String[] phones = appState.getDirectory_phones();
+//		String[] addresss = appState.getDirectory_addresses();
 		String[] types = appState.getDirectory_friendType();
 
 		// String[] names =
 		// getResources().getStringArray(R.array.directory_array);
-		// String[] emails = getResources().getStringArray(R.array.email_array);
-		// String[] phones = getResources().getStringArray(R.array.phone_array);
-		// String[] addresss = getResources()
-		// .getStringArray(R.array.address_array);
+		String[] emails = getResources().getStringArray(R.array.email_array);
+		String[] phones = getResources().getStringArray(R.array.phone_array);
+		String[] addresss = getResources()
+				.getStringArray(R.array.address_array);
 		// String[] types = getResources().getStringArray(
 		// R.array.friend_type_array);
 
@@ -150,8 +150,6 @@ public class ProfileActivity extends Activity {
 			directoryTypes[indexPerson] = stPres;
 			appState.setDirectory_friendType(directoryTypes);
 
-
-
 			// go back to last page
 			// and flash a message on screen saying friend added
 			Toast.makeText(getApplicationContext(),
@@ -171,8 +169,6 @@ public class ProfileActivity extends Activity {
 			// add to friends list
 			String[] friends = appState.getFriends();//
 			String[] newFriends = new String [friends.length+1];
-			int indexFriends=0;
-			int added =0;
 			for (int i = 0; i < friends.length; i++)
 				newFriends[i] = friends[i];
 			newFriends[friends.length] = personName;
