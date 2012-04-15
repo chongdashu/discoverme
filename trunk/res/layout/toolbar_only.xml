@@ -9,20 +9,20 @@
             android:id="@+id/friendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/action_bar_btn_friends"
+            android:src="@drawable/tool_bar_button_friends"
             android:background="@null" />
 
         <ImageButton
             android:id="@+id/eventButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/action_bar_btn_events"
+            android:src="@drawable/tool_bar_button_events"
             android:background="@null" />
 
         <ImageButton
             android:id="@+id/notificationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/action_bar_btn_notifications"
+            android:src="@drawable/tool_bar_button_notif"
             android:background="@null" />
 </LinearLayout>
