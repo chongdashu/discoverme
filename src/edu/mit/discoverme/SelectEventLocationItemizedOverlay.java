@@ -2,12 +2,16 @@ package edu.mit.discoverme;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
@@ -15,6 +19,8 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context mContext;
+	
+	private String selectedLocationName;
 
 	public SelectEventLocationItemizedOverlay(Drawable defaultMarker, Context context) {
 		super(boundCenterBottom(defaultMarker));
@@ -40,11 +46,44 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 	@Override
 	public boolean onTap(final GeoPoint p, final MapView mapView) {
 		boolean tapped = super.onTap(p, mapView);
-		if (tapped) {
-			// do what you want to do when you hit an item
-		} else {
-			 OverlayItem overlayitem = new OverlayItem(p, "Chong-U", "Chong-U Lim");
+		if (!tapped) {
+			 OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", "Building 32, Stata Center");
 			 addOverlay(overlayitem);
+			 
+			 MapController mapController = mapView.getController();
+			 mapController.animateTo(p);
+			 
+			 AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+			 
+			 selectedLocationName = overlayitem.getSnippet();
+			 
+			 dialog	.setTitle(overlayitem.getTitle())
+			 		.setMessage(overlayitem.getSnippet())
+  	       			.setCancelable(false)
+  	       			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+  	           public void onClick(DialogInterface dialog, int id) {
+  	               // Do whatever you want for 'Yes' here. 
+  	        	   // MyActivity.this.finish();
+  	        	   
+  	        	   dialog.cancel();
+  	        	 
+  	        	  Activity mapActivity = (Activity) mContext;
+  	        	 
+  	        	   Intent resultIntent = mapActivity.getIntent();
+  	        	   resultIntent.putExtra("LocationName", selectedLocationName );
+  	        	   
+  	        	   mapActivity.setResult(Activity.RESULT_OK, resultIntent);
+  	        	   mapActivity.finish();
+  	           }
+  	       })
+  	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+  	           public void onClick(DialogInterface dialog, int id) {
+  	        	   // Do whatever you want for 'No' here.  
+  	        	   dialog.cancel();
+  	           }
+  	       });
+			 
+			 dialog.show();
 		}
 		return true;
 	}

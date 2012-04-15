@@ -51,7 +51,7 @@ public class SelectEventLocationActivity extends MapActivity {
 				(int) (lng * 1000000));
 		System.out.println("lat:" + lat + ", lng:" + lng);
 		// mapController.setCenter(test);
-		 mapController.setZoom(18);
+		mapController.setZoom(18);
 		mapController.animateTo(test);
 
 		// Place map overlays to allow user to tap a location.
