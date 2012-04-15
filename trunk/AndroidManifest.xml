@@ -38,10 +38,7 @@
         	android:name=".EventsActivity"
          	android:label="EventsActivityLabel"/>
         
-         <activity
-        	android:name=".PopupListActivity"
-         	android:label="FriendsListActivityLabel"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
+         
          <activity
         	android:name=".HomepageActivity"
          	android:label="HomepageActivityLabel"

@@ -55,7 +55,7 @@ public class GDDiscoverMeActivity extends Activity {
           // do something when the button is clicked
         	
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
-					PopupListActivity.class);
+					HomepageActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			intent.putExtra("popupCode", "friendss");
 			startActivity(intent);
@@ -68,7 +68,7 @@ public class GDDiscoverMeActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
-					PopupListActivity.class);// EventsActivity.class);
+					HomepageActivity.class);// EventsActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			intent.putExtra("popupCode", "eventss");
 			startActivity(intent);
@@ -81,7 +81,7 @@ public class GDDiscoverMeActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
-					PopupListActivity.class);// NotificationsActivity.class);
+					HomepageActivity.class);// NotificationsActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			intent.putExtra("popupCode", "notifss");
 			startActivity(intent);
