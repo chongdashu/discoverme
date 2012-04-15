@@ -1,12 +1,12 @@
 package edu.mit.discoverme;
 
-import com.google.android.maps.MapActivity;
-
-import android.app.Activity;
-import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +20,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+
 public class HomepageActivity extends MapActivity {
 
 	private String popup;
@@ -30,7 +35,7 @@ public class HomepageActivity extends MapActivity {
 	private ImageButton friend;
 	private ImageButton event;
 	private ImageButton notif;
-	
+
 	private ListView lv;
 
 	@Override
@@ -58,27 +63,24 @@ public class HomepageActivity extends MapActivity {
 		// friend.setSelected(true);
 		// event.setSelected(true);
 		// notif.setSelected(true);
-		
+
 		lv = (ListView) findViewById(R.id.home_activity_list);
 		lv.setBackgroundColor(Color.WHITE);
 		lv.setCacheColorHint(Color.WHITE);
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 				if (popup.equals("friendss")) {
-					Intent intent = new Intent(HomepageActivity.this,
-							ProfileActivity.class);
+					Intent intent = new Intent(HomepageActivity.this, ProfileActivity.class);
 					intent.putExtra("personName", ((TextView) view).getText());
 					startActivity(intent);
 
 					// finishActivity(-1);
 				} else if (popup.equals("eventss")) {
 					// this will actually go to view event page
-					Intent intent = new Intent(HomepageActivity.this,
-							CreateEventActivity.class);
+					Intent intent = new Intent(HomepageActivity.this, CreateEventActivity.class);
 					intent.putExtra("eventName", ((TextView) view).getText());
 					startActivity(intent);
 
@@ -86,8 +88,8 @@ public class HomepageActivity extends MapActivity {
 
 			}
 		});
-
-
+		
+		initializeMap();
 
 	}
 
@@ -98,7 +100,7 @@ public class HomepageActivity extends MapActivity {
 
 			System.out.println("friend clicked");
 			System.out.println(" while the pop is " + popup);
-			if (poped==1 && popup.equals("friendss")) {
+			if (poped == 1 && popup.equals("friendss")) {
 				hideEverything();
 			} else {
 				popup = "friendss";
@@ -115,7 +117,7 @@ public class HomepageActivity extends MapActivity {
 			// TODO Auto-generated method stub
 			System.out.println("event clicked");
 			System.out.println(" while the pop is " + popup);
-			if (poped==1 && popup.equals("eventss")) {
+			if (poped == 1 && popup.equals("eventss")) {
 				hideEverything();
 			} else {
 
@@ -133,7 +135,7 @@ public class HomepageActivity extends MapActivity {
 			// TODO Auto-generated method stub
 			System.out.println("notif clicked");
 			System.out.println(" while the pop is " + popup);
-			if (poped==1 && popup.equals("notifss")) {
+			if (poped == 1 && popup.equals("notifss")) {
 				hideEverything();
 
 			} else {
@@ -152,13 +154,11 @@ public class HomepageActivity extends MapActivity {
 			// TODO Auto-generated method stub
 			if (popup.equals("friendss")) {
 				// it should go to search page
-				Intent intent = new Intent(HomepageActivity.this,
-						CreateEventActivity.class);// NotificationsActivity.class);
+				Intent intent = new Intent(HomepageActivity.this, CreateEventActivity.class);// NotificationsActivity.class);
 				startActivity(intent);
 			}
 			if (popup.equals("eventss")) {
-				Intent intent = new Intent(HomepageActivity.this,
-						CreateEventActivity.class);// NotificationsActivity.class);
+				Intent intent = new Intent(HomepageActivity.this, CreateEventActivity.class);// NotificationsActivity.class);
 				startActivity(intent);
 			}
 
@@ -189,32 +189,24 @@ public class HomepageActivity extends MapActivity {
 	private final void fillPopup() {
 
 		LinearLayout popupPage = (LinearLayout) findViewById(R.id.popup_layout_page);
-		Drawable newMarker = HomepageActivity.this.getResources().getDrawable(
-				R.drawable.photo);// _friend_popup);
+		Drawable newMarker = HomepageActivity.this.getResources().getDrawable(R.drawable.photo);// _friend_popup);
 		popupPage.setBackgroundDrawable(newMarker);
-		
-		
+
 		if (popup.equals("friendss")) {
-			String[] friends = getResources().getStringArray(
-					R.array.friends_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					friends));
+			String[] friends = getResources().getStringArray(R.array.friends_array);
+			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, friends));
 			b.setVisibility(View.VISIBLE);
 
 			p.setText("Friends");
-			
+
 			friend.setSelected(true);
 			event.setSelected(false);
 			notif.setSelected(false);
-			
-			
-			
+
 		} else if (popup.equals("eventss")) {
 
-			String[] events = getResources().getStringArray(
-					R.array.events_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					events));
+			String[] events = getResources().getStringArray(R.array.events_array);
+			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, events));
 			b.setVisibility(View.VISIBLE);
 			p.setText("Events");
 
@@ -223,10 +215,8 @@ public class HomepageActivity extends MapActivity {
 			notif.setSelected(false);
 		} else if (popup.equals("notifss")) {
 
-			String[] events = getResources().getStringArray(
-					R.array.notifs_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					events));
+			String[] events = getResources().getStringArray(R.array.notifs_array);
+			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, events));
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
 			friend.setSelected(false);
@@ -235,6 +225,38 @@ public class HomepageActivity extends MapActivity {
 
 		}
 
+	}
+
+	private void initializeMap() {
+		
+		// Get the map view
+		MapView mapView = (MapView) (findViewById(R.id.mapview));
+		
+		// Get the map controller
+		MapController mapController = mapView.getController();
+
+		// Get to current location
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+		criteria.setPowerRequirement(Criteria.POWER_LOW);
+		criteria.setAltitudeRequired(false);
+		criteria.setBearingRequired(false);
+		criteria.setSpeedRequired(false);
+		criteria.setCostAllowed(true);
+
+		LocationManager locationManager;
+		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		String bestProvider = locationManager.getBestProvider(criteria, true);
+
+		Location locLast = locationManager.getLastKnownLocation(bestProvider);
+		float lat = (float) locLast.getLatitude();
+		float lng = (float) locLast.getLongitude();
+
+		GeoPoint test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+		System.out.println("lat:" + lat + ", lng:" + lng);
+		// mapController.setCenter(test);
+		mapController.setZoom(18);
+		mapController.animateTo(test);
 	}
 
 	@Override
