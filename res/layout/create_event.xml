@@ -25,7 +25,8 @@
             android:layout_weight="0.90"
             android:text="Create New Event"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/button1"
@@ -55,6 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Event Title:"
+        android:textColor="@android:color/black"
         android:textAppearance="?android:attr/textAppearanceMedium"
         />
 
@@ -70,24 +72,11 @@
     </EditText>
 
     <TextView
-        android:id="@+id/create_event_textview_starttime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Event Start Time:"
-        android:textAppearance="?android:attr/textAppearanceMedium" 
-        />
-
-    <edu.mit.discoverme.CustomTimePicker
-        android:id="@+id/create_event_timepicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:soundEffectsEnabled="true" />
-    
-    <TextView
         android:id="@+id/create_event_textview_participants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Participants:"
+        android:textColor="@android:color/black"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -110,16 +99,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Closed event?"
+            android:textColor="@android:color/black"
             android:layout_gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <ToggleButton
-            android:id="@+id/toggleButton1"
+        <CheckBox
+            android:id="@+id/checkBox1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="Yes"
-            android:textOff="No"
-            android:text="ToggleButton" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -128,6 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Event Location:"
+        android:textColor="@android:color/black"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <LinearLayout
@@ -145,6 +133,20 @@
             android:background="@android:drawable/editbox_background" />
 
     </LinearLayout>
+     <TextView
+        android:id="@+id/create_event_textview_starttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Start Time:"
+        android:textColor="@android:color/black"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        />
+
+    <edu.mit.discoverme.CustomTimePicker
+        android:id="@+id/create_event_timepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:soundEffectsEnabled="true" />
     </LinearLayout>
     
     
