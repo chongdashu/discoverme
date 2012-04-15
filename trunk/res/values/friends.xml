@@ -26,28 +26,7 @@
         <item>yawar</item>
         <item>zain</item>
     </string-array>
-	<string-array name="events_array">
-        <item>project meeting</item>
-        <item>premeeting meeting</item>
-        <item>lunch</item>
-        <item>coffee</item>
-        <item>dinner</item>
-        <item>shopping</item>
-        <item>homework</item>
-        <item>dinner again</item>
-        <item>shopping again</item>
-        <item>homework 3</item>
-    </string-array>
-    <string-array name="notifs_array">
-        <item>you added a friend</item>
-        <item>someone added you as friend</item>
-        <item>Bobby invited you to event</item>
-        <item>you are still working</item>
-        <item>your project is not done yet</item>
-        <item>this is going on for ever </item>
-        <item>please shut up</item>
-    </string-array>
-    
+	
     
     <string-array name="pending_response_array">
         <item>farina</item>

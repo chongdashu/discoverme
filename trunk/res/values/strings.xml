@@ -64,6 +64,9 @@
     <string name="typePendingReq">pendingRequest</string>
     <string name="typePendingRes">pendingResponse</string>
     
+    <string name="typeOpen">closed</string>
+    <string name="typeClosed">open</string>
+    
     <string name="addAsFriendButtonText"> Add as Friend </string>
     <string name="deleteFriendButtonText"> Delete Friend </string>
     <string name="pendingResponseButtonText"> Added as Friend waiting for response</string>
