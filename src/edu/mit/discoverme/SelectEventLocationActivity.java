@@ -8,6 +8,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -20,9 +23,16 @@ public class SelectEventLocationActivity extends MapActivity {
 
 	private MapView mapView;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_event_location_map);
+
+		Button back = (Button) (findViewById(R.id.backButton));
+		back.setOnClickListener(onCancelClick);
+
+		Button next = (Button) (findViewById(R.id.nextButton));
+		next.setVisibility(View.INVISIBLE);
 
 		// Get the map view.
 		mapView = (MapView) (findViewById(R.id.select_event_location_mapview));
@@ -82,5 +92,16 @@ public class SelectEventLocationActivity extends MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	private final OnClickListener onCancelClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// go back to last page
+			finish();
+
+		}
+	};
 
 }
