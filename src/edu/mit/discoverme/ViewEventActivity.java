@@ -85,7 +85,21 @@ public class ViewEventActivity extends CreateEventActivity {
 		proposeChange.setText("Delete Event");
 		
 		proposeChange.setOnClickListener(onProposeChangeClick);
+		
+		onEditTextLocationClick =  new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// Do something when "Select Location" is clicked.
 
+				// We launch the "Select Location from Map Activity"
+				Intent intent = new Intent(ViewEventActivity.this, SelectEventLocationActivity.class);
+				intent.putExtra("readOnly", true);
+				startActivity(intent);
+				// startActivityForResult(intent, 1000);
+
+			}
+		};
+		
 	}
 	
 	protected OnClickListener onProposeChangeClick = new OnClickListener() {
@@ -151,7 +165,7 @@ public class ViewEventActivity extends CreateEventActivity {
 		}
 	};
 
-	private final OnClickListener onEditTextLocationClick = new OnClickListener() {
+	protected  OnClickListener onEditTextLocationClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// Do something when "Select Location" is clicked.
