@@ -36,6 +36,8 @@ public class ViewEventActivity extends CreateEventActivity {
 		String[] parts = appState.getParticipants();
 		String[] types = appState.getEventType();
 		String[] locations = appState.getLocations();
+		String[] locations_lat = appState.getLocationsLAT();
+		String[] locations_lng = appState.getLocationsLNG();
 		String[] times = appState.getTime();
 		String[] originators = appState.getEventOriginator();
 
@@ -63,7 +65,8 @@ public class ViewEventActivity extends CreateEventActivity {
 		timeMins = Integer.valueOf(arg[1]);
 
 		locationName = locations[eventID];
-
+		latE6 = (int) ((float) Float.valueOf(locations_lat[eventID]));
+		lngE6 = (int) ((float) Float.valueOf(locations_lng[eventID]));
 		inititialize();
 
 	}

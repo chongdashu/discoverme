@@ -18,10 +18,14 @@ public class StateManager extends Application {
 	private String[] events;
 	private String[] participants;
 	private String[] locations;
+	private String[] locationsLAT;
+	private String[] locationsLNG;
 	private String[] eventType;
 	private String[] time;
 	private String[] eventOriginator;
 
+
+	
 	
 	public void start() {
 		setFriendsFromHD();
@@ -120,6 +124,21 @@ public class StateManager extends Application {
 		this.locations = locations;
 	}
 
+	public String[] getLocationsLAT() {
+		return locationsLAT;
+	}
+
+	public void setLocationsLAT(String[] locationsLAT) {
+		this.locationsLAT = locationsLAT;
+	}
+
+	public String[] getLocationsLNG() {
+		return locationsLNG;
+	}
+
+	public void setLocationsLNG(String[] locationsLNG) {
+		this.locationsLNG = locationsLNG;
+	}
 	public String[] getEventType() {
 		return eventType;
 	}
@@ -155,6 +174,16 @@ public class StateManager extends Application {
 
 	public void setLocationsFromHD() {
 		this.locations = getResources().getStringArray(R.array.location_array);
+	}
+
+	public void setLocationsLATfromHD() {
+		this.locationsLAT = getResources().getStringArray(
+				R.array.location_lat_array);
+	}
+
+	public void setLocationsLNGfromHD() {
+		this.locationsLNG = getResources().getStringArray(
+				R.array.location_lng_array);
 	}
 
 	public void setEventTypeFromHD() {
