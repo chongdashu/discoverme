@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
 public class CreateEventActivity extends Activity {
 
@@ -48,21 +47,32 @@ public class CreateEventActivity extends Activity {
 			}
 			break;
 		}
+		case (2000): {
+			if (resultCode == Activity.RESULT_OK) {
+				String location = data.getStringExtra("participants");
+				editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
+				editTextParticipants.setText(location);
+			}
+			break;
+		}
 		}
 	}
 
-	private OnClickListener onEditTextParticipantsClick = new OnClickListener() {
+	private final OnClickListener onEditTextParticipantsClick = new OnClickListener() {
+		@Override
 		public void onClick(View v) {
 			// Do something when "Select Participants" is clicked.
 
 			// We launch the "Select Participants Activity"
 			Intent intent = new Intent(CreateEventActivity.this, ParticipantListingActivity.class);
 			// intent.putExtra("popupCode", "eventss");
-			startActivity(intent);
+			startActivityForResult(intent, 2000);
+
 		}
 	};
 
-	private OnClickListener onEditTextLocationClick = new OnClickListener() {
+	private final OnClickListener onEditTextLocationClick = new OnClickListener() {
+		@Override
 		public void onClick(View v) {
 			// Do something when "Select Location" is clicked.
 
