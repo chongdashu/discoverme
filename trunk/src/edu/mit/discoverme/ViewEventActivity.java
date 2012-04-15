@@ -1,7 +1,5 @@
 package edu.mit.discoverme;
 
-import java.util.Vector;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,17 +23,31 @@ public class ViewEventActivity extends CreateEventActivity {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		eventTitle = intent.getStringExtra("eventTitle");
+		int eventID = intent.getIntExtra("eventId", 0);
 
-		participants = intent.getStringArrayExtra("participants");
-		closedEvent = intent.getBooleanExtra("closedEvent", true);
+		StateManager appState = ((StateManager) getApplicationContext());
+		String[] events = appState.getEvents();
+		String[] parts = appState.getParticipants();
+		String[] types = appState.getEventType();
+		String[] locations = appState.getLocations();
+		String[] times = appState.getTime();
+		String stC = getString(R.string.typeClosed);
+		String stO = getString(R.string.typeOpen);
 
-		timeHrs = intent.getIntExtra("timeHrs", 0);
-		timeMins = intent.getIntExtra("timeMins", 0);
+		eventTitle = events[eventID];
+		participants = parts[eventID].split(",");
+		if (types[eventID] == stO)
+			closedEvent = false;
+		else
+			closedEvent = true;
+		String time = times[eventID];
+		String[] arg = time.split(" ");
+		timeHrs = Integer.valueOf(arg[0]);
+		timeMins = Integer.valueOf(arg[1]);
 
-		locationName = intent.getStringExtra("locationName");
-		latE6 = intent.getIntExtra("lat", 0);
-		lngE6 = intent.getIntExtra("lng", 0);
+		locationName = locations[eventID];
+		// latE6 = intent.getIntExtra("lat", 0);
+		// lngE6 = intent.getIntExtra("lng", 0);
 
 		inititialize();
 	}
