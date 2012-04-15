@@ -3,6 +3,7 @@ package edu.mit.discoverme;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 
 import android.content.Context;
 import android.content.Intent;
@@ -266,18 +267,21 @@ public class HomepageActivity extends MapActivity {
 
 		Location locLast = locationManager.getLastKnownLocation(bestProvider);
 		GeoPoint test;
+		
+		float lat = 42.360383f;
+		float lng = -71.090899f;
 		if (locLast != null)
 		{
-			float lat = (float) locLast.getLatitude();
-			float lng = (float) locLast.getLongitude();
+			lat = (float) locLast.getLatitude();
+			lng = (float) locLast.getLongitude();
 
 			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		}
 		else
 		{
-			float lat = 42.360383f;
-			float lng = -71.090899f;
+			lat = 42.360383f;
+			lng = -71.090899f;
 
 			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
@@ -288,12 +292,51 @@ public class HomepageActivity extends MapActivity {
 		mapController.animateTo(test);
 		
 		List<Overlay> mapOverlays = mapView.getOverlays();
-		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this, mapView);
+		
+		// Create overlay for User
+		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this, mapView); 
 		mapOverlays.add(itemizedoverlay);
         
         OverlayItem overlayitem = new OverlayItem(test, "Chong-U Lim", getAddressAt(test));
         itemizedoverlay.addOverlay(overlayitem);
+        
+        // Create overlay for Friends
+        String[] friends = getResources().getStringArray(R.array.friends_array);
+        Vector<GeoPoint> friendpoints = getRandomGeopointsAround(lat, lng, 5);
+        int f=0;
+        for (GeoPoint geoPoint : friendpoints) {
+        	 OverlayItem item = new OverlayItem(geoPoint, friends[f], getAddressAt(geoPoint));
+             itemizedoverlay.addOverlay(item);
+             f++;
+		}
 		
+	}
+	
+	private Vector<GeoPoint> getRandomGeopointsAround(float lat, float lon, int n)
+	{
+		Vector<GeoPoint> geopoints = new Vector<GeoPoint>();
+		
+		for (int i=0; i < n; i++)
+		{
+			float newlat;
+			float newlon;
+			if (i % 2 == 0)
+			{
+				newlat = lat*1000000 + 1000*(float)(Math.random());
+				newlon = lon*1000000 + 1000*(float)(Math.random());
+			}
+			else
+			{
+				newlat = lat*1000000 + 10000*(float)(Math.random());
+				newlon = lon*1000000 - 10000*(float)(Math.random());
+			}
+			
+			GeoPoint newpoint = new GeoPoint((int)(newlat), (int)(newlon));
+			geopoints.add(newpoint);
+		}
+		
+		
+		return geopoints;
 	}
 	
 	private String getAddressAt(GeoPoint p)
