@@ -29,11 +29,11 @@ import com.google.android.maps.OverlayItem;
 
 public class SelectEventLocationActivity extends MapActivity {
 
-	private MapView mapView;
-	private SelectEventLocationItemizedOverlay selectLocationOverlay;
-	private String selectedLocation;
-	private SelectEventLocationLinesOverlay linesOverlay;
-	private Vector<GeoPoint> friendpoints;
+	protected MapView mapView;
+	protected SelectEventLocationItemizedOverlay selectLocationOverlay;
+	protected String selectedLocation;
+	protected SelectEventLocationLinesOverlay linesOverlay;
+	protected Vector<GeoPoint> friendpoints;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

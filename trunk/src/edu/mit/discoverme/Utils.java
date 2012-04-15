@@ -14,6 +14,17 @@ import com.google.android.maps.GeoPoint;
 
 public class Utils {
 	
+	public static String foldParticipantsList(String[] participants)
+	{
+		String s = "";
+		
+		for (int i = 0; i < participants.length; i++) {
+			String string = participants[i];
+			s = s + string + ", ";
+		}
+		
+		return s;
+	}
 	public static Vector<GeoPoint> getRandomGeopointsAround(float lat,
 			float lon, int n) {
 

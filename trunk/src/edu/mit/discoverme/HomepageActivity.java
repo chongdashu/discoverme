@@ -94,6 +94,13 @@ public class HomepageActivity extends MapActivity {
 					// finishActivity(-1);
 				} else if (popup.equals("eventss")) {
 					// this will actually go to view event page
+					
+					// TODO get the event from State Manager
+					StateManager stateManager = (StateManager) getApplicationContext();
+					
+					
+					
+					
 					Intent intent = new Intent(HomepageActivity.this,
 							ViewEventActivity.class);
 					intent.putExtra("eventName", ((TextView) view).getText());
