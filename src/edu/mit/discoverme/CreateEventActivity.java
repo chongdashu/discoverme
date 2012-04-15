@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class CreateEventActivity extends Activity {
@@ -21,6 +22,8 @@ public class CreateEventActivity extends Activity {
 	protected EditText editTextLocation;
 	protected CheckedTextView check;
 	protected CustomTimePicker timePicker;
+	protected Button proposeChange;
+	protected LinearLayout proposeChangeArea;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,9 @@ public class CreateEventActivity extends Activity {
 		// Set up listeners for "Selecting Location"
 		editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
 		editTextLocation.setOnClickListener(onEditTextLocationClick);
+		
+		proposeChange = (Button)(findViewById(R.id.create_event_propose_change_button));
+		proposeChangeArea = (LinearLayout)(findViewById(R.id.create_event_propose_change_area));
 
 		// Set up the Time Picker
 		timePicker = (CustomTimePicker) (findViewById(R.id.create_event_timepicker));

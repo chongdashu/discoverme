@@ -10,41 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         layout="@layout/navbar_only" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/title_bar"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.90"
-            android:text="Create New Event"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/button1"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="3dp"
-            android:background="@android:drawable/btn_default"
-            android:enabled="false"
-            android:gravity="center_vertical"
-            android:text="Done" />
-    </LinearLayout>
-
+	
+    <RelativeLayout
+         android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="4dip" >
+        android:layout_height="fill_parent"
+        android:padding="4dip" 
+        android:layout_above="@+id/create_event_propose_change_area">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -155,5 +130,25 @@
                 android:soundEffectsEnabled="true" />
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        		android:id="@+id/create_event_propose_change_area"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+            	android:layout_alignParentLeft="true"
+            	android:padding="4dip"
+            	android:background="@color/ivory"
+            	android:visibility="gone"
+            	>
+
+        <Button
+            android:id="@+id/create_event_propose_change_button"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Propose a change" />
+        
+    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
