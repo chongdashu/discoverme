@@ -1,10 +1,16 @@
 package edu.mit.discoverme;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -13,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,6 +29,8 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 public class HomepageActivity extends MapActivity {
 
@@ -268,9 +275,45 @@ public class HomepageActivity extends MapActivity {
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		}
 		
-		// mapController.setCenter(test);
+		// Pan to user's current location
 		mapController.setZoom(18);
 		mapController.animateTo(test);
+		
+		List<Overlay> mapOverlays = mapView.getOverlays();
+		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this, mapView);
+		mapOverlays.add(itemizedoverlay);
+        
+        OverlayItem overlayitem = new OverlayItem(test, "Chong-U Lim", getAddressAt(test));
+        itemizedoverlay.addOverlay(overlayitem);
+		
+	}
+	
+	private String getAddressAt(GeoPoint p)
+	{
+		String add = "";
+		Geocoder geoCoder = new Geocoder(
+                getBaseContext(), Locale.getDefault());
+		try {
+            List<Address> addresses = geoCoder.getFromLocation(
+                p.getLatitudeE6()  / 1E6, 
+                p.getLongitudeE6() / 1E6, 1);
+
+            add = "";
+            if (addresses.size() > 0) 
+            {
+                for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
+                     i++)
+                   add += addresses.get(0).getAddressLine(i) + "\n";
+            }
+
+        }
+        catch (IOException e) {                
+            e.printStackTrace();
+        }  
+		
+		
+        return add;
+	
 	}
 
 	@Override
