@@ -1,8 +1,12 @@
 package edu.mit.discoverme;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 
@@ -53,21 +57,11 @@ public class ViewEventActivity extends CreateEventActivity {
 		inititialize();
 	}
 
-	private void inititialize() {
+	protected void inititialize() {
 		
 		next.setVisibility(View.INVISIBLE);
 		
-		editTextTitle.setFocusable(false);
-		editTextLocation.setFocusable(false);
-		editTextParticipants.setFocusable(false);
-		check.setFocusable(false);
-		timePicker.setFocusable(false);
-		
-		editTextTitle.setEnabled(false);
-		editTextLocation.setEnabled(false);
-		editTextParticipants.setEnabled(false);
-		check.setEnabled(false);
-		timePicker.setEnabled(false);
+		setAllEnabled(false);
 		
 		editTextTitle.setText(eventTitle);
 		editTextParticipants.setText(Utils.foldParticipantsList(participants));
@@ -83,7 +77,58 @@ public class ViewEventActivity extends CreateEventActivity {
 		editTextLocation.setText(locationName);
 		timePicker.setCurrentHour(timeHrs);
 		timePicker.setCurrentMinute(timeMins);
+		
+		proposeChangeArea.setVisibility(View.VISIBLE);
+		proposeChange.setText("Delete Event");
+		
+		proposeChange.setOnClickListener(onProposeChangeClick);
 
+	}
+	
+	protected OnClickListener onProposeChangeClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(ViewEventActivity.this);
+	    	builder.setMessage("Are you sure you to delete this event?")
+	    	       .setCancelable(false)
+	    	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	    	           public void onClick(DialogInterface dialog, int id) {
+	    	               // Do whatever you want for 'Yes' here. 
+	    	        	   dialog.dismiss();
+	    	        	   Toast.makeText(getApplicationContext(),
+	    	   					getString(R.string.cancelEventMsg), Toast.LENGTH_SHORT)
+	    	   					.show();
+	    	   				finish();
+	    	           }
+	    	       })
+	    	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	    	           public void onClick(DialogInterface dialog, int id) {
+	    	        	   // Do whatever you want for 'No' here.  
+	    	        	   dialog.cancel();
+	    	           }
+	    	       });
+	    	AlertDialog alert = builder.create();
+	    	alert.show();
+			
+
+		}
+	}; 
+	
+	protected void setAllEnabled(boolean enabled) 
+	{
+		editTextTitle.setFocusable(enabled);
+		editTextLocation.setFocusable(enabled);
+		editTextParticipants.setFocusable(enabled);
+		check.setFocusable(enabled);
+		timePicker.setFocusable(enabled);
+		
+		editTextTitle.setEnabled(enabled);
+		editTextLocation.setEnabled(enabled);
+		editTextParticipants.setEnabled(enabled);
+		check.setEnabled(enabled);
+		timePicker.setEnabled(enabled);
 	}
 
 }
