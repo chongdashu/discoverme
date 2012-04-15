@@ -44,6 +44,9 @@
         <activity
         	android:name=".ViewEventsActivity"
          	android:label="ViewEventsActivityLabel"/>
+        <activity
+        	android:name=".ViewParticipantsListActivity"
+         	android:label="ViewParticipantsListActivityLabel"/>
          
          <activity
         	android:name=".HomepageActivity"
