@@ -4,8 +4,13 @@ package edu.mit.discoverme;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.*;
-import android.view.*;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 
 public class SearchActivity extends ListActivity {
 	
@@ -61,6 +66,7 @@ public class SearchActivity extends ListActivity {
 	        @Override
 	        public void onTextChanged(CharSequence s, int start, int before, int count) {
 	            // TODO Auto-generated method stub
+	        }
 	            
 	    });
 	    
