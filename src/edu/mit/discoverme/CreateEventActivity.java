@@ -14,15 +14,17 @@ import android.widget.Toast;
 
 public class CreateEventActivity extends Activity {
 
-	private EditText editTextParticipants;
-	private EditText editTextLocation;
-	private CheckedTextView check;
+	protected EditText editTextTitle;
+	protected EditText editTextParticipants;
+	protected EditText editTextLocation;
+	protected CheckedTextView check;
+	protected CustomTimePicker timePicker;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_event);
-
+		
 		Button back = (Button) (findViewById(R.id.backButton));
 		back.setText("Back");
 		back.setOnClickListener(onCancelClick);
@@ -33,16 +35,20 @@ public class CreateEventActivity extends Activity {
 
 		check = (CheckedTextView) (findViewById(R.id.checkBox1));
 		check.setOnClickListener(onCheckTap);
+
+		// Set up the "Event Title"
+		editTextTitle = (EditText)(findViewById(R.id.create_event_editview_title));
+		
 		// Set up listeners for "Selecting Participants"
-		EditText editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
+		editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
 		editTextParticipants.setOnClickListener(onEditTextParticipantsClick);
 
 		// Set up listeners for "Selecting Location"
-		EditText editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
+		editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
 		editTextLocation.setOnClickListener(onEditTextLocationClick);
 
 		// Set up the Time Picker
-		CustomTimePicker timePicker = (CustomTimePicker) (findViewById(R.id.create_event_timepicker));
+		timePicker = (CustomTimePicker) (findViewById(R.id.create_event_timepicker));
 		Date date = new Date();
 		timePicker.setCurrentHour(date.getHours());
 		timePicker.setCurrentMinute(date.getMinutes());

@@ -46,8 +46,6 @@ public class GDDiscoverMeActivity extends Activity {
         // (culim) testing map
 		Intent intent = new Intent(GDDiscoverMeActivity.this,
 				HomepageActivity.class);
-		// Uncomment next line to launch map:
-
 		startActivity(intent);
         
         // ethan's part

@@ -67,6 +67,11 @@
          	android:label="Create An Event"
          	android:theme="@android:style/Theme.Black.NoTitleBar"/>
          
+          <activity
+        	android:name=".ViewEventActivity"
+         	android:label="View An Event"
+         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
+         
          <activity
         	android:name=".SelectEventLocationActivity"
          	android:label="Select Event location"
