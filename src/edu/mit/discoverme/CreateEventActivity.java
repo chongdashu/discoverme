@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CreateEventActivity extends Activity {
 
@@ -18,6 +20,15 @@ public class CreateEventActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_event);
+
+		Button back = (Button) (findViewById(R.id.backButton));
+		back.setText("Back");
+		back.setOnClickListener(onCancelClick);
+
+		Button next = (Button) (findViewById(R.id.nextButton));
+		next.setText("Send Invite");
+		next.setOnClickListener(onPublishClick);
+
 
 		// Set up listeners for "Selecting Participants"
 		EditText editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
@@ -80,6 +91,28 @@ public class CreateEventActivity extends Activity {
 			Intent intent = new Intent(CreateEventActivity.this, SelectEventLocationActivity.class);
 			// intent.putExtra("popupCode", "eventss");
 			startActivityForResult(intent, 1000);
+
+		}
+	};
+
+	private final OnClickListener onCancelClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// go back to last page
+			finish();
+
+		}
+	};
+	private final OnClickListener onPublishClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.publishEventMesg), Toast.LENGTH_SHORT)
+					.show();
+			finish();
 
 		}
 	};
