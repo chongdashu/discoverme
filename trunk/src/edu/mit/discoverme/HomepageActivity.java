@@ -97,13 +97,9 @@ public class HomepageActivity extends MapActivity {
 					
 					// TODO get the event from State Manager
 					StateManager stateManager = (StateManager) getApplicationContext();
-					
-					
-					
-					
 					Intent intent = new Intent(HomepageActivity.this,
 							ViewEventActivity.class);
-					intent.putExtra("eventName", ((TextView) view).getText());
+					intent.putExtra("eventId", position);
 					hideEverything();
 					startActivity(intent);
 
