@@ -47,7 +47,7 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 	public boolean onTap(final GeoPoint p, final MapView mapView) {
 		boolean tapped = super.onTap(p, mapView);
 		if (!tapped) {
-			 OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", "Building 32, Stata Center");
+			 final OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", "Building 32, Stata Center");
 			 addOverlay(overlayitem);
 			 
 			 MapController mapController = mapView.getController();
@@ -67,7 +67,7 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
   	        	   
   	        	   dialog.cancel();
   	        	 
-  	        	  Activity mapActivity = (Activity) mContext;
+  	        	   Activity mapActivity = (Activity) mContext;
   	        	 
   	        	   Intent resultIntent = mapActivity.getIntent();
   	        	   resultIntent.putExtra("LocationName", selectedLocationName );
@@ -79,7 +79,9 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
   	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
   	           public void onClick(DialogInterface dialog, int id) {
   	        	   // Do whatever you want for 'No' here.  
+  	        	   removeOverlay(overlayitem);
   	        	   dialog.cancel();
+  	        	   mapView.invalidate();
   	           }
   	       });
 			 
@@ -100,6 +102,11 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 
 	public void addOverlay(OverlayItem overlay) {
 		mOverlays.add(overlay);
+		populate();
+	}
+	
+	public void removeOverlay(OverlayItem overlay) {
+		mOverlays.remove(overlay);
 		populate();
 	}
 
