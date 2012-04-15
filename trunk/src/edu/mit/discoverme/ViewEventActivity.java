@@ -14,6 +14,7 @@ public class ViewEventActivity extends CreateEventActivity {
 
 	protected String eventTitle;
 	protected String[] participants;
+	protected String participantsString;
 	protected boolean closedEvent;
 	protected int timeHrs;
 	protected int timeMins;
@@ -40,7 +41,9 @@ public class ViewEventActivity extends CreateEventActivity {
 		String stO = getString(R.string.typeOpen);
 
 		eventTitle = events[eventID];
-		participants = parts[eventID].split(",");
+		participantsString = parts[eventID];
+		participants = participantsString.split(",");
+
 		if (types[eventID] == stO)
 			closedEvent = false;
 		else
@@ -118,17 +121,48 @@ public class ViewEventActivity extends CreateEventActivity {
 	
 	protected void setAllEnabled(boolean enabled) 
 	{
-		editTextTitle.setFocusable(enabled);
-		editTextLocation.setFocusable(enabled);
-		editTextParticipants.setFocusable(enabled);
-		check.setFocusable(enabled);
-		timePicker.setFocusable(enabled);
+		editTextTitle.setFocusable(false);
+		// editTextLocation.setFocusable(false);
+		editTextLocation.setOnClickListener(onEditTextLocationClick);
+
+		// editTextParticipants.setFocusable(false);
+		editTextParticipants.setOnClickListener(onEditTextParticipantsClick);
+		check.setFocusable(false);
+		timePicker.setFocusable(false);
 		
-		editTextTitle.setEnabled(enabled);
-		editTextLocation.setEnabled(enabled);
-		editTextParticipants.setEnabled(enabled);
-		check.setEnabled(enabled);
-		timePicker.setEnabled(enabled);
+		editTextTitle.setEnabled(false);
+		editTextLocation.setEnabled(false);
+		editTextParticipants.setEnabled(true);
+		check.setEnabled(false);
+		timePicker.setEnabled(false);
 	}
+
+	private final OnClickListener onEditTextParticipantsClick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// Do something when "Select Participants" is clicked.
+
+			// We launch the "Select Participants Activity"
+			Intent intent = new Intent(ViewEventActivity.this,
+					ViewParticipantsListActivity.class);
+			intent.putExtra("participants", participantsString);
+			startActivity(intent);
+
+		}
+	};
+
+	private final OnClickListener onEditTextLocationClick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// Do something when "Select Location" is clicked.
+
+			// We launch the "Select Location from Map Activity"
+			Intent intent = new Intent(ViewEventActivity.this,
+					SelectEventLocationActivity.class);
+			// intent.putExtra("popupCode", "eventss");
+			startActivityForResult(intent, 1000);
+
+		}
+	};
 
 }
