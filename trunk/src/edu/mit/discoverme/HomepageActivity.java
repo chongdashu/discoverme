@@ -7,7 +7,11 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
@@ -38,6 +42,7 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.google.android.maps.Projection;
 
 public class HomepageActivity extends MapActivity {
 
@@ -84,17 +89,20 @@ public class HomepageActivity extends MapActivity {
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 
 				if (popup.equals("friendss")) {
-					Intent intent = new Intent(HomepageActivity.this, ProfileActivity.class);
+					Intent intent = new Intent(HomepageActivity.this,
+							ProfileActivity.class);
 					intent.putExtra("personName", ((TextView) view).getText());
 					startActivity(intent);
 
 					// finishActivity(-1);
 				} else if (popup.equals("eventss")) {
 					// this will actually go to view event page
-					Intent intent = new Intent(HomepageActivity.this, CreateEventActivity.class);
+					Intent intent = new Intent(HomepageActivity.this,
+							CreateEventActivity.class);
 					intent.putExtra("eventName", ((TextView) view).getText());
 					startActivity(intent);
 
@@ -102,7 +110,7 @@ public class HomepageActivity extends MapActivity {
 
 			}
 		});
-		
+
 		initializeMap();
 
 	}
@@ -168,12 +176,14 @@ public class HomepageActivity extends MapActivity {
 			// TODO Auto-generated method stub
 			if (popup.equals("friendss")) {
 				// it should go to search page
-				Intent intent = new Intent(HomepageActivity.this, SearchActivity.class);// NotificationsActivity.class);
+				Intent intent = new Intent(HomepageActivity.this,
+						SearchActivity.class);// NotificationsActivity.class);
 				intent.putExtra("popupCode", popup);
 				startActivity(intent);
 			}
 			if (popup.equals("eventss")) {
-				Intent intent = new Intent(HomepageActivity.this, CreateEventActivity.class);// NotificationsActivity.class);
+				Intent intent = new Intent(HomepageActivity.this,
+						CreateEventActivity.class);// NotificationsActivity.class);
 				startActivity(intent);
 			}
 
@@ -199,19 +209,21 @@ public class HomepageActivity extends MapActivity {
 		popupArea.setVisibility(View.VISIBLE);
 		fillPopup();
 		// setLayoutAnim_slidedown(popupArea, this);
-		
 
 	}
 
 	private final void fillPopup() {
 
 		LinearLayout popupPage = (LinearLayout) findViewById(R.id.popup_layout_page);
-		Drawable newMarker = HomepageActivity.this.getResources().getDrawable(R.drawable.photo);// _friend_popup);
+		Drawable newMarker = HomepageActivity.this.getResources().getDrawable(
+				R.drawable.photo);// _friend_popup);
 		popupPage.setBackgroundDrawable(newMarker);
 
 		if (popup.equals("friendss")) {
-			String[] friends = getResources().getStringArray(R.array.friends_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, friends));
+			String[] friends = getResources().getStringArray(
+					R.array.friends_array);
+			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
+					friends));
 			b.setVisibility(View.VISIBLE);
 
 			p.setText("Friends");
@@ -222,8 +234,10 @@ public class HomepageActivity extends MapActivity {
 
 		} else if (popup.equals("eventss")) {
 
-			String[] events = getResources().getStringArray(R.array.events_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, events));
+			String[] events = getResources().getStringArray(
+					R.array.events_array);
+			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
+					events));
 			b.setVisibility(View.VISIBLE);
 			p.setText("Events");
 
@@ -232,8 +246,10 @@ public class HomepageActivity extends MapActivity {
 			notif.setSelected(false);
 		} else if (popup.equals("notifss")) {
 
-			String[] events = getResources().getStringArray(R.array.notifs_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, events));
+			String[] events = getResources().getStringArray(
+					R.array.notifs_array);
+			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
+					events));
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
 			friend.setSelected(false);
@@ -245,10 +261,10 @@ public class HomepageActivity extends MapActivity {
 	}
 
 	private void initializeMap() {
-		
+
 		// Get the map view
 		MapView mapView = (MapView) (findViewById(R.id.mapview));
-		
+
 		// Get the map controller
 		MapController mapController = mapView.getController();
 
@@ -262,200 +278,108 @@ public class HomepageActivity extends MapActivity {
 		criteria.setCostAllowed(true);
 
 		LocationManager locationManager;
-		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) this
+				.getSystemService(Context.LOCATION_SERVICE);
 		String bestProvider = locationManager.getBestProvider(criteria, true);
 
 		Location locLast = locationManager.getLastKnownLocation(bestProvider);
 		GeoPoint test;
-		
+
 		float lat = 42.360383f;
 		float lng = -71.090899f;
-		if (locLast != null)
-		{
+		if (locLast != null) {
 			lat = (float) locLast.getLatitude();
 			lng = (float) locLast.getLongitude();
 
 			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
-		}
-		else
-		{
+		} else {
 			lat = 42.360383f;
 			lng = -71.090899f;
 
 			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		}
-		
+
 		// Pan to user's current location
 		mapController.setZoom(18);
 		mapController.animateTo(test);
-		
+
 		List<Overlay> mapOverlays = mapView.getOverlays();
-		
+
 		// Create overlay for User
-		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this, mapView); 
+		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,
+				mapView);
 		mapOverlays.add(itemizedoverlay);
-        
-        OverlayItem overlayitem = new OverlayItem(test, "Chong-U Lim", getAddressAt(test));
-        itemizedoverlay.addOverlay(overlayitem);
-        
-        // Create overlay for Friends
-        HomepageMapOverlay friendsOverlay = new HomepageMapOverlay(getResources().getDrawable(R.drawable.marker2), this, mapView);
-        mapOverlays.add(friendsOverlay);
-        
-        String[] friends = getResources().getStringArray(R.array.friends_array);
-        Vector<GeoPoint> friendpoints = getRandomGeopointsAround(lat, lng, 5);
-        int f=0;
-        for (GeoPoint geoPoint : friendpoints) {
-        	 OverlayItem item = new OverlayItem(geoPoint, friends[f], getAddressAt(geoPoint));
-        	 friendsOverlay.addOverlay(item);
-             f++;
+
+		OverlayItem overlayitem = new OverlayItem(test, "Chong-U Lim",
+				getAddressAt(test));
+		itemizedoverlay.addOverlay(overlayitem);
+
+		// Create overlay for Friends
+		HomepageMapOverlay friendsOverlay = new HomepageMapOverlay(
+				getResources().getDrawable(R.drawable.marker2), this, mapView);
+		mapOverlays.add(friendsOverlay);
+
+		String[] friends = getResources().getStringArray(R.array.friends_array);
+		Vector<GeoPoint> friendpoints = getRandomGeopointsAround(lat, lng, 5);
+		int f = 0;
+		for (GeoPoint geoPoint : friendpoints) {
+			OverlayItem item = new OverlayItem(geoPoint, friends[f],
+					getAddressAt(geoPoint));
+			friendsOverlay.addOverlay(item);
+			f++;
 		}
-		
+
 	}
-	
-	private Vector<GeoPoint> getRandomGeopointsAround(float lat, float lon, int n)
-	{
+
+	private Vector<GeoPoint> getRandomGeopointsAround(float lat, float lon,
+			int n) {
 		Vector<GeoPoint> geopoints = new Vector<GeoPoint>();
-		
-		for (int i=0; i < n; i++)
-		{
+
+		for (int i = 0; i < n; i++) {
 			float newlat;
 			float newlon;
-			if (i % 2 == 0)
-			{
-				newlat = lat*1000000 + 1000*(float)(Math.random());
-				newlon = lon*1000000 + 1000*(float)(Math.random());
+			if (i % 2 == 0) {
+				newlat = lat * 1000000 + 1000 * (float) (Math.random());
+				newlon = lon * 1000000 + 1000 * (float) (Math.random());
+			} else {
+				newlat = lat * 1000000 + 10000 * (float) (Math.random());
+				newlon = lon * 1000000 - 10000 * (float) (Math.random());
 			}
-			else
-			{
-				newlat = lat*1000000 + 10000*(float)(Math.random());
-				newlon = lon*1000000 - 10000*(float)(Math.random());
-			}
-			
-			GeoPoint newpoint = new GeoPoint((int)(newlat), (int)(newlon));
+
+			GeoPoint newpoint = new GeoPoint((int) (newlat), (int) (newlon));
 			geopoints.add(newpoint);
 		}
-		
-		
+
 		return geopoints;
 	}
-	
-	private String getAddressAt(GeoPoint p)
-	{
+
+	private String getAddressAt(GeoPoint p) {
 		String add = "";
-		Geocoder geoCoder = new Geocoder(
-                getBaseContext(), Locale.getDefault());
+		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
 		try {
-            List<Address> addresses = geoCoder.getFromLocation(
-                p.getLatitudeE6()  / 1E6, 
-                p.getLongitudeE6() / 1E6, 1);
+			List<Address> addresses = geoCoder.getFromLocation(
+					p.getLatitudeE6() / 1E6, p.getLongitudeE6() / 1E6, 1);
 
-            add = "";
-            if (addresses.size() > 0) 
-            {
-                for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
-                     i++)
-                   add += addresses.get(0).getAddressLine(i) + "\n";
-            }
+			add = "";
+			if (addresses.size() > 0) {
+				for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex(); i++)
+					add += addresses.get(0).getAddressLine(i) + "\n";
+			}
 
-        }
-        catch (IOException e) {                
-            e.printStackTrace();
-        }  
-		
-		
-        return add;
-	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return add;
+
 	}
 
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-	
-	public void setLayoutAnim_slidedown(ViewGroup panel, Context ctx) {
-		 
-		AnimationSet set = new AnimationSet(true);
- 
-		Animation animation = new TranslateAnimation(
-				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-				0.0f, Animation.RELATIVE_TO_SELF, -1.0f,
-				Animation.RELATIVE_TO_SELF, 0.0f);
-		animation.setDuration(800);
-		animation.setAnimationListener(new AnimationListener() {
- 
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				// MapContacts.this.mapviewgroup.setVisibility(View.VISIBLE);
- 
-			}
- 
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
- 
-			}
- 
-			@Override
-			public void onAnimationEnd(Animation animation) {
- 
-				// TODO Auto-generated method stub
- 
-			}
-		});
-		set.addAnimation(animation);
- 
-		LayoutAnimationController controller = new LayoutAnimationController(
-				set, 0.25f);
-		panel.setLayoutAnimation(controller);
- 
-	}
- 
-	public void setLayoutAnim_slideup(ViewGroup panel, Context ctx) {
- 
-		AnimationSet set = new AnimationSet(true);
- 
-		/*
-		 * Animation animation = new AlphaAnimation(1.0f, 0.0f);
-		 * animation.setDuration(200); set.addAnimation(animation);
-		 */
- 
-		Animation animation = new TranslateAnimation(
-				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-				0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-				Animation.RELATIVE_TO_SELF, -1.0f);
-		animation.setDuration(800);
-		animation.setAnimationListener(new AnimationListener() {
- 
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
- 
-			}
- 
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
- 
-			}
- 
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				// MapContacts.this.mapviewgroup.setVisibility(View.INVISIBLE);
-				// TODO Auto-generated method stub
- 
-			}
-		});
-		set.addAnimation(animation);
- 
-		LayoutAnimationController controller = new LayoutAnimationController(
-				set, 0.25f);
-		panel.setLayoutAnimation(controller);
- 
 	}
 
 }

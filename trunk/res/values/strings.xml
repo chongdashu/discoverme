@@ -13,7 +13,7 @@
 	<string name="google_map_api_key_cu">0I96sqMfhOqXlgURxjMNRD6cXxS2C8ZokiwAVfg</string>
 	
 	<string name="button_text_friend">Friend</string>
-	
+	<string name="button_text_done">Done</string>
 
     <string name="app_url">http://github.com/cyrilmottier/GreenDroid</string>
     
