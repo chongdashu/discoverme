@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" >
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" >
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/location_textview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:textSize="16sp" >
+
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <ImageView
+            android:id="@+id/hasFoodView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/food_android_icon"
+            android:adjustViewBounds="true"  
+  			android:maxWidth="60dp"  
+  			android:maxHeight="60dp"  />
+            
+
+        <ImageView
+            android:id="@+id/isQuietView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/audio_volume_muted"
+            android:adjustViewBounds="true"  
+  			android:maxWidth="60dp"  
+  			android:maxHeight="60dp" />
+             
+
+        <ImageView
+            android:id="@+id/hasITView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/android_wi_fi"
+            android:adjustViewBounds="true"  
+  			android:maxWidth="60dp"  
+  			android:maxHeight="60dp" />
+             
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -47,7 +47,9 @@
         <activity
         	android:name=".ViewParticipantsListActivity"
          	android:label="ViewParticipantsListActivityLabel"/>
-         
+         <activity
+             android:name = ".SuggestLocationsActivity"
+             android:label="SuggestLocationsLabel"/>
          <activity
         	android:name=".HomepageActivity"
          	android:label="HomepageActivityLabel"
