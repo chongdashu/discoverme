@@ -301,12 +301,15 @@ public class HomepageActivity extends MapActivity {
         itemizedoverlay.addOverlay(overlayitem);
         
         // Create overlay for Friends
+        HomepageMapOverlay friendsOverlay = new HomepageMapOverlay(getResources().getDrawable(R.drawable.marker2), this, mapView);
+        mapOverlays.add(friendsOverlay);
+        
         String[] friends = getResources().getStringArray(R.array.friends_array);
         Vector<GeoPoint> friendpoints = getRandomGeopointsAround(lat, lng, 5);
         int f=0;
         for (GeoPoint geoPoint : friendpoints) {
         	 OverlayItem item = new OverlayItem(geoPoint, friends[f], getAddressAt(geoPoint));
-             itemizedoverlay.addOverlay(item);
+        	 friendsOverlay.addOverlay(item);
              f++;
 		}
 		
