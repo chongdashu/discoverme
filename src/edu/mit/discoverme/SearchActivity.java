@@ -74,22 +74,26 @@ public class SearchActivity extends ListActivity{
 			//create a list to hold the results
 			ArrayList<String> results = new ArrayList<String>();
 			
-			//iterate through the list we are looking for
-			for(int i = 0; i < searchList.length; i++){
-				//see if it containts what the user queried
-				if(searchList[i].contains(arg0.toString().toLowerCase())){
-					results.add(searchList[i]);
+			//only look if the text field has characters in it
+			//if it doesnt results will be blank
+			if(searchBar.getText().length() != 0){
+				//iterate through the list we are looking for
+				for(int i = 0; i < searchList.length; i++){
+					//see if it starts what the user queried
+					if(searchList[i].startsWith(arg0.toString().toLowerCase())){
+						results.add(searchList[i]);
+					}
 				}
 			}
-			
 			//make it a string array
 			String[] responses = new String[results.size()];
 		    responses = results.toArray(responses);
 		    
 		    //display to the screen!
 			setListAdapter(new ArrayAdapter<String>(self, R.layout.list_item, responses));
+			
 		}
-
+		
 		@Override
 		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 				int arg3) {
