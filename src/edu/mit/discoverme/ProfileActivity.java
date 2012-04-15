@@ -21,7 +21,7 @@ public class ProfileActivity extends Activity {
 		back.setOnClickListener(onBackClick);
 
 		Button next = (Button) (findViewById(R.id.nextButton));
-		next.setVisibility(View.GONE);
+		next.setVisibility(View.INVISIBLE);
 
 		String profileType;
 		String personName;
