@@ -11,9 +11,9 @@ public class StateManager extends Application {
 	private String[] pendingRes;// you added as friend and now waiting fr
 								// response
 	private String[] directory_names;
-	private String[] directory_emails;
-	private String[] directory_phones;
-	private String[] directory_address;
+	// private String[] directory_emails;
+	// private String[] directory_phones;
+	// private String[] directory_address;
 	private String[] directory_friendType;
 
 	public String[] getPendingReq() {
@@ -48,10 +48,12 @@ public class StateManager extends Application {
 
 		directory_names = getResources()
 				.getStringArray(R.array.directory_array);
-		directory_emails = getResources().getStringArray(R.array.email_array);
-		directory_phones = getResources().getStringArray(R.array.phone_array);
-		directory_address = getResources()
-				.getStringArray(R.array.address_array);
+		// directory_emails =
+		// getResources().getStringArray(R.array.email_array);
+		// directory_phones =
+		// getResources().getStringArray(R.array.phone_array);
+		// directory_address = getResources()
+		// .getStringArray(R.array.address_array);
 		directory_friendType = getResources().getStringArray(
 				R.array.friend_type_array);
 	}
@@ -60,17 +62,17 @@ public class StateManager extends Application {
 		return directory_names;
 	}
 
-	public String[] getDirectory_emails() {
-		return directory_friendType;
-	}
-
-	public String[] getDirectory_phones() {
-		return directory_friendType;
-	}
-
-	public String[] getDirectory_addresses() {
-		return directory_friendType;
-	}
+	// public String[] getDirectory_emails() {
+	// return directory_friendType;
+	// }
+	//
+	// public String[] getDirectory_phones() {
+	// return directory_friendType;
+	// }
+	//
+	// public String[] getDirectory_addresses() {
+	// return directory_friendType;
+	// }
 
 	public String[] getDirectory_friendType() {
 		return directory_friendType;

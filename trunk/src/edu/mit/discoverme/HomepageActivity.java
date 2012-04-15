@@ -7,11 +7,7 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
@@ -21,12 +17,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationSet;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -42,7 +32,6 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-import com.google.android.maps.Projection;
 
 public class HomepageActivity extends MapActivity {
 
@@ -99,6 +88,7 @@ public class HomepageActivity extends MapActivity {
 					Intent intent = new Intent(HomepageActivity.this,
 							ProfileActivity.class);
 					intent.putExtra("personName", ((TextView) view).getText());
+					hideEverything();
 					startActivity(intent);
 
 					// finishActivity(-1);
@@ -107,6 +97,7 @@ public class HomepageActivity extends MapActivity {
 					Intent intent = new Intent(HomepageActivity.this,
 							CreateEventActivity.class);
 					intent.putExtra("eventName", ((TextView) view).getText());
+					hideEverything();
 					startActivity(intent);
 
 				}
