@@ -34,6 +34,9 @@ public class SelectEventLocationActivity extends MapActivity {
 	protected String selectedLocation;
 	protected SelectEventLocationLinesOverlay linesOverlay;
 	protected Vector<GeoPoint> friendpoints;
+	protected boolean readOnly;
+	protected int latE6;
+	protected int lngE6;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,10 @@ public class SelectEventLocationActivity extends MapActivity {
 		next.setText(R.string.button_text_done);
 		next.setVisibility(View.INVISIBLE);
 		next.setOnClickListener(onDoneClick);
+		
+		if (readOnly){
+			// latE6 = getIntent().getIntExtra(name, defaultValue);
+		}
 
 		initializeMap();
 		initializeConfirmationArea();
@@ -138,6 +145,12 @@ public class SelectEventLocationActivity extends MapActivity {
 		selectLocationOverlay = new SelectEventLocationItemizedOverlay(
 				drawable, this);
 		mapOverlays.add(selectLocationOverlay);
+		
+		if (readOnly){
+			GeoPoint loc = new GeoPoint(latE6, lngE6);
+			OverlayItem locItem = new OverlayItem(loc, "", "");
+			selectLocationOverlay.addOverlay(locItem);
+		}
 
 		// Add the user overlay
 		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,

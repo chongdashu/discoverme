@@ -99,7 +99,7 @@ public class CreateEventActivity extends Activity {
 		}
 	};
 
-	private final OnClickListener onEditTextLocationClick = new OnClickListener() {
+	protected OnClickListener onEditTextLocationClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// Do something when "Select Location" is clicked.
