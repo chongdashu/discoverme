@@ -67,16 +67,21 @@
     <string name="typeOpen">closed</string>
     <string name="typeClosed">open</string>
     
+    <string name="typeMe">me</string>
+    <string name="typeNotMe">notme</string>
+    
     <string name="addAsFriendButtonText"> Add as Friend </string>
     <string name="deleteFriendButtonText"> Delete Friend </string>
     <string name="pendingResponseButtonText"> Added as Friend waiting for response</string>
     <string name="addPendingYesButtonText"> Approve Friend Request </string>
     <string name="addPendingNoButtonText"> Decline Friend Request </string>
+    <string name="cancelEventButtonText"> Cancel Event and notify participants </string>
     <string name="addAsFriendMesg"> Added as Friend </string>
     <string name="deleteFriendMesg"> Friend Deleted </string>
     <string name="addPendingYesMesg"> Approved Friend Request </string>
     <string name="addPendingNoMesg"> Declined Friend Request </string>
     <string name="publishEventMesg"> Event Invitation is Sent to all participants</string>
     <string name="cancelEventMsg">Event deleted. Participants have been notified.</string>
+    
     
 </resources>

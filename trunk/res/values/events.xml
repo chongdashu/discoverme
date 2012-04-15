@@ -61,5 +61,17 @@
         <item>16 45</item>
         <item>16 45</item>
     </string-array>
+    <string-array name="event_originator">
+        <item>me</item>
+        <item>notme</item>
+        <item>me</item>
+        <item>notme</item>
+        <item>notme</item>
+        <item>notme</item>
+        <item>notme</item>
+        <item>notme</item>
+        <item>notme</item>
+        <item>notme</item>
+    </string-array>
     
 </resources>
