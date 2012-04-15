@@ -1,11 +1,17 @@
 package edu.mit.discoverme;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -14,13 +20,18 @@ import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ParticipantListingActivity extends Activity {
-
+public class ParticipantListingActivity extends Activity implements OnClickListener{
 
 	String selectedList;
 	String[] friends;
 	int[] selected;
-
+	
+	// store state
+    private HashMap<Integer, Boolean> mIsChecked = 
+            new HashMap<Integer, Boolean>();
+ // store CheckTextView's
+    private HashMap<Integer, CheckedTextView> mCheckedList = 
+            new HashMap<Integer, CheckedTextView>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +55,26 @@ public class ParticipantListingActivity extends Activity {
 		ListView l = (ListView) findViewById(R.id.participant_listview);
 		l.setBackgroundColor(Color.WHITE);
 		l.setCacheColorHint(Color.WHITE);
-		l.setAdapter(new ArrayAdapter<String>(this, R.layout.participant_row,
-				friends));
-		l.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView arg0, View v, int arg2,
-					long arg3) {
-				CheckedTextView tt = (CheckedTextView) v
-						.findViewById(R.id.participant_checked_textview);
-				if (!tt.isChecked()) {
-					tt.setChecked(true);
-					tt.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
-					selected[arg2] = 1;
-
-				} else {
-					tt.setChecked(false);
-					tt.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
-					selected[arg2] = 0;
-				}
-
-			}
-		});
+		l.setAdapter(new MyAdapter(this, R.layout.participant_row, friends));
+//		l.setAdapter(new ArrayAdapter<String>(this, R.layout.participant_row, friends));
+//		l.setOnItemClickListener(new OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView arg0, View v, int position, long rowId) {
+//
+//				CheckedTextView tt = (CheckedTextView) v.findViewById(R.id.participant_checked_textview);
+//				if (!tt.isChecked()) {
+//					tt.setChecked(true);
+//					tt.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+//					selected[position] = 1;
+//
+//				} else {
+//					tt.setChecked(false);
+//					tt.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
+//					selected[position] = 0;
+//				}
+//
+//			}
+//		});
 	}
 
 	private final OnClickListener onDoneClick = new OnClickListener() {
@@ -76,8 +86,7 @@ public class ParticipantListingActivity extends Activity {
 			// and flash a message on screen saying friend added
 
 			getSelected();
-			Toast.makeText(getApplicationContext(), selectedList,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), selectedList, Toast.LENGTH_SHORT).show();
 			// selectedList = "sunila is there !";
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra("participants", selectedList);
@@ -95,9 +104,7 @@ public class ParticipantListingActivity extends Activity {
 			// TODO Auto-generated method stub
 			// go back to last page
 			// and flash a message on screen saying friend added
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(getApplicationContext(), getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT).show();
 			selectedList = "";
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra("participants", selectedList);
@@ -108,8 +115,7 @@ public class ParticipantListingActivity extends Activity {
 		}
 	};
 
-	private final void getSelected()
-	{
+	private final void getSelected() {
 		if (selected != null && friends != null) {
 			selectedList = "";
 			for (int i = 0; i < selected.length; i++) {
@@ -117,9 +123,59 @@ public class ParticipantListingActivity extends Activity {
 					selectedList = selectedList + friends[i] + ", ";
 
 			}
-		}
- else
+		} else
 			selectedList = "84038y";
 	}
+	
+	@Override
+    public void onClick(View v) {
+        // get the CheckedTextView
+        CheckedTextView ct = mCheckedList.get(v.getTag());
+        if (ct != null) {
+            // change the state and colors
+            ct.toggle();
+            if (ct.isChecked()) {
+            	ct.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+            	selected[(Integer)v.getTag()] = 1;
+            } else {
+            	ct.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
+            	selected[(Integer)v.getTag()] = 0;
+            }
+            // add current state to map
+            mIsChecked.put((Integer) v.getTag(), ct.isChecked());
+        }       
+    }
+	
+	private class MyAdapter extends ArrayAdapter<String> {
+
+        private String[] items;
+
+        public MyAdapter(Context context, int textViewResourceId, String[] items) {
+            super(context, textViewResourceId, items);
+            this.items = items;
+        }
+
+        public View getView(final int position, View view, ViewGroup parent) {
+            LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = vi.inflate(R.layout.participant_row, null);
+
+            CheckedTextView ct = (CheckedTextView) view.findViewById(R.id.participant_checked_textview);
+            ct.setText(items[position]);
+            if (mIsChecked.get(position) != null) {
+                if (mIsChecked.get(position)) {
+                    ct.setChecked(true);
+                    ct.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+                } else {
+                    ct.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
+                }
+            }
+            // tag it
+            ct.setTag(position);
+            mCheckedList.put(position, ct);
+            ct.setOnClickListener(ParticipantListingActivity.this);
+
+            return view;
+        }
+    }
 
 }
