@@ -5,23 +5,41 @@ import android.app.Application;
 public class StateManager extends Application {
 
 
+	// people
 	private String[] friends;
 	private String[] pendingReq;// request came n now is waiting for your
 								// response
 	private String[] pendingRes;// you added as friend and now waiting fr
 								// response
 	private String[] directory_names;
-	// private String[] directory_emails;
-	// private String[] directory_phones;
-	// private String[] directory_address;
 	private String[] directory_friendType;
 
+	// events
+	private String[] events;
+	private String[] participants;
+	private String[] locations;
+	private String[] eventType;
+	private String[] time;
+
+	public void start() {
+		setFriendsFromHD();
+		setDirectoryFromHD();
+		setPendingRequestsFromHD();
+		setPendingResponseFromHD();
+
+		setEventsFromHD();
+		setParticipantsFromHD();
+		setLocationsFromHD();
+		setEventTypeFromHD();
+		setTimeFromHD();
+	}
+	/* people thing implemented below */
 	public String[] getPendingReq() {
 		return pendingReq;
 	}
 
 	public void setPendingRequestsFromHD() {
-		pendingReq = getResources().getStringArray(
+		this.pendingReq = getResources().getStringArray(
 				R.array.pending_request_array);
 	}
 
@@ -34,7 +52,7 @@ public class StateManager extends Application {
 	}
 
 	public void setPendingResponseFromHD() {
-		pendingRes = getResources().getStringArray(
+		this.pendingRes = getResources().getStringArray(
 				R.array.pending_response_array);
 	}
 
@@ -42,19 +60,10 @@ public class StateManager extends Application {
 		this.pendingRes = pendingRes;
 	}
 
-
-
 	public void setDirectoryFromHD() {
-
-		directory_names = getResources()
+		this.directory_names = getResources()
 				.getStringArray(R.array.directory_array);
-		// directory_emails =
-		// getResources().getStringArray(R.array.email_array);
-		// directory_phones =
-		// getResources().getStringArray(R.array.phone_array);
-		// directory_address = getResources()
-		// .getStringArray(R.array.address_array);
-		directory_friendType = getResources().getStringArray(
+		this.directory_friendType = getResources().getStringArray(
 				R.array.friend_type_array);
 	}
 
@@ -62,44 +71,90 @@ public class StateManager extends Application {
 		return directory_names;
 	}
 
-	// public String[] getDirectory_emails() {
-	// return directory_friendType;
-	// }
-	//
-	// public String[] getDirectory_phones() {
-	// return directory_friendType;
-	// }
-	//
-	// public String[] getDirectory_addresses() {
-	// return directory_friendType;
-	// }
-
 	public String[] getDirectory_friendType() {
 		return directory_friendType;
 	}
-
 
 	public void setDirectory_friendType(String[] directory_friendType) {
 		this.directory_friendType = directory_friendType;
 	}
 
 	public String[] getFriends() {
-		// String[] friends = new String[2];
-		// friends[0] = "onefriends";
-		// friends[1] = "lonely person";
-		// friends = getResources().getStringArray(R.array.friends_array);
 		return friends;
 	}
 
 	public void setFriendsFromHD() {
-		friends = getResources().getStringArray(R.array.friends_array);
-
+		this.friends = getResources().getStringArray(R.array.friends_array);
 	}
 
 	public void setFriends(String[] newFriends) {
-		friends = newFriends;
+		this.friends = newFriends;
 
 	}
+	/* people thing implemented above */
+	/* events thing implemented below */
+	public String[] getEvents() {
+		return events;
+	}
 
+	public void setEvents(String[] events) {
+		this.events = events;
+	}
+
+	public String[] getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(String[] participants) {
+		this.participants = participants;
+	}
+
+	public String[] getLocations() {
+		return locations;
+	}
+
+	public void setLocations(String[] locations) {
+		this.locations = locations;
+	}
+
+	public String[] getEventType() {
+		return eventType;
+	}
+
+	public void setEventType(String[] eventType) {
+		this.eventType = eventType;
+	}
+
+	public String[] getTime() {
+		return time;
+	}
+
+	public void setTime(String[] time) {
+		this.time = time;
+	}
+
+	public void setEventsFromHD() {
+		this.events = getResources().getStringArray(R.array.events_array);
+	}
+
+	public void setParticipantsFromHD() {
+		this.participants = getResources().getStringArray(
+				R.array.participants_array);
+	}
+
+	public void setLocationsFromHD() {
+		this.locations = getResources().getStringArray(R.array.location_array);
+	}
+
+	public void setEventTypeFromHD() {
+		this.eventType = getResources()
+				.getStringArray(R.array.event_type_array);
+	}
+
+	public void setTimeFromHD() {
+		this.time = getResources().getStringArray(R.array.time_array);
+	}
+
+	/* events thing implemented above */
 
 }

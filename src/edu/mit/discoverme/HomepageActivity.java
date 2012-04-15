@@ -95,8 +95,18 @@ public class HomepageActivity extends MapActivity {
 				} else if (popup.equals("eventss")) {
 					// this will actually go to view event page
 					Intent intent = new Intent(HomepageActivity.this,
+							ViewEventActivity.class);
+					intent.putExtra("eventName", ((TextView) view).getText());
+					hideEverything();
+					startActivity(intent);
+
+				} else if (popup.equals("notifss")) {
+					// this will actually go to view event or view profile page
+					// depending on type
+					Intent intent = new Intent(HomepageActivity.this,
 							CreateEventActivity.class);
 					intent.putExtra("eventName", ((TextView) view).getText());
+					intent.putExtra("type", ((TextView) view).getText());
 					hideEverything();
 					startActivity(intent);
 
@@ -208,7 +218,8 @@ public class HomepageActivity extends MapActivity {
 
 	private final void fillPopup() {
 		StateManager appState = ((StateManager) getApplicationContext());
-		String[] friends = appState.getFriends();//
+		String[] friends = appState.getFriends();
+		String[] events = appState.getEvents();
 
 		LinearLayout popupPage = (LinearLayout) findViewById(R.id.popup_layout_page);
 		Drawable newMarker = HomepageActivity.this.getResources().getDrawable(
@@ -230,8 +241,8 @@ public class HomepageActivity extends MapActivity {
 
 		} else if (popup.equals("eventss")) {
 
-			String[] events = getResources().getStringArray(
-					R.array.events_array);
+			// String[] events = getResources().getStringArray(
+			// R.array.events_array);
 			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 					events));
 			b.setVisibility(View.VISIBLE);
@@ -242,10 +253,10 @@ public class HomepageActivity extends MapActivity {
 			notif.setSelected(false);
 		} else if (popup.equals("notifss")) {
 
-			String[] events = getResources().getStringArray(
+			String[] notifs = getResources().getStringArray(
 					R.array.notifs_array);
 			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					events));
+					notifs));
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
 			friend.setSelected(false);

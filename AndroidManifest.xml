@@ -41,7 +41,9 @@
         <activity
         	android:name=".EventsActivity"
          	android:label="EventsActivityLabel"/>
-        
+        <activity
+        	android:name=".ViewEventsActivity"
+         	android:label="ViewEventsActivityLabel"/>
          
          <activity
         	android:name=".HomepageActivity"

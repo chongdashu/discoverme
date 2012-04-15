@@ -1,0 +1,65 @@
+<resources>
+
+	<string-array name="events_array">
+        <item>project meeting</item>
+        <item>premeeting meeting</item>
+        <item>lunch</item>
+        <item>coffee</item>
+        <item>dinner</item>
+        <item>shopping</item>
+        <item>homework</item>
+        <item>dinner again</item>
+        <item>shopping again</item>
+        <item>homework 3</item>
+    </string-array>
+    
+	<string-array name="participants_array">
+        <item>a,b,b</item>
+        <item>a,b,b,g</item>
+        <item>a,b,b</item>
+        <item>a,b,b</item>
+        <item>a,b,b</item>
+        <item>a,b,b</item>
+        <item>a,b,b</item>
+        <item>a,b,b</item>
+        <item>a,b,b</item>
+        <item>a,b,b</item>
+    </string-array>
+    <string-array name="event_type_array">
+        <item>closed</item>
+        <item>open</item>
+        <item>closed</item>
+        <item>closed</item>
+        <item>closed</item>
+        <item>closed</item>
+        <item>closed</item>
+        <item>closed</item>
+        <item>closed</item>
+        <item>closed</item>
+    </string-array>
+    <string-array name="location_array">
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+        <item>Stata center, Building 32</item>
+    </string-array>
+    <string-array name="time_array">
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+        <item>16 45</item>
+    </string-array>
+    
+</resources>

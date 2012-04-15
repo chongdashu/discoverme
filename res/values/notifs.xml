@@ -1,0 +1,14 @@
+<resources>
+
+
+    <string-array name="notifs_array">
+        <item>you added a friend</item>
+        <item>someone added you as friend</item>
+        <item>Bobby invited you to event</item>
+        <item>you are still working</item>
+        <item>your project is not done yet</item>
+        <item>this is going on for ever </item>
+        <item>please shut up</item>
+    </string-array>
+    
+</resources>

@@ -32,11 +32,17 @@ public class GDDiscoverMeActivity extends Activity {
         next.setOnClickListener(onNextClick);
         
 		StateManager appState = ((StateManager) getApplicationContext());
-		appState.setFriendsFromHD();
-		appState.setDirectoryFromHD();
-		appState.setPendingRequestsFromHD();
-		appState.setPendingResponseFromHD();
-
+		// appState.setFriendsFromHD();
+		// appState.setDirectoryFromHD();
+		// appState.setPendingRequestsFromHD();
+		// appState.setPendingResponseFromHD();
+		//
+		// appState.setEventsFromHD();
+		// appState.setParticipantsFromHD();
+		// appState.setLocationsFromHD();
+		// appState.setEventTypeFromHD();
+		// appState.setTimeFromHD();
+		appState.start();
         // (culim) testing map
 		Intent intent = new Intent(GDDiscoverMeActivity.this,
 				HomepageActivity.class);
