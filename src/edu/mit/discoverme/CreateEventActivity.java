@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ public class CreateEventActivity extends Activity {
 
 	private EditText editTextParticipants;
 	private EditText editTextLocation;
+	private CheckedTextView check;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,8 @@ public class CreateEventActivity extends Activity {
 		next.setText("Send Invite");
 		next.setOnClickListener(onPublishClick);
 
-
+		check = (CheckedTextView) (findViewById(R.id.checkBox1));
+		check.setOnClickListener(onCheckTap);
 		// Set up listeners for "Selecting Participants"
 		EditText editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
 		editTextParticipants.setOnClickListener(onEditTextParticipantsClick);
@@ -113,6 +116,23 @@ public class CreateEventActivity extends Activity {
 					getString(R.string.publishEventMesg), Toast.LENGTH_SHORT)
 					.show();
 			finish();
+
+		}
+	};
+
+	private final OnClickListener onCheckTap = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			
+			if (!check.isChecked()) {
+				check.setChecked(true);
+				check.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+
+			} else {
+				check.setChecked(false);
+				check.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
+			}
 
 		}
 	};
