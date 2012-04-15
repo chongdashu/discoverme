@@ -5,14 +5,19 @@ import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchActivity extends ListActivity{
 	
@@ -20,6 +25,9 @@ public class SearchActivity extends ListActivity{
 	ArrayAdapter<String> adapter;
 	SearchActivity self;
 	String[] searchList;
+	String popup;
+	
+	ListView lv;
 	
 	
 	@Override
@@ -41,7 +49,7 @@ public class SearchActivity extends ListActivity{
 	    //get the popupCode that was passed in the intent to figure out
 	    //what list you are searching in at the moment
 	    Intent intent = getIntent();
-	    String popup = intent.getStringExtra("popupCode");
+	    popup = intent.getStringExtra("popupCode");
 	    
 	    if(popup.equals("friendss")){
 	    	searchList = getResources().getStringArray(R.array.friends_array);
@@ -55,12 +63,32 @@ public class SearchActivity extends ListActivity{
 	    
 	    
 	    searchBar = (EditText)(findViewById(R.id.searchInput));
-//	    searchBar.setOnKeyListener(onSearchInput);
 	    searchBar.addTextChangedListener(watcher);
-//	    adapter = new ArrayAdapter<String>(this, R.layout.list_item, searchList);
-//	    searchBar.setAdapter(adapter);
-//	    EditText search = (EditText) (findViewById(R.id.searchInput));
 	    
+	    lv = (ListView)findViewById(android.R.id.list);
+		lv.setBackgroundColor(Color.WHITE);
+		lv.setCacheColorHint(Color.WHITE);
+		lv.setTextFilterEnabled(true);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+				if (popup.equals("friendss")) {
+					Intent intent = new Intent(SearchActivity.this, ProfileActivity.class);
+					intent.putExtra("personName", ((TextView) view).getText());
+					startActivity(intent);
+
+					// finishActivity(-1);
+				} else if (popup.equals("eventss")) {
+					// this will actually go to view event page
+					Intent intent = new Intent(SearchActivity.this, CreateEventActivity.class);
+					intent.putExtra("eventName", ((TextView) view).getText());
+					startActivity(intent);
+
+				}
+
+			}
+		});
 
 	    
 	    
@@ -90,7 +118,7 @@ public class SearchActivity extends ListActivity{
 		    responses = results.toArray(responses);
 		    
 		    //display to the screen!
-			setListAdapter(new ArrayAdapter<String>(self, R.layout.list_item, responses));
+			lv.setAdapter(new ArrayAdapter<String>(self, R.layout.list_item, responses));
 			
 		}
 		
@@ -120,53 +148,7 @@ public class SearchActivity extends ListActivity{
 		}
 	};
 
-//	@Override
-//	public Filter getFilter() {
-//		// TODO Auto-generated method stub
-//		return new Filter(){
-//
-//			@Override
-//			protected FilterResults performFiltering(CharSequence constraint) {
-//				// TODO Auto-generated method stub
-//				List<String> filteredResults = getFilteredResults(constraint);
-//
-//                FilterResults results = new FilterResults();
-//                results.values = filteredResults;
-//
-//                return results;
-//			}
-//
-//			@SuppressWarnings("unchecked")
-//			@Override
-//			protected void publishResults(CharSequence constraint,
-//					FilterResults results) {
-//				// TODO Auto-generated method stub
-//				List<String>myData = (List<String>) results.values;
-//                ArrayAdapter<String>.this.notifyDataSetChanged();
-//			}
-//		};
-//	}
-	
-//	private final View.OnKeyListener onSearchInput = new View.OnKeyListener() {
-//
-//		@Override
-//		public boolean onKey(View v, int keyCode, KeyEvent event) {
-//			// TODO Auto-generated method stub
-//			searchBar.dismissDropDown();
-//			String[] results = new String[adapter.getCount()];
-//			for(int i = 0; i < adapter.getCount(); i++ ){
-//				results[i] = adapter.getItem(i);
-//			}
-////			setListAdapter(new ArrayAdapter<String>(self, R.layout.list_item,
-////					results));
-//			return false;
-//		}
-//	}; 
-	
-//	private static class FilterAdapter extends ArrayAdapter implements Filterable{
-//		
-//	}
-	
+
 	
 
 }
