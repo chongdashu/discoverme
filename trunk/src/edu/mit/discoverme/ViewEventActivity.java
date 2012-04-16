@@ -229,6 +229,7 @@ public class ViewEventActivity extends CreateEventActivity {
 			intent.putExtra("mode", SelectEventLocationActivity.MODE_VIEW);
 			intent.putExtra("lat", latE6);
 			intent.putExtra("lng", lngE6);
+			intent.putExtra("participants", participantsString);
 			startActivity(intent);
 
 		}
