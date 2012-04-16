@@ -5,128 +5,118 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="4" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    
-      <!--  (culim) Map View Stuff -->
-	
-	
-	
-    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+
+    <!-- (culim) Map View Stuff -->
+
     <application
-        android:name=".StateManager" 
+        android:name=".StateManager"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
             android:name=".GDDiscoverMeActivity"
-            android:label="@string/app_name" 
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:label="@string/app_name"
             android:noHistory="true"
-            android:screenOrientation="portrait">
-            
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <uses-library android:name="com.google.android.maps"  />
-	
-        
-        	<activity android:name=".MapTestActivity" 
-        	    android:label="HelloGmaps"
-     			android:theme="@android:style/Theme.NoTitleBar"/>
-        
-        
-        
+
+        <uses-library android:name="com.google.android.maps" />
+
         <activity
-        	android:name=".ViewNotificationActivity"
-         	android:label="ViewNotificationActivityLabel"/>
+            android:name=".MapTestActivity"
+            android:label="HelloGmaps"
+            android:theme="@android:style/Theme.NoTitleBar" 
+            android:screenOrientation="portrait"/>
         <activity
-        	android:name=".EventsActivity"
-         	android:label="EventsActivityLabel"/>
+            android:name=".EventsActivity"
+            android:screenOrientation="portrait"
+            android:label="EventsActivityLabel" />
         <activity
-        	android:name=".ViewEventsActivity"
-         	android:label="ViewEventsActivityLabel"/>
+            android:name=".ViewEventsActivity"
+            android:screenOrientation="portrait"
+            android:label="ViewEventsActivityLabel" />
         <activity
-        	android:name=".ViewParticipantsListActivity"
-         	android:label="ViewParticipantsListActivityLabel"/>
-         <activity
-             android:name = ".SuggestLocationsActivity"
-             android:label="SuggestLocationsLabel"/>
-         <activity
-        	android:name=".HomepageActivity"
-         	android:label="HomepageActivityLabel"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"
-         	android:screenOrientation="portrait"/>
-         <activity
-        	android:name=".ProfileActivity"
-         	android:label="ProfileActivityLabel"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"
-         	/>
-         <activity
-             android:name=".SearchActivity"
-             android:label="SearchActivityLabel"/>
-         <activity
-        	android:name=".DialogBoxActivity"
-         	android:label="Example Dialog Box"/>
-         
-         <activity
-        	android:name=".CreateEventActivity"
-         	android:label="Create An Event"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
-         
-          <activity
-        	android:name=".ViewEventActivity"
-         	android:label="View An Event"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
-          
-          <activity
-        	android:name=".ProposeEventChangeActivity"
-         	android:label="View An Event or Propose Change"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
-          
-          
-         
-         <activity
-        	android:name=".SelectEventLocationActivity"
-         	android:label="Select Event location"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
-         
-         <activity
-        	android:name=".ParticipantListingActivity"
-         	android:label="Select participants"
-         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
-        
-        
-         <activity
-        	android:name=".EthanActivity"
-         	android:label="Ethan's First Activity"/>
-        
+            android:name=".ViewParticipantsListActivity"
+            android:screenOrientation="portrait"
+            android:label="ViewParticipantsListActivityLabel" />
         <activity
-        	android:name=".InfoTabActivity"
-         	android:label="@string/general_info_label"/>
+            android:name=".SuggestLocationsActivity"
+            android:screenOrientation="portrait"
+            android:label="SuggestLocationsLabel" />
+        <activity
+            android:name=".HomepageActivity"
+            android:label="HomepageActivityLabel"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait"
+            android:label="ProfileActivityLabel"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".SearchActivity"
+            android:screenOrientation="portrait"
+            android:label="SearchActivityLabel" />
+        <activity
+            android:name=".DialogBoxActivity"
+            android:screenOrientation="portrait"
+            android:label="Example Dialog Box" />
+        <activity
+            android:name=".CreateEventActivity"
+            android:screenOrientation="portrait"
+            android:label="Create An Event"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".ViewEventActivity"
+            android:screenOrientation="portrait"
+            android:label="View An Event"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".ProposeEventChangeActivity"
+            android:screenOrientation="portrait"
+            android:label="View An Event or Propose Change"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".SelectEventLocationActivity"
+            android:label="Select Event location"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".ParticipantListingActivity"
+            android:screenOrientation="portrait"
+            android:label="Select participants"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".EthanActivity"
+            android:screenOrientation="portrait"
+            android:label="Ethan&apos;s First Activity" />
+        <activity
+            android:name=".InfoTabActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/general_info_label" />
         <activity android:name=".WebContentActivity" />
         <activity android:name=".AboutActivity" />
-        
-        
         <activity android:name=".BasicItemActivity" />
         <activity android:name=".XmlItemActivity" />
-        	
-            
         <activity android:name=".SegmentedActivity" />
-		<activity android:name=".ActionBarActivity" />
+        <activity android:name=".ActionBarActivity" />
         <activity android:name=".TabbedActionBarActivity" />
         <activity android:name=".TabbedActionBarActivity$FakeActivity" />
-        	
         <activity android:name=".QuickActionActivity" />
         <activity android:name=".SimpleAsyncImageViewActivity" />
-		<activity android:name=".AsyncImageViewListActivity" />
-		
-		<activity android:name=".MapPinMapActivity" />
-		<activity android:name=".PagedScrollViewActivity" />
-		<activity android:name=".PagedViewActivity" />
+        <activity android:name=".AsyncImageViewListActivity" />
+        <activity android:name=".MapPinMapActivity" />
+        <activity android:name=".PagedScrollViewActivity" />
+        <activity android:name=".PagedViewActivity" />
     </application>
 
 </manifest>
