@@ -36,6 +36,8 @@ public class StateManager extends Application {
 		setEventsFromHD();
 		setParticipantsFromHD();
 		setLocationsFromHD();
+		setLocationsLATfromHD();
+		setLocationsLNGfromHD();
 		setEventTypeFromHD();
 		setTimeFromHD();
 		setEventOriginatorFromHD();

@@ -51,8 +51,11 @@ public class SelectEventLocationActivity extends MapActivity {
 		next.setVisibility(View.INVISIBLE);
 		next.setOnClickListener(onDoneClick);
 		
+		readOnly = getIntent().getBooleanExtra("readOnly", false);
+		
 		if (readOnly){
-			// latE6 = getIntent().getIntExtra(name, defaultValue);
+			latE6 = getIntent().getIntExtra("lat", (int)(42.360383));
+			lngE6 = getIntent().getIntExtra("lng", (int)(-71.090899));
 		}
 
 		initializeMap();
@@ -146,12 +149,6 @@ public class SelectEventLocationActivity extends MapActivity {
 				drawable, this);
 		mapOverlays.add(selectLocationOverlay);
 		
-		if (readOnly){
-			GeoPoint loc = new GeoPoint(latE6, lngE6);
-			OverlayItem locItem = new OverlayItem(loc, "", "");
-			selectLocationOverlay.addOverlay(locItem);
-		}
-
 		// Add the user overlay
 		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,
 				mapView);
@@ -176,6 +173,16 @@ public class SelectEventLocationActivity extends MapActivity {
 			);
 			friendsOverlay.addOverlay(item);
 			f++;
+		}
+		
+		// Handle read-only mode
+		if (readOnly){
+			GeoPoint loc = new GeoPoint(latE6, lngE6);
+			OverlayItem locItem = new OverlayItem(loc, "", "");
+			mapController.animateTo(loc);
+			selectLocationOverlay.addOverlay(locItem);
+			
+			drawMapLinesTo(loc);
 		}
 	}
 
