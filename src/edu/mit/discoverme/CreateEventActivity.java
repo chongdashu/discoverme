@@ -81,7 +81,7 @@ public class CreateEventActivity extends Activity {// implements
 		food = (ImageButton) findViewById(R.id.foodButton);
 		silence = (ImageButton) findViewById(R.id.silenceButton);
 		it = (ImageButton) findViewById(R.id.itButton);
-		locationSuggestionLabel = (TextView) findViewById(R.id.textView2);
+		locationSuggestionLabel = (TextView) findViewById(R.id.locations_req_text);
 
 		food.setOnClickListener(onFoodRequestClick);
 		silence.setOnClickListener(onSilenceRequestClick);
