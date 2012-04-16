@@ -353,6 +353,9 @@ public class HomepageActivity extends MapActivity {
 			stateManager.userGeoPoint = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		}
+		
+		stateManager.userLat = lat;
+		stateManager.userLon = lng;
 
 		// Pan to user's current location
 		mapController.setZoom(18);
