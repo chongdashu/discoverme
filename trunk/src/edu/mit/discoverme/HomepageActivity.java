@@ -129,6 +129,20 @@ public class HomepageActivity extends MapActivity {
 						startActivity(intent);
 
 					} else if (notificationType == 2) {
+						Intent i2 = new Intent(HomepageActivity.this, ProposeEventChangeActivity.class);
+						
+						i2.putExtra("eventTitle", "Quick snack!");
+						
+						String[] participants = {"Ann", "Bob"};
+						i2.putExtra("participants", participants);
+						
+						i2.putExtra("timeHrs", 5);
+						i2.putExtra("timeMins",30);
+						
+						i2.putExtra("locationName", "MIT");
+						
+						startActivity(i2);
+						
 					// Intent i1 = new Intent(ViewNotificationActivity.this,
 					// ViewEventActivity.class);
 					// i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

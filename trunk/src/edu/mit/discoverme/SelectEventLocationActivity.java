@@ -29,6 +29,11 @@ import com.google.android.maps.OverlayItem;
 
 public class SelectEventLocationActivity extends MapActivity {
 
+	
+	public static final int MODE_NORMAL = 0;
+	public static final int MODE_VIEW = 1;
+	public static final int MODE_PROPOSE = 2;
+	
 	protected MapView mapView;
 	protected SelectEventLocationItemizedOverlay selectLocationOverlay;
 	protected String selectedLocation;
@@ -36,7 +41,8 @@ public class SelectEventLocationActivity extends MapActivity {
 	protected String locationLat;
 	protected SelectEventLocationLinesOverlay linesOverlay;
 	protected Vector<GeoPoint> friendpoints;
-	protected boolean readOnly;
+	// protected boolean readOnly;
+	protected int mode;
 	protected int latE6;
 	protected int lngE6;
 
@@ -53,11 +59,12 @@ public class SelectEventLocationActivity extends MapActivity {
 		next.setVisibility(View.INVISIBLE);
 		next.setOnClickListener(onDoneClick);
 		
-		readOnly = getIntent().getBooleanExtra("readOnly", false);
+		// readOnly = getIntent().getBooleanExtra("readOnly", false);
+		mode = getIntent().getIntExtra("mode", MODE_NORMAL);
 		
-		if (readOnly){
-			latE6 = getIntent().getIntExtra("lat", (int)(42.360383));
-			lngE6 = getIntent().getIntExtra("lng", (int)(-71.090899));
+		if (mode == MODE_VIEW || mode == MODE_PROPOSE) {
+			latE6 = getIntent().getIntExtra("lat", (int)(42.360383*1000000));
+			lngE6 = getIntent().getIntExtra("lng", (int)(-71.090899*1000000));
 		}
 
 		initializeMap();
@@ -181,7 +188,7 @@ public class SelectEventLocationActivity extends MapActivity {
 		}
 		
 		// Handle read-only mode
-		if (readOnly){
+		if (mode == MODE_VIEW || mode == MODE_PROPOSE){
 			GeoPoint loc = new GeoPoint(latE6, lngE6);
 			OverlayItem locItem = new OverlayItem(loc, "", "");
 			mapController.animateTo(loc);

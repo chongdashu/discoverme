@@ -48,9 +48,17 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 	@Override
 	public boolean onTap(final GeoPoint p, final MapView mapView) {
 		boolean tapped = super.onTap(p, mapView);
-		if (!tapped && mOverlays.size() == 0) {
-			 final OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", "Building 32, Stata Center");
-			 addOverlay(overlayitem);
+		final Activity activity = (Activity)(mContext);
+		final SelectEventLocationActivity selectEventActivity = (SelectEventLocationActivity)activity;
+		
+		if (!tapped && (mOverlays.size() == 0 || selectEventActivity.mode == SelectEventLocationActivity.MODE_PROPOSE) ) {
+			 
+			if (mOverlays.size() > 0) {
+				mOverlays.clear();
+			}
+			
+			final OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", "Building 32, Stata Center");
+			addOverlay(overlayitem);
 			 
 			 MapController mapController = mapView.getController();
 			 mapController.animateTo(p);
@@ -70,14 +78,13 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
   	        	   
   	        	   dialog.dismiss();
   	        	   
-  	        	   Activity activity = (Activity)(mContext);
+  	        	   
   	        	   LinearLayout confirmationArea = (LinearLayout)(activity.findViewById(R.id.select_event_location_confirmation_area));
   	        	   confirmationArea.setVisibility(View.VISIBLE);
   	        	   
   	        	   TextView tv = (TextView)(activity.findViewById(R.id.select_event_location_name));
   	        	   tv.setText(selectedLocationName);
   	        	   
-  	        	   SelectEventLocationActivity selectEventActivity = (SelectEventLocationActivity)activity;
 									selectEventActivity.setSelectionlocation(
 											selectedLocationName,
 											((float) p.getLatitudeE6()) / 1000000,

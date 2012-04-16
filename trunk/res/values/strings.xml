@@ -82,6 +82,9 @@
     <string name="addPendingNoMesg"> Declined Friend Request </string>
     <string name="publishEventMesg"> Event Invitation is Sent to all participants</string>
     <string name="cancelEventMsg">Event deleted. Participants have been notified.</string>
-    
+    <string name="proposedChangeEventMsg">Your proposed changed has been sent.</string>
+    <string name="RSVPEventMsgAccept">Your acceptance of the event has been sent.</string>
+    <string name="RSVPEventMsgDecline">You have declined the event.</string>
+     <string name="closedEventNoEdit">This is closed event.\nYou are not allowed to modify the participants.</string>
     
 </resources>

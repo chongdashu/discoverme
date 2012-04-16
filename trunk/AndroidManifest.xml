@@ -81,6 +81,13 @@
         	android:name=".ViewEventActivity"
          	android:label="View An Event"
          	android:theme="@android:style/Theme.Black.NoTitleBar"/>
+          
+          <activity
+        	android:name=".ProposeEventChangeActivity"
+         	android:label="View An Event or Propose Change"
+         	android:theme="@android:style/Theme.Black.NoTitleBar"/>
+          
+          
          
          <activity
         	android:name=".SelectEventLocationActivity"
