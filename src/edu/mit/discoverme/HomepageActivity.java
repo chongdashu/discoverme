@@ -334,7 +334,9 @@ public class HomepageActivity extends MapActivity {
 		String bestProvider = locationManager.getBestProvider(criteria, true);
 
 		Location locLast = locationManager.getLastKnownLocation(bestProvider);
-		GeoPoint test;
+		StateManager stateManager = (StateManager) getApplicationContext();
+		
+		// GeoPoint test;
 
 		float lat = 42.360383f;
 		float lng = -71.090899f;
@@ -342,19 +344,19 @@ public class HomepageActivity extends MapActivity {
 			lat = (float) locLast.getLatitude();
 			lng = (float) locLast.getLongitude();
 
-			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+			stateManager.userGeoPoint = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		} else {
 			lat = 42.360383f;
 			lng = -71.090899f;
 
-			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+			stateManager.userGeoPoint = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		}
 
 		// Pan to user's current location
 		mapController.setZoom(18);
-		mapController.animateTo(test);
+		mapController.animateTo(stateManager.userGeoPoint);
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
 
@@ -362,9 +364,10 @@ public class HomepageActivity extends MapActivity {
 		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,
 				mapView);
 		mapOverlays.add(itemizedoverlay);
-
-		OverlayItem overlayitem = new OverlayItem(test, "Chong-U Lim",
-				getAddressAt(test));
+		
+		stateManager.userAddress = getAddressAt(stateManager.userGeoPoint);
+		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint, stateManager.userName,
+				stateManager.userAddress);
 		itemizedoverlay.addOverlay(overlayitem);
 
 		// Create overlay for Friends
@@ -373,11 +376,15 @@ public class HomepageActivity extends MapActivity {
 		mapOverlays.add(friendsOverlay);
 
 		String[] friends = getResources().getStringArray(R.array.friends_array);
-		Vector<GeoPoint> friendpoints = getRandomGeopointsAround(lat, lng, 5);
+		stateManager.friendPoints = getRandomGeopointsAround(lat, lng, 5);
+		stateManager.friendAddresses = new Vector<String>();
 		int f = 0;
-		for (GeoPoint geoPoint : friendpoints) {
-			OverlayItem item = new OverlayItem(geoPoint, friends[f],
-					getAddressAt(geoPoint));
+		for (GeoPoint geoPoint : stateManager.friendPoints) {
+			
+			String address = getAddressAt(geoPoint);
+			stateManager.friendAddresses.add(address);
+			
+			OverlayItem item = new OverlayItem(geoPoint, friends[f], address);
 			friendsOverlay.addOverlay(item);
 			f++;
 		}
