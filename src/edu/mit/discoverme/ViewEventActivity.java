@@ -79,6 +79,8 @@ public class ViewEventActivity extends CreateEventActivity {
 		
 		setAllEnabled();
 		
+		activityTitle.setText(R.string.activityTitleEventView);
+		
 		editTextTitle.setText(eventTitle);
 		editTextParticipants.setText(Utils.foldParticipantsList(participants));
 		if (closedEvent) {

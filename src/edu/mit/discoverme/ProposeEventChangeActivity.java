@@ -146,11 +146,13 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 			next.setText("Propose Change");
 			back.setText("Cancel");
 			proposeChangeArea.setVisibility(View.GONE);
+			activityTitle.setText(R.string.activityTitleEventPropose);
 		}
 		else {
 			next.setText("RSVP");
 			back.setText("Back");
 			proposeChangeArea.setVisibility(View.VISIBLE);
+			activityTitle.setText(R.string.activityTitleEventRSVP);
 		}
 	}
 	
