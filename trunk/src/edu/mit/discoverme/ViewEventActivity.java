@@ -169,6 +169,7 @@ public class ViewEventActivity extends CreateEventActivity {
 									 appState.setLocationsLAT(newLocationLAT);
 									 appState.setTime(newTime);
 									 appState.setEventType(newType);
+									appState.setEventOriginator(newOrig);
 									// end of deleting entry
 	    	        	   Toast.makeText(getApplicationContext(),
 	    	   					getString(R.string.cancelEventMsg), Toast.LENGTH_SHORT)
