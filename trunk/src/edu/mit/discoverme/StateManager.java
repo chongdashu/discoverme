@@ -47,8 +47,6 @@ public class StateManager extends Application {
 	public void start() {
 		setFriendsFromHD();
 		setDirectoryFromHD();
-		setPendingRequestsFromHD();
-		setPendingResponseFromHD();
 
 		setEventsFromHD();
 		setParticipantsFromHD();
@@ -65,31 +63,6 @@ public class StateManager extends Application {
 		eventDone = 0;
 	}
 	/* people thing implemented below */
-	public String[] getPendingReq() {
-		return pendingReq;
-	}
-
-	public void setPendingRequestsFromHD() {
-		this.pendingReq = getResources().getStringArray(
-				R.array.pending_request_array);
-	}
-
-	public void setPendingReq(String[] pendingReq) {
-		this.pendingReq = pendingReq;
-	}
-
-	public String[] getPendingRes() {
-		return pendingRes;
-	}
-
-	public void setPendingResponseFromHD() {
-		this.pendingRes = getResources().getStringArray(
-				R.array.pending_response_array);
-	}
-
-	public void setPendingRes(String[] pendingRes) {
-		this.pendingRes = pendingRes;
-	}
 
 	public void setDirectoryFromHD() {
 		this.directory_names = getResources()
