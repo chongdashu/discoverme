@@ -2,25 +2,26 @@ package edu.mit.discoverme;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.widget.Toast;
 
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class HomepageMapOverlay extends BalloonItemizedOverlay<OverlayItem> {
+public class RecommendedLocationsOverlay extends BalloonItemizedOverlay<OverlayItem> {
 
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context mContext;
 
-	public HomepageMapOverlay(Context context, MapView mapView) {
-		super(boundCenterBottom(context.getResources().getDrawable(R.drawable.marker)), mapView);
+	public RecommendedLocationsOverlay(Context context, MapView mapView) {
+		super(boundCenterBottom(context.getResources().getDrawable(R.drawable.marker3)), mapView);
 		populate();
 		mContext = context;
 	}
 	
-	public HomepageMapOverlay(Drawable defaultMarker, Context context, MapView mapView) {
+	public RecommendedLocationsOverlay(Drawable defaultMarker, Context context, MapView mapView) {
 		super(boundCenterBottom(defaultMarker), mapView);
 		populate();
 		mContext = context;
@@ -45,6 +46,9 @@ public class HomepageMapOverlay extends BalloonItemizedOverlay<OverlayItem> {
 	protected boolean onBalloonTap(int index) {
 		//Toast.makeText(mContext, "onBalloonTap for overlay index " + index,
 		//		Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(mContext, SuggestLocationsActivity.class);
+		Activity act = (Activity) mContext;
+		act.startActivity(intent);
 		return true;
 	}
 

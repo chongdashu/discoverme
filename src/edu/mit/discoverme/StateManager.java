@@ -11,6 +11,8 @@ public class StateManager extends Application {
 	// user info
 	public String userName = "John Doe";
 	public GeoPoint userGeoPoint;
+	public float userLat;
+	public float userLon;
 	public String userAddress;
 	public Vector<GeoPoint> friendPoints;
 	public Vector<String> friendAddresses;

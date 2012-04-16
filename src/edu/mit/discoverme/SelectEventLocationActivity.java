@@ -201,6 +201,21 @@ public class SelectEventLocationActivity extends MapActivity {
 			
 			drawColorMapLinesTo(loc);
 		}
+		
+		// Recommendations
+		if (mode == MODE_NORMAL) {
+			float lat = stateManager.userLat * 1000000 + 200 * (float) (Math.random());
+			float lng = stateManager.userLon * 1000000 + 200 * (float) (Math.random());
+			
+			GeoPoint recPoint = new GeoPoint((int)(lat), (int)(lng));
+			
+			RecommendedLocationsOverlay recommendedOverlay = new RecommendedLocationsOverlay(this,
+					mapView);
+			mapOverlays.add(recommendedOverlay);
+
+			OverlayItem recItem = new OverlayItem(recPoint, "Phil's Cafe and Meeting Center", "100 Vassar St");
+			recommendedOverlay.addOverlay(recItem);
+		}
 	}
 
 	private String getAddressAt(GeoPoint p) {
