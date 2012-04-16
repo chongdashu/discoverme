@@ -3,22 +3,29 @@ package edu.mit.discoverme;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CreateEventActivity extends Activity {
+public class CreateEventActivity extends Activity {// implements
+													// OnClickListener{
 
 	Button next;
 	Button back;
-	
+
 	protected EditText editTextTitle;
 	protected EditText editTextParticipants;
 	protected EditText editTextLocation;
@@ -30,11 +37,16 @@ public class CreateEventActivity extends Activity {
 	protected LinearLayout proposeChangeArea;
 	protected TextView activityTitle;
 
+	protected ImageButton food;
+	protected ImageButton silence;
+	protected ImageButton it;
+	
+	Boolean[] selection = {false, false, false}; //[0]: food, [1]: silence, [2]: it
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_event);
-		
+
 		back = (Button) (findViewById(R.id.backButton));
 		back.setText("Back");
 		back.setOnClickListener(onCancelClick);
@@ -50,8 +62,8 @@ public class CreateEventActivity extends Activity {
 		check.setOnClickListener(onCheckTap);
 
 		// Set up the "Event Title"
-		editTextTitle = (EditText)(findViewById(R.id.create_event_editview_title));
-		
+		editTextTitle = (EditText) (findViewById(R.id.create_event_editview_title));
+
 		// Set up listeners for "Selecting Participants"
 		editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
 		editTextParticipants.setOnClickListener(onEditTextParticipantsClick);
@@ -59,15 +71,34 @@ public class CreateEventActivity extends Activity {
 		// Set up listeners for "Selecting Location"
 		editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
 		editTextLocation.setOnClickListener(onEditTextLocationClick);
-		
-		proposeChange = (Button)(findViewById(R.id.create_event_propose_change_button));
-		proposeChangeArea = (LinearLayout)(findViewById(R.id.create_event_propose_change_area));
+
+		proposeChange = (Button) (findViewById(R.id.create_event_propose_change_button));
+		proposeChangeArea = (LinearLayout) (findViewById(R.id.create_event_propose_change_area));
 
 		// Set up the Time Picker
 		timePicker = (CustomTimePicker) (findViewById(R.id.create_event_timepicker));
 		Date date = new Date();
 		timePicker.setCurrentHour(date.getHours());
 		timePicker.setCurrentMinute(date.getMinutes());
+
+		// get buttons
+		food = (ImageButton) findViewById(R.id.foodButton);
+		silence = (ImageButton) findViewById(R.id.silenceButton);
+		it = (ImageButton) findViewById(R.id.itButton);
+
+		food.setOnClickListener(onFoodRequestClick);
+		silence.setOnClickListener(onSilenceRequestClick);
+		it.setOnClickListener(onITRequestClick);
+
+		// friends = getResources().getStringArray(R.array.friends_array);
+
+		// selected = new int[friends.length];
+
+		// ListView l = (ListView) findViewById(R.id.meeting_reqs_view);
+		// l.setBackgroundColor(Color.WHITE);
+		// l.setCacheColorHint(Color.WHITE);
+		// l.setAdapter(new MyAdapter(this, R.layout.suggested_location,
+		// meetingReqs));
 
 	}
 
@@ -80,9 +111,8 @@ public class CreateEventActivity extends Activity {
 				String location = data.getStringExtra("LocationName");
 				locationLat = data.getStringExtra("LocationLat");
 				locationLng = data.getStringExtra("LocationLat");
-				
-				
-				editTextLocation = (EditText)(findViewById(R.id.create_event_edittext_location));
+
+				editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
 				editTextLocation.setText(location);
 			}
 			break;
@@ -236,7 +266,7 @@ public class CreateEventActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			
+
 			if (!check.isChecked()) {
 				check.setChecked(true);
 				check.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
@@ -248,5 +278,113 @@ public class CreateEventActivity extends Activity {
 
 		}
 	};
+
+	private final OnClickListener onFoodRequestClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			selection[0] = !selection[0];
+			if(selection[0]){
+				food.setImageResource(R.drawable.food_pressed);
+			}else{
+				food.setImageResource(R.drawable.food);
+			}
+		}
+	};
+
+	private final OnClickListener onSilenceRequestClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			selection[1] = !selection[1];
+			if(selection[1]){
+				silence.setImageResource(R.drawable.silence_pressed);
+			}else{
+				silence.setImageResource(R.drawable.silence);
+			}
+		}
+	};
+
+	private final OnClickListener onITRequestClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			selection[2] = !selection[2];
+			if(selection[2]){
+				it.setImageResource(R.drawable.wifi_pressed);
+			}else{
+				it.setImageResource(R.drawable.wifi);
+			}
+		}
+	};
+
+	// private final void getSelected() {
+	// if (selected != null && friends != null) {
+	// selectedList = "";
+	// for (int i = 0; i < selected.length; i++) {
+	// if (selected[i] == 1)
+	// selectedList = selectedList + friends[i] + ", ";
+	//
+	// }
+	// } else
+	// selectedList = "84038y";
+	// }
+
+	// @Override
+	// public void onClick(View v) {
+	// // get the CheckedTextView
+	// CheckedTextView ct = mCheckedList.get(v.getTag());
+	// if (ct != null) {
+	// // change the state and colors
+	// ct.toggle();
+	// if (ct.isChecked()) {
+	// ct.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+	// selection[(Integer)v.getTag()] = 1;
+	// } else {
+	// ct.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
+	// selection[(Integer)v.getTag()] = 0;
+	// }
+	// // add current state to map
+	// mIsChecked.put((Integer) v.getTag(), ct.isChecked());
+	// }
+	// }
+	//
+	// private class MyAdapter extends ArrayAdapter<String> {
+	//
+	// private String[] items;
+	//
+	// public MyAdapter(Context context, int textViewResourceId, String[] items)
+	// {
+	// super(context, textViewResourceId, items);
+	// this.items = items;
+	// }
+	//
+	// public View getView(final int position, View view, ViewGroup parent) {
+	// LayoutInflater vi =
+	// (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	// view = vi.inflate(R.layout.suggested_location, null);
+	//
+	// CheckedTextView ct = (CheckedTextView)
+	// view.findViewById(R.id.suggested_locations_view);
+	// ct.setText(items[position]);
+	// if (mIsChecked.get(position) != null) {
+	// if (mIsChecked.get(position)) {
+	// ct.setChecked(true);
+	// ct.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+	// } else {
+	// ct.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
+	// }
+	// }
+	// // tag it
+	// ct.setTag(position);
+	// mCheckedList.put(position, ct);
+	// ct.setOnClickListener(CreateEventActivity.this);
+	//
+	// return view;
+	// }
+	// }
 
 }
