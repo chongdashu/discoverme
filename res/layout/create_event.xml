@@ -116,6 +116,40 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suggested locations must have:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black" />
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageButton
+                    android:id="@+id/foodButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="30dp"
+                    android:src="@drawable/food" />
+
+                <ImageButton
+                    android:id="@+id/silenceButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="30dp"
+                    android:src="@drawable/silence" />
+
+                <ImageButton
+                    android:id="@+id/itButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="30dp"
+                    android:src="@drawable/wifi" />
+            </LinearLayout>
+
+            <TextView
                 android:id="@+id/create_event_textview_starttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,30 +169,6 @@
 <!--                 android:layout_height="fill_parent" > -->
 
 <!--             </ListView> -->
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageButton
-                    android:id="@+id/foodButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/food" />
-
-                <ImageButton
-                    android:id="@+id/silenceButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/silence" />
-
-                <ImageButton
-                    android:id="@+id/itButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/wifi" />
-
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
