@@ -51,6 +51,7 @@
         <activity
             android:name=".SuggestLocationsActivity"
             android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" 
             android:label="SuggestLocationsLabel" />
         <activity
             android:name=".HomepageActivity"
