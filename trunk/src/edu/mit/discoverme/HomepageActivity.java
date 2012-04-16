@@ -133,7 +133,7 @@ public class HomepageActivity extends MapActivity {
 						
 						i2.putExtra("eventTitle", "Quick snack!");
 						
-						String[] participants = {"Ann", "Bob"};
+						String[] participants = { "annie", "henna" };
 						i2.putExtra("participants", participants);
 						
 						i2.putExtra("timeHrs", 5);
