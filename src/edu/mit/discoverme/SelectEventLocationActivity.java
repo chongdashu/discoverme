@@ -6,14 +6,10 @@ import java.util.Locale;
 import java.util.Vector;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -89,6 +85,16 @@ public class SelectEventLocationActivity extends MapActivity {
 		linesOverlay = new SelectEventLocationLinesOverlay(target, friendpoints);
 		mapView.getOverlays().add(linesOverlay);
 	}
+	
+	public void drawColorMapLinesTo(GeoPoint target)
+	{
+		if (linesOverlay != null) {
+			mapView.getOverlays().remove(linesOverlay);
+		}
+		
+		linesOverlay = new SelectEventLocationLinesOverlayColor(target, friendpoints);
+		mapView.getOverlays().add(linesOverlay);
+	}
 
 	private void initializeConfirmationArea() {
 
@@ -136,8 +142,8 @@ public class SelectEventLocationActivity extends MapActivity {
 //
 //		Location locLast = locationManager.getLastKnownLocation(bestProvider);
 		// GeoPoint test;
-		float lat;
-		float lng;
+//		float lat;
+//		float lng;
 //		if (locLast != null) {
 //			lat = (float) locLast.getLatitude();
 //			lng = (float) locLast.getLongitude();
@@ -193,7 +199,7 @@ public class SelectEventLocationActivity extends MapActivity {
 			mapController.animateTo(loc);
 			selectLocationOverlay.addOverlay(locItem);
 			
-			drawMapLinesTo(loc);
+			drawColorMapLinesTo(loc);
 		}
 	}
 
