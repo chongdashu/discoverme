@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateEventActivity extends Activity {
@@ -27,6 +28,7 @@ public class CreateEventActivity extends Activity {
 	protected CustomTimePicker timePicker;
 	protected Button proposeChange;
 	protected LinearLayout proposeChangeArea;
+	protected TextView activityTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,9 @@ public class CreateEventActivity extends Activity {
 		next = (Button) (findViewById(R.id.nextButton));
 		next.setText("Send Invite");
 		next.setOnClickListener(onPublishClick);
+		
+		activityTitle = (TextView) findViewById(R.id.navbar_title);
+		activityTitle.setText(R.string.activityTitleEventCreateNew);
 
 		check = (CheckedTextView) (findViewById(R.id.checkBox1));
 		check.setOnClickListener(onCheckTap);
