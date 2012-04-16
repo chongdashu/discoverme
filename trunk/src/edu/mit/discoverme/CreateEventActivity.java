@@ -150,9 +150,12 @@ public class CreateEventActivity extends Activity {
 			String[] locationLAT = appState.getLocationsLAT();//
 			String[] time = appState.getTime();//
 			String[] type = appState.getEventType();//
+			String[] eventOriginator = appState.getEventOriginator();
 
 			String stC = getString(R.string.typeClosed);
 			String stO = getString(R.string.typeOpen);
+
+			String stM = getString(R.string.typeMe);
 
 			String[] newEvents = new String[events.length + 1];
 			String[] newParticipants = new String[events.length + 1];
@@ -161,6 +164,7 @@ public class CreateEventActivity extends Activity {
 			String[] newLocationLAT = new String[events.length + 1];
 			String[] newTime = new String[events.length + 1];
 			String[] newType = new String[events.length + 1];
+			String[] newOrig = new String[events.length + 1];
 
 			newEvents[0] = (editTextTitle.getText()).toString();
 			newParticipants[0] = (editTextParticipants.getText()).toString();
@@ -174,6 +178,7 @@ public class CreateEventActivity extends Activity {
 			else
 				newType[0] = stO;
 			
+			newOrig[0] = stM;
 			
 			for (int i = 0; i < events.length; i++) {
 				newEvents[i + 1] = events[i];
@@ -183,6 +188,7 @@ public class CreateEventActivity extends Activity {
 				newLocationLAT[i + 1] = locationLAT[i];
 				newTime[i + 1] = time[i];
 				newType[i + 1] = type[i];
+				newOrig[i + 1] = eventOriginator[i];
 			}
 
 			appState.setEvents(newEvents);
@@ -192,6 +198,7 @@ public class CreateEventActivity extends Activity {
 			appState.setLocationsLAT(newLocationLAT);
 			appState.setTime(newTime);
 			appState.setEventType(newType);
+			appState.setEventOriginator(eventOriginator);
 
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.publishEventMesg), Toast.LENGTH_SHORT)
