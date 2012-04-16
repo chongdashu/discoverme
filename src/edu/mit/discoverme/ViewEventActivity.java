@@ -65,8 +65,9 @@ public class ViewEventActivity extends CreateEventActivity {
 		timeMins = Integer.valueOf(arg[1]);
 
 		locationName = locations[eventID];
-		latE6 = (int) ((float) Float.valueOf(locations_lat[eventID]));
-		lngE6 = (int) ((float) Float.valueOf(locations_lng[eventID]));
+		latE6 = (int) (((float) Float.valueOf(locations_lat[eventID]))*1000000);
+		lngE6 = (int) (((float) Float.valueOf(locations_lng[eventID]))*1000000);
+		
 		inititialize();
 
 	}
@@ -75,7 +76,7 @@ public class ViewEventActivity extends CreateEventActivity {
 		
 		next.setVisibility(View.INVISIBLE);
 		
-		setAllEnabled(false);
+		setAllEnabled();
 		
 		editTextTitle.setText(eventTitle);
 		editTextParticipants.setText(Utils.foldParticipantsList(participants));
@@ -102,6 +103,7 @@ public class ViewEventActivity extends CreateEventActivity {
 			proposeChange.setVisibility(View.INVISIBLE);
 		proposeChange.setText(R.string.cancelEventButtonText);
 
+		
 	}
 	
 	protected OnClickListener onProposeChangeClick = new OnClickListener() {
@@ -137,11 +139,11 @@ public class ViewEventActivity extends CreateEventActivity {
 		}
 	}; 
 	
-	protected void setAllEnabled(boolean enabled) 
+	protected void setAllEnabled() 
 	{
 		editTextTitle.setFocusable(false);
 		// editTextLocation.setFocusable(false);
-		editTextLocation.setOnClickListener(onEditTextLocationClick);
+		// editTextLocation.setOnClickListener(onEditTextLocationClick);
 
 		// editTextParticipants.setFocusable(false);
 		editTextParticipants.setOnClickListener(onEditTextParticipantsClick);
@@ -149,7 +151,8 @@ public class ViewEventActivity extends CreateEventActivity {
 		timePicker.setFocusable(false);
 		
 		editTextTitle.setEnabled(false);
-		editTextLocation.setEnabled(false);
+		editTextLocation.setOnClickListener(onEditTextLocationClick);
+		// editTextLocation.setEnabled(false);
 		editTextParticipants.setEnabled(true);
 		check.setEnabled(false);
 		timePicker.setEnabled(false);
@@ -172,13 +175,12 @@ public class ViewEventActivity extends CreateEventActivity {
 	private final OnClickListener onEditTextLocationClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			// Do something when "Select Location" is clicked.
-
 			// We launch the "Select Location from Map Activity"
-			Intent intent = new Intent(ViewEventActivity.this,
-					SelectEventLocationActivity.class);
-			// intent.putExtra("popupCode", "eventss");
-			startActivityForResult(intent, 1000);
+			Intent intent = new Intent(ViewEventActivity.this, SelectEventLocationActivity.class);
+			intent.putExtra("readOnly", true);
+			intent.putExtra("lat", latE6);
+			intent.putExtra("lng", lngE6);
+			startActivity(intent);
 
 		}
 	};

@@ -50,28 +50,29 @@
         <item>Stata center, Building 32</item>
     </string-array>
     <string-array name="location_lng_array">
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
-        <item>42.360383</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        <item>-71.090899</item>
+        
     </string-array>
     <string-array name="location_lat_array">
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
-        <item>-71.090899</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
+      <item>42.360383</item>
     </string-array>
     <string-array name="time_array">
         <item>16 45</item>
