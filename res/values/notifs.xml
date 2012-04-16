@@ -1,29 +1,29 @@
 <resources>
     <string-array name="notifs_array">
-        <item>you added a friend</item>
-        <item>someone added you as friend</item>
-        <item>Bobby invited you to event</item>
-        <item>you are still working</item>
-        <item>your project is not done yet</item>
-        <item>this is going on for ever </item>
-        <item>please shut up</item>
+        <item>George added you as friend</item>
+        <item>Henna added you as friend</item>
+        <item>Iram invited you to event</item>
+        <item>Zain invited you to an event</item>
+        <item>Karl added you as friend</item>
+        <item>Laila added you as friend</item>
+        <item>Omer added you as friend</item>
     </string-array>
     <string-array name="notifs_names_array">
-        <item>anne</item>
-        <item>coffee</item>
-        <item>bobby</item>
+        <item>george</item>
+        <item>henna</item>
+        <item>iram</item>
         <item>dinner</item>
-        <item>sonny</item>
-        <item>homework</item>
-        <item>bob</item>
+        <item>karl</item>
+        <item>laila</item>
+        <item>omer</item>
     </string-array>
     <integer-array name="notif_type_array">
         <item>1</item>
-        <item>2</item>
+        <item>1</item>
         <item>1</item>
         <item>2</item>
         <item>1</item>
-        <item>2</item>
+        <item>1</item>
         <item>1</item>
     </integer-array>
 </resources>

@@ -5,15 +5,9 @@
         <item>dan</item>
         <item>eli</item>
         <item>farina</item>
-        <item>george</item>
-        <item>henna</item>
-        <item>iram</item>
         <item>jane</item>
-        <item>karl</item>
-        <item>laila</item>
         <item>mashal</item>
         <item>nyan</item>
-        <item>omer</item>
         <item>petunia</item>
         <item>quin</item>
         <item>rena</item>
@@ -27,19 +21,7 @@
         <item>zain</item>
     </string-array>
 	
-    
-    <string-array name="pending_response_array">
-        <item>farina</item>
-        <item>Zoey</item>
-        <item>Bob</item>
-    </string-array>
-    <string-array name="pending_request_array">
-        <item>Christina</item>
-        <item>Zoey</item>
-        <item>Bob</item>
-    </string-array>
-    
-    
+
     <string-array name="directory_array">
         <item>annie</item>
         <item>bob</item>
@@ -167,34 +149,33 @@
     <string-array name="friend_type_array">
        <item>friend</item>
         <item>stranger</item>
+        <item>stranger</item>
+    	<item>friend</item>
+        <item>pendingResponse</item>
         <item>friend</item>
-    <item>friend</item>
         <item>friend</item>
         <item>friend</item>
         <item>pendingRequest</item>
-        <item>stranger</item>
+        <item>pendingRequest</item>
+        <item>pendingRequest</item>
         <item>friend</item>
-        <item>stranger</item>
-        <item>pendingResponse</item>
-        <item>stranger</item>
+        <item>pendingRequest</item>
+        <item>pendingRequest</item>
         <item>friend</item>
-        <item>stranger</item>
-        <item>pendingResponse</item>
-        <item>stranger</item>
         <item>friend</item>
-        <item>stranger</item>
-        <item>pendingResponse</item>
-        <item>stranger</item>
+        <item>pendingRequest</item>
         <item>friend</item>
-        <item>stranger</item>
-        <item>pendingResponse</item>
-        <item>stranger</item>
-        <item>pendingResponse</item>
-        <item>stranger</item>
-        <item>pendingResponse</item>
-        <item>stranger</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
+        <item>friend</item>
         <item>friend</item>
     </string-array>
-   
-    
+
 </resources>
