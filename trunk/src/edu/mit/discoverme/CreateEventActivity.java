@@ -138,72 +138,96 @@ public class CreateEventActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-
-			// TODO Auto-generated method stub
-			StateManager appState = ((StateManager) getApplicationContext());
-
-			// adding to friends list
-			String[] events = appState.getEvents();//
-			String[] participants = appState.getParticipants();//
-			String[] location = appState.getLocations();//
-			String[] locationLNG = appState.getLocationsLNG();
-			String[] locationLAT = appState.getLocationsLAT();//
-			String[] time = appState.getTime();//
-			String[] type = appState.getEventType();//
-			String[] eventOriginator = appState.getEventOriginator();
-
-			String stC = getString(R.string.typeClosed);
-			String stO = getString(R.string.typeOpen);
-
-			String stM = getString(R.string.typeMe);
-
-			String[] newEvents = new String[events.length + 1];
-			String[] newParticipants = new String[events.length + 1];
-			String[] newLocation = new String[events.length + 1];
-			String[] newLocationLNG = new String[events.length + 1];
-			String[] newLocationLAT = new String[events.length + 1];
-			String[] newTime = new String[events.length + 1];
-			String[] newType = new String[events.length + 1];
-			String[] newOrig = new String[events.length + 1];
-
-			newEvents[0] = (editTextTitle.getText()).toString();
-			newParticipants[0] = (editTextParticipants.getText()).toString();
-			newLocation[0] = (editTextLocation.getText()).toString();
-			newLocationLNG[0] = locationLng;
-			newLocationLAT[0] = locationLat;
-			newTime[0] = (String.valueOf(timePicker.getCurrentHour())) + " "
-					+ (String.valueOf(timePicker.getCurrentMinute()));
-			if (check.isChecked())
-				newType[0] = stC;
-			else
-				newType[0] = stO;
 			
-			newOrig[0] = stM;
+			String textTitle = editTextTitle.getText().toString();
+			String textParticipants = editTextParticipants.getText().toString();
+			String textLocation = editTextLocation.getText().toString();
 			
-			for (int i = 0; i < events.length; i++) {
-				newEvents[i + 1] = events[i];
-				newParticipants[i + 1] = participants[i];
-				newLocation[i + 1] = location[i];
-				newLocationLNG[i + 1] = locationLNG[i];
-				newLocationLAT[i + 1] = locationLAT[i];
-				newTime[i + 1] = time[i];
-				newType[i + 1] = type[i];
-				newOrig[i + 1] = eventOriginator[i];
+			if (textTitle.length() == 0) {
+				Toast.makeText(getApplicationContext(),
+						"Please enter an Event Title", Toast.LENGTH_SHORT)
+						.show();
 			}
+			else if  (textParticipants.length() == 0) {
+				Toast.makeText(getApplicationContext(),
+						"Please select Participants for the event.", Toast.LENGTH_SHORT)
+						.show();
+			}
+			else if (textLocation.length() == 0){
+				Toast.makeText(getApplicationContext(),
+						"Please select an Event Location.", Toast.LENGTH_SHORT)
+						.show();
+			}
+			else {
+				// TODO Auto-generated method stub
+				StateManager appState = ((StateManager) getApplicationContext());
 
-			appState.setEvents(newEvents);
-			appState.setParticipants(newParticipants);
-			appState.setLocations(newLocation);
-			appState.setLocationsLNG(newLocationLNG);
-			appState.setLocationsLAT(newLocationLAT);
-			appState.setTime(newTime);
-			appState.setEventType(newType);
-			appState.setEventOriginator(eventOriginator);
+				// adding to friends list
+				String[] events = appState.getEvents();//
+				String[] participants = appState.getParticipants();//
+				String[] location = appState.getLocations();//
+				String[] locationLNG = appState.getLocationsLNG();
+				String[] locationLAT = appState.getLocationsLAT();//
+				String[] time = appState.getTime();//
+				String[] type = appState.getEventType();//
+				String[] eventOriginator = appState.getEventOriginator();
 
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.publishEventMesg), Toast.LENGTH_SHORT)
-					.show();
-			finish();
+				String stC = getString(R.string.typeClosed);
+				String stO = getString(R.string.typeOpen);
+
+				String stM = getString(R.string.typeMe);
+
+				String[] newEvents = new String[events.length + 1];
+				String[] newParticipants = new String[events.length + 1];
+				String[] newLocation = new String[events.length + 1];
+				String[] newLocationLNG = new String[events.length + 1];
+				String[] newLocationLAT = new String[events.length + 1];
+				String[] newTime = new String[events.length + 1];
+				String[] newType = new String[events.length + 1];
+				String[] newOrig = new String[events.length + 1];
+
+				newEvents[0] = (editTextTitle.getText()).toString();
+				newParticipants[0] = (editTextParticipants.getText()).toString();
+				newLocation[0] = (editTextLocation.getText()).toString();
+				newLocationLNG[0] = locationLng;
+				newLocationLAT[0] = locationLat;
+				newTime[0] = (String.valueOf(timePicker.getCurrentHour())) + " "
+						+ (String.valueOf(timePicker.getCurrentMinute()));
+				if (check.isChecked())
+					newType[0] = stC;
+				else
+					newType[0] = stO;
+				
+				newOrig[0] = stM;
+				
+				for (int i = 0; i < events.length; i++) {
+					newEvents[i + 1] = events[i];
+					newParticipants[i + 1] = participants[i];
+					newLocation[i + 1] = location[i];
+					newLocationLNG[i + 1] = locationLNG[i];
+					newLocationLAT[i + 1] = locationLAT[i];
+					newTime[i + 1] = time[i];
+					newType[i + 1] = type[i];
+					newOrig[i + 1] = eventOriginator[i];
+				}
+
+				appState.setEvents(newEvents);
+				appState.setParticipants(newParticipants);
+				appState.setLocations(newLocation);
+				appState.setLocationsLNG(newLocationLNG);
+				appState.setLocationsLAT(newLocationLAT);
+				appState.setTime(newTime);
+				appState.setEventType(newType);
+				appState.setEventOriginator(eventOriginator);
+
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.publishEventMesg), Toast.LENGTH_SHORT)
+						.show();
+				finish();
+			}
+			
+
+			
 
 		}
 	};
