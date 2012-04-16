@@ -38,6 +38,11 @@
         	    android:label="HelloGmaps"
      			android:theme="@android:style/Theme.NoTitleBar"/>
         
+        
+        
+        <activity
+        	android:name=".ViewNotificationActivity"
+         	android:label="ViewNotificationActivityLabel"/>
         <activity
         	android:name=".EventsActivity"
          	android:label="EventsActivityLabel"/>
