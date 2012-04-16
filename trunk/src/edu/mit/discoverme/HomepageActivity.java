@@ -211,11 +211,13 @@ public class HomepageActivity extends MapActivity {
 				Intent intent = new Intent(HomepageActivity.this,
 						SearchActivity.class);// NotificationsActivity.class);
 				intent.putExtra("popupCode", popup);
+				hideEverything();
 				startActivity(intent);
 			}
 			if (popup.equals("eventss")) {
 				Intent intent = new Intent(HomepageActivity.this,
 						CreateEventActivity.class);// NotificationsActivity.class);
+				hideEverything();
 				startActivity(intent);
 			}
 
