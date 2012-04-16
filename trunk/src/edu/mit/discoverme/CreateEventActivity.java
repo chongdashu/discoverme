@@ -3,15 +3,10 @@ package edu.mit.discoverme;
 import java.util.Date;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
@@ -40,6 +35,7 @@ public class CreateEventActivity extends Activity {// implements
 	protected ImageButton food;
 	protected ImageButton silence;
 	protected ImageButton it;
+	protected TextView locationSuggestionLabel;
 	
 	Boolean[] selection = {false, false, false}; //[0]: food, [1]: silence, [2]: it
 	@Override
@@ -85,10 +81,12 @@ public class CreateEventActivity extends Activity {// implements
 		food = (ImageButton) findViewById(R.id.foodButton);
 		silence = (ImageButton) findViewById(R.id.silenceButton);
 		it = (ImageButton) findViewById(R.id.itButton);
+		locationSuggestionLabel = (TextView) findViewById(R.id.textView2);
 
 		food.setOnClickListener(onFoodRequestClick);
 		silence.setOnClickListener(onSilenceRequestClick);
 		it.setOnClickListener(onITRequestClick);
+
 
 		// friends = getResources().getStringArray(R.array.friends_array);
 
