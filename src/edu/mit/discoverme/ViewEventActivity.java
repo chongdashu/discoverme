@@ -105,6 +105,10 @@ public class ViewEventActivity extends CreateEventActivity {
 		else
 			proposeChange.setVisibility(View.INVISIBLE);
 		proposeChange.setText(R.string.cancelEventButtonText);
+		food.setVisibility(View.GONE);
+		silence.setVisibility(View.GONE);
+		it.setVisibility(View.GONE);
+		locationSuggestionLabel.setVisibility(View.GONE);
 	}
 	
 	protected OnClickListener onProposeChangeClick = new OnClickListener() {
