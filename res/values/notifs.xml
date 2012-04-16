@@ -1,6 +1,4 @@
 <resources>
-
-
     <string-array name="notifs_array">
         <item>you added a friend</item>
         <item>someone added you as friend</item>
@@ -10,5 +8,22 @@
         <item>this is going on for ever </item>
         <item>please shut up</item>
     </string-array>
-    
+    <string-array name="notifs_names_array">
+        <item>anne</item>
+        <item>coffee</item>
+        <item>bobby</item>
+        <item>dinner</item>
+        <item>sonny</item>
+        <item>homework</item>
+        <item>bob</item>
+    </string-array>
+    <integer-array name="notif_type_array">
+        <item>1</item>
+        <item>2</item>
+        <item>1</item>
+        <item>2</item>
+        <item>1</item>
+        <item>2</item>
+        <item>1</item>
+    </integer-array>
 </resources>
