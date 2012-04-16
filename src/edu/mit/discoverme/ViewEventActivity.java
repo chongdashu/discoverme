@@ -12,6 +12,7 @@ import com.google.android.maps.GeoPoint;
 
 public class ViewEventActivity extends CreateEventActivity {
 
+	protected int eventID;
 	protected String eventTitle;
 	protected String[] participants;
 	protected String participantsString;
@@ -29,7 +30,7 @@ public class ViewEventActivity extends CreateEventActivity {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		int eventID = intent.getIntExtra("eventId", 0);
+		eventID = intent.getIntExtra("eventId", 0);
 
 		StateManager appState = ((StateManager) getApplicationContext());
 		String[] events = appState.getEvents();
@@ -65,8 +66,8 @@ public class ViewEventActivity extends CreateEventActivity {
 		timeMins = Integer.valueOf(arg[1]);
 
 		locationName = locations[eventID];
-		latE6 = (int) (((float) Float.valueOf(locations_lat[eventID]))*1000000);
-		lngE6 = (int) (((float) Float.valueOf(locations_lng[eventID]))*1000000);
+		latE6 = (int) (Float.valueOf(locations_lat[eventID])*1000000);
+		lngE6 = (int) (Float.valueOf(locations_lng[eventID])*1000000);
 		
 		inititialize();
 
@@ -117,6 +118,52 @@ public class ViewEventActivity extends CreateEventActivity {
 					public void onClick(DialogInterface dialog, int id) {
 	    	               // Do whatever you want for 'Yes' here. 
 	    	        	   dialog.dismiss();
+									// delete this event from the event list
+									// TODO Auto-generated method stub
+									StateManager appState = ((StateManager) getApplicationContext());
+
+									// adding to friends list
+									String[] events = appState.getEvents();//
+									String[] participants = appState
+											.getParticipants();//
+									String[] location = appState.getLocations();//
+									String[] locationLNG = appState
+											.getLocationsLNG();
+									String[] locationLAT = appState
+											.getLocationsLAT();//
+									String[] time = appState.getTime();//
+									String[] type = appState.getEventType();//
+
+									String[] newEvents = new String[events.length - 1];
+									String[] newParticipants = new String[events.length - 1];
+									String[] newLocation = new String[events.length - 1];
+									String[] newLocationLNG = new String[events.length - 1];
+									String[] newLocationLAT = new String[events.length - 1];
+									String[] newTime = new String[events.length - 1];
+									String[] newType = new String[events.length - 1];
+
+									int j = 0;
+									for (int i = 0; i < events.length; i++) {
+										if (i != eventID) {
+											newEvents[j + 1] = events[i];
+											newParticipants[j + 1] = participants[i];
+											newLocation[j + 1] = location[i];
+											newLocationLNG[j + 1] = locationLNG[i];
+											newLocationLAT[j + 1] = locationLAT[i];
+											newTime[j + 1] = time[i];
+											newType[j + 1] = type[i];
+											j++;
+										}
+									}
+
+									appState.setEvents(newEvents);
+									appState.setParticipants(newParticipants);
+									appState.setLocations(newLocation);
+									appState.setLocationsLNG(newLocationLNG);
+									appState.setLocationsLAT(newLocationLAT);
+									appState.setTime(newTime);
+									appState.setEventType(newType);
+									// /end of deleting entry
 	    	        	   Toast.makeText(getApplicationContext(),
 	    	   					getString(R.string.cancelEventMsg), Toast.LENGTH_SHORT)
 	    	   					.show();
