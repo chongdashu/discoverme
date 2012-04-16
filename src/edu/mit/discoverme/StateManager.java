@@ -30,7 +30,8 @@ public class StateManager extends Application {
 	private String[] notifsNames;
 
 	
-	
+	// event in notification is replied to already
+	private int eventDone;
 	
 
 	public void start() {
@@ -51,6 +52,7 @@ public class StateManager extends Application {
 		setNotifsFromHD();
 		setNotifsNamesFromHD();
 		setNotifTypeFromHD();
+		eventDone = 0;
 	}
 	/* people thing implemented below */
 	public String[] getPendingReq() {
