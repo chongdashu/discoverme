@@ -117,40 +117,42 @@ public class SelectEventLocationActivity extends MapActivity {
 
 		// Get the map controller
 		MapController mapController = mapView.getController();
+		
+		StateManager stateManager = (StateManager) getApplicationContext();
 
 		// Get to current location
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
-		criteria.setAltitudeRequired(false);
-		criteria.setBearingRequired(false);
-		criteria.setSpeedRequired(false);
-		criteria.setCostAllowed(true);
-
-		LocationManager locationManager;
-		locationManager = (LocationManager) this
-				.getSystemService(Context.LOCATION_SERVICE);
-		String bestProvider = locationManager.getBestProvider(criteria, true);
-
-		Location locLast = locationManager.getLastKnownLocation(bestProvider);
-		GeoPoint test;
+//		Criteria criteria = new Criteria();
+//		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+//		criteria.setPowerRequirement(Criteria.POWER_LOW);
+//		criteria.setAltitudeRequired(false);
+//		criteria.setBearingRequired(false);
+//		criteria.setSpeedRequired(false);
+//		criteria.setCostAllowed(true);
+//
+//		LocationManager locationManager;
+//		locationManager = (LocationManager) this
+//				.getSystemService(Context.LOCATION_SERVICE);
+//		String bestProvider = locationManager.getBestProvider(criteria, true);
+//
+//		Location locLast = locationManager.getLastKnownLocation(bestProvider);
+		// GeoPoint test;
 		float lat;
 		float lng;
-		if (locLast != null) {
-			lat = (float) locLast.getLatitude();
-			lng = (float) locLast.getLongitude();
-
-			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
-			System.out.println("lat:" + lat + ", lng:" + lng);
-		} else {
-			lat = 42.360383f;
-			lng = -71.090899f;
-
-			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
-			System.out.println("lat:" + lat + ", lng:" + lng);
-		}
+//		if (locLast != null) {
+//			lat = (float) locLast.getLatitude();
+//			lng = (float) locLast.getLongitude();
+//
+//			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+//			System.out.println("lat:" + lat + ", lng:" + lng);
+//		} else {
+//			lat = 42.360383f;
+//			lng = -71.090899f;
+//
+//			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+//			System.out.println("lat:" + lat + ", lng:" + lng);
+//		}
 		mapController.setZoom(18);
-		mapController.animateTo(test);
+		mapController.animateTo(stateManager.userGeoPoint);
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
 
@@ -166,8 +168,7 @@ public class SelectEventLocationActivity extends MapActivity {
 				mapView);
 		mapOverlays.add(itemizedoverlay);
 
-		OverlayItem overlayitem = new OverlayItem(test, "Chong-U Lim",
-				getAddressAt(test));
+		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint, stateManager.userName, stateManager.userAddress);
 		itemizedoverlay.addOverlay(overlayitem);
 
 		// Create overlay for Friends
@@ -176,13 +177,11 @@ public class SelectEventLocationActivity extends MapActivity {
 		mapOverlays.add(friendsOverlay);
 
 		String[] friends = getResources().getStringArray(R.array.friends_array);
-		friendpoints = Utils.getRandomGeopointsAround(lat,
-				lng, 5);
+		friendpoints = stateManager.friendPoints;
+		
 		int f = 0;
 		for (GeoPoint geoPoint : friendpoints) {
-			OverlayItem item = new OverlayItem(geoPoint, friends[f],
-					""//getAddressAt(geoPoint)
-			);
+			OverlayItem item = new OverlayItem(geoPoint, friends[f], stateManager.friendAddresses.get(f));
 			friendsOverlay.addOverlay(item);
 			f++;
 		}

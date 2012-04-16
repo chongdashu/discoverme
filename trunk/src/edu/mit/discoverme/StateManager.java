@@ -1,10 +1,20 @@
 package edu.mit.discoverme;
 
+import java.util.Vector;
+
 import android.app.Application;
+
+import com.google.android.maps.GeoPoint;
 
 public class StateManager extends Application {
 
-
+	// user info
+	public String userName = "John Doe";
+	public GeoPoint userGeoPoint;
+	public String userAddress;
+	public Vector<GeoPoint> friendPoints;
+	public Vector<String> friendAddresses;
+	
 	// people
 	private String[] friends;
 	private String[] pendingReq;// request came n now is waiting for your
