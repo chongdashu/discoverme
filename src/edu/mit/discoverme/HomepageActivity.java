@@ -107,9 +107,8 @@ public class HomepageActivity extends MapActivity {
 					// this will actually go to view event or view profile page
 					// depending on type
 					Intent intent = new Intent(HomepageActivity.this,
-							CreateEventActivity.class);
-					intent.putExtra("eventName", ((TextView) view).getText());
-					intent.putExtra("type", ((TextView) view).getText());
+							ViewNotificationActivity.class);
+					intent.putExtra("notifID", position);
 					hideEverything();
 					startActivity(intent);
 
