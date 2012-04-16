@@ -106,11 +106,37 @@ public class HomepageActivity extends MapActivity {
 				} else if (popup.equals("notifss")) {
 					// this will actually go to view event or view profile page
 					// depending on type
-					Intent intent = new Intent(HomepageActivity.this,
-							ViewNotificationActivity.class);
-					intent.putExtra("notifID", position);
-					hideEverything();
-					startActivity(intent);
+					// Intent intent = new Intent(HomepageActivity.this,
+					// ViewNotificationActivity.class);
+					// intent.putExtra("notifID", position);
+					// hideEverything();
+					// startActivity(intent);
+					
+					int notifID = position;
+					
+					StateManager appState = ((StateManager) getApplicationContext());
+					int[] notifsType = appState.getNotifType();
+					String[] notifsName = appState.getNotifsNames();
+					int notificationType = notifsType[notifID];
+					String notificationName = notifsName[notifID];
+
+					if (notificationType == 1) {
+
+						Intent intent = new Intent(HomepageActivity.this,
+								ProfileActivity.class);
+						intent.putExtra("personName", notificationName);
+						hideEverything();
+						startActivity(intent);
+
+					} else if (notificationType == 2) {
+					// Intent i1 = new Intent(ViewNotificationActivity.this,
+					// ViewEventActivity.class);
+					// i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					// i1.putExtra("eventId", position);
+					// startActivity(intent);
+
+					}
+						
 
 				}
 
