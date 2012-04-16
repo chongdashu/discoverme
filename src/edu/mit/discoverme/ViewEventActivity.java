@@ -102,8 +102,6 @@ public class ViewEventActivity extends CreateEventActivity {
 		else
 			proposeChange.setVisibility(View.INVISIBLE);
 		proposeChange.setText(R.string.cancelEventButtonText);
-
-		
 	}
 	
 	protected OnClickListener onProposeChangeClick = new OnClickListener() {
@@ -134,8 +132,6 @@ public class ViewEventActivity extends CreateEventActivity {
 	    	       });
 	    	AlertDialog alert = builder.create();
 	    	alert.show();
-			
-
 		}
 	}; 
 	
@@ -177,7 +173,7 @@ public class ViewEventActivity extends CreateEventActivity {
 		public void onClick(View v) {
 			// We launch the "Select Location from Map Activity"
 			Intent intent = new Intent(ViewEventActivity.this, SelectEventLocationActivity.class);
-			intent.putExtra("readOnly", true);
+			intent.putExtra("mode", SelectEventLocationActivity.MODE_VIEW);
 			intent.putExtra("lat", latE6);
 			intent.putExtra("lng", lngE6);
 			startActivity(intent);

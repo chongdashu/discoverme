@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class CreateEventActivity extends Activity {
 
 	Button next;
+	Button back;
 	
 	protected EditText editTextTitle;
 	protected EditText editTextParticipants;
@@ -32,7 +33,7 @@ public class CreateEventActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_event);
 		
-		Button back = (Button) (findViewById(R.id.backButton));
+		back = (Button) (findViewById(R.id.backButton));
 		back.setText("Back");
 		back.setOnClickListener(onCancelClick);
 
