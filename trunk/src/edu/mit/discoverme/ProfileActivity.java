@@ -27,7 +27,9 @@ public class ProfileActivity extends Activity {
 		next.setVisibility(View.INVISIBLE);
 
 		String profileType;
-		
+
+		TextView activityTitle = (TextView) findViewById(R.id.navbar_title);
+		activityTitle.setText("Profile Page");
 
 		Intent intent = getIntent();
 		personName = intent.getStringExtra("personName");
