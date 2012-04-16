@@ -135,6 +135,8 @@ public class ViewEventActivity extends CreateEventActivity {
 											.getLocationsLAT();//
 									String[] time = appState.getTime();//
 									String[] type = appState.getEventType();//
+									String[] eventOriginator = appState
+											.getEventOriginator();
 
 									String[] newEvents = new String[events.length - 1];
 									String[] newParticipants = new String[events.length - 1];
@@ -143,29 +145,31 @@ public class ViewEventActivity extends CreateEventActivity {
 									String[] newLocationLAT = new String[events.length - 1];
 									String[] newTime = new String[events.length - 1];
 									String[] newType = new String[events.length - 1];
+									String[] newOrig = new String[events.length + 1];
 
-									int j = 0;
-									for (int i = 0; i < events.length; i++) {
-										if (i != eventID) {
-											newEvents[j + 1] = events[i];
-											newParticipants[j + 1] = participants[i];
-											newLocation[j + 1] = location[i];
-											newLocationLNG[j + 1] = locationLNG[i];
-											newLocationLAT[j + 1] = locationLAT[i];
-											newTime[j + 1] = time[i];
-											newType[j + 1] = type[i];
+									 int j = 0;
+									 for (int i = 0; i < events.length; i++) {
+									 if (i != eventID) {
+											newEvents[j] = events[i];
+											newParticipants[j] = participants[i];
+											newLocation[j] = location[i];
+											newLocationLNG[j] = locationLNG[i];
+											newLocationLAT[j] = locationLAT[i];
+											newTime[j] = time[i];
+											newType[j] = type[i];
+											newOrig[j] = eventOriginator[i];
 											j++;
-										}
-									}
+									 }
+									 }
 
-									appState.setEvents(newEvents);
-									appState.setParticipants(newParticipants);
-									appState.setLocations(newLocation);
-									appState.setLocationsLNG(newLocationLNG);
-									appState.setLocationsLAT(newLocationLAT);
-									appState.setTime(newTime);
-									appState.setEventType(newType);
-									// /end of deleting entry
+									 appState.setEvents(newEvents);
+									 appState.setParticipants(newParticipants);
+									 appState.setLocations(newLocation);
+									 appState.setLocationsLNG(newLocationLNG);
+									 appState.setLocationsLAT(newLocationLAT);
+									 appState.setTime(newTime);
+									 appState.setEventType(newType);
+									// end of deleting entry
 	    	        	   Toast.makeText(getApplicationContext(),
 	    	   					getString(R.string.cancelEventMsg), Toast.LENGTH_SHORT)
 	    	   					.show();
