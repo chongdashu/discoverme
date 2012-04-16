@@ -30,6 +30,9 @@ public class ViewParticipantsListActivity extends Activity {
 		Button next = (Button) (findViewById(R.id.nextButton));
 		next.setVisibility(View.INVISIBLE);
 
+		TextView activityTitle = (TextView) findViewById(R.id.navbar_title);
+		activityTitle.setText("Participants");
+
 
 		Intent intent = getIntent();
 		String participants = intent.getStringExtra("participants");

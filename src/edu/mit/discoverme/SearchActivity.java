@@ -43,6 +43,9 @@ public class SearchActivity extends ListActivity{
 		Button next = (Button) (findViewById(R.id.nextButton));
 		next.setVisibility(View.INVISIBLE);
 
+		TextView activityTitle = (TextView) findViewById(R.id.navbar_title);
+		activityTitle.setText("Search from Directory");
+
 //	    //create generic array of strings to work with
 //	    String[] searchList;
 	    

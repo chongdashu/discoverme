@@ -1,6 +1,5 @@
 package edu.mit.discoverme;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -12,12 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ParticipantListingActivity extends Activity implements OnClickListener{
@@ -27,10 +25,10 @@ public class ParticipantListingActivity extends Activity implements OnClickListe
 	int[] selected;
 	
 	// store state
-    private HashMap<Integer, Boolean> mIsChecked = 
+    private final HashMap<Integer, Boolean> mIsChecked = 
             new HashMap<Integer, Boolean>();
  // store CheckTextView's
-    private HashMap<Integer, CheckedTextView> mCheckedList = 
+    private final HashMap<Integer, CheckedTextView> mCheckedList = 
             new HashMap<Integer, CheckedTextView>();
 
 	@Override
@@ -39,6 +37,9 @@ public class ParticipantListingActivity extends Activity implements OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.participant_list);
 		selectedList = "";
+
+		TextView activityTitle = (TextView) findViewById(R.id.navbar_title);
+		activityTitle.setText("Participants");
 
 		Button back = (Button) (findViewById(R.id.backButton));
 		back.setText("Cancel");
@@ -148,14 +149,15 @@ public class ParticipantListingActivity extends Activity implements OnClickListe
 	
 	private class MyAdapter extends ArrayAdapter<String> {
 
-        private String[] items;
+        private final String[] items;
 
         public MyAdapter(Context context, int textViewResourceId, String[] items) {
             super(context, textViewResourceId, items);
             this.items = items;
         }
 
-        public View getView(final int position, View view, ViewGroup parent) {
+        @Override
+		public View getView(final int position, View view, ViewGroup parent) {
             LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = vi.inflate(R.layout.participant_row, null);
 
