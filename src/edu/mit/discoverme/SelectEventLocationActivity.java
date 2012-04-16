@@ -32,6 +32,8 @@ public class SelectEventLocationActivity extends MapActivity {
 	protected MapView mapView;
 	protected SelectEventLocationItemizedOverlay selectLocationOverlay;
 	protected String selectedLocation;
+	protected String locationLng;
+	protected String locationLat;
 	protected SelectEventLocationLinesOverlay linesOverlay;
 	protected Vector<GeoPoint> friendpoints;
 	protected boolean readOnly;
@@ -62,8 +64,11 @@ public class SelectEventLocationActivity extends MapActivity {
 		initializeConfirmationArea();
 	}
 
-	public void setSelectionlocation(String name) {
+	public void setSelectionlocation(String name, float lat, float lng) {
 		selectedLocation = name;
+		locationLat = String.valueOf(lat);
+		locationLng = String.valueOf(lng);
+
 		Button next = (Button) (findViewById(R.id.nextButton));
 		next.setVisibility(View.VISIBLE);
 	}
@@ -231,6 +236,8 @@ public class SelectEventLocationActivity extends MapActivity {
      	 
      	   Intent resultIntent = getIntent();
      	   resultIntent.putExtra("LocationName", selectedLocation );
+			resultIntent.putExtra("LocationLng", locationLng);
+			resultIntent.putExtra("LocationLat", locationLat);
      	   
      	   setResult(Activity.RESULT_OK, resultIntent);
      	   finish();

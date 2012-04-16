@@ -19,8 +19,8 @@ import com.google.android.maps.OverlayItem;
 
 public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
-	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-	private Context mContext;
+	private final ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+	private final Context mContext;
 	
 	private String selectedLocationName;
 
@@ -63,7 +63,8 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 			 		.setMessage(overlayitem.getSnippet())
   	       			.setCancelable(false)
   	       			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-  	           public void onClick(DialogInterface dialog, int id) {
+  	           @Override
+			public void onClick(DialogInterface dialog, int id) {
   	               // Do whatever you want for 'Yes' here. 
   	        	   // MyActivity.this.finish();
   	        	   
@@ -77,7 +78,10 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
   	        	   tv.setText(selectedLocationName);
   	        	   
   	        	   SelectEventLocationActivity selectEventActivity = (SelectEventLocationActivity)activity;
-  	        	   selectEventActivity.setSelectionlocation(selectedLocationName);
+									selectEventActivity.setSelectionlocation(
+											selectedLocationName,
+											((float) p.getLatitudeE6()) / 1000000,
+											((float) p.getLongitudeE6()) / 1000000);
   	        	   
   	        	   selectEventActivity.drawMapLinesTo(p);
   	        	 
@@ -92,7 +96,8 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
   	           }
   	       })
   	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-  	           public void onClick(DialogInterface dialog, int id) {
+  	           @Override
+			public void onClick(DialogInterface dialog, int id) {
   	        	   // Do whatever you want for 'No' here.  
   	        	   removeOverlay(overlayitem);
   	        	   dialog.cancel();
