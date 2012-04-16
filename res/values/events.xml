@@ -14,16 +14,16 @@
     </string-array>
     
 	<string-array name="participants_array">
-        <item>a,b,b</item>
-        <item>a,b,b,g</item>
-        <item>a,b,b</item>
-        <item>a,b,b</item>
-        <item>a,b,b</item>
-        <item>a,b,b</item>
-        <item>a,b,b</item>
-        <item>a,b,b</item>
-        <item>a,b,b</item>
-        <item>a,b,b</item>
+        <item>annie,bob,bobby</item>
+        <item>carl,christina,dan,eli</item>
+        <item>farina,george,henna</item>
+        <item>iram,jane,karl</item>
+        <item>laila,mashal,nyan</item>
+        <item>omer,petunia,quin</item>
+        <item>rena,sonny,tania</item>
+        <item>umer,veena,waqar</item>
+        <item>xio,yawar,zain</item>
+        <item>zoey,annie,bob</item>
     </string-array>
     <string-array name="event_type_array">
         <item>closed</item>

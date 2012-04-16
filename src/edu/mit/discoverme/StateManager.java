@@ -24,9 +24,15 @@ public class StateManager extends Application {
 	private String[] time;
 	private String[] eventOriginator;
 
+	// notification
+	private String[] notifs;
+	private int[] notifType;
+	private String[] notifsNames;
 
 	
 	
+	
+
 	public void start() {
 		setFriendsFromHD();
 		setDirectoryFromHD();
@@ -41,6 +47,10 @@ public class StateManager extends Application {
 		setEventTypeFromHD();
 		setTimeFromHD();
 		setEventOriginatorFromHD();
+
+		setNotifsFromHD();
+		setNotifsNamesFromHD();
+		setNotifTypeFromHD();
 	}
 	/* people thing implemented below */
 	public String[] getPendingReq() {
@@ -202,5 +212,42 @@ public class StateManager extends Application {
 				R.array.event_originator);
 	}
 	/* events thing implemented above */
+	/* notif thing implemented below */
+	public int[] getNotifType() {
+		return notifType;
+	}
 
+	public void setNotifType(int[] notifType) {
+		this.notifType = notifType;
+	}
+
+	public String[] getNotifs() {
+		return notifs;
+	}
+
+	public void setNotifs(String[] notifs) {
+		this.notifs = notifs;
+	}
+
+	public String[] getNotifsNames() {
+		return notifsNames;
+	}
+
+	public void setNotifsNames(String[] notifsNames) {
+		this.notifsNames = notifsNames;
+	}
+
+	public void setNotifTypeFromHD() {
+		this.notifType = getResources().getIntArray(R.array.notif_type_array);
+	}
+
+	public void setNotifsFromHD() {
+		this.notifs = getResources().getStringArray(R.array.notifs_array);
+	}
+
+	public void setNotifsNamesFromHD() {
+		this.notifsNames = getResources().getStringArray(
+				R.array.notifs_names_array);
+	}
+	/* notif thing implemented above */
 }
