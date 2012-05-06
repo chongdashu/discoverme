@@ -126,27 +126,74 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
-
-                <ImageButton
+
+                <TextView
+                    android:id="@+id/foodText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Food"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <CheckedTextView
                     android:id="@+id/foodButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="30dp"
-                    android:src="@drawable/food" />
+                    android:checkMark="@android:drawable/checkbox_off_background"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:paddingTop="10dip"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:id="@+id/silenceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Silence"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <ImageButton
+
+
+                <CheckedTextView
                     android:id="@+id/silenceButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="30dp"
-                    android:src="@drawable/silence" />
+                    android:checkMark="@android:drawable/checkbox_off_background"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:paddingTop="10dip"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:id="@+id/itText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wi-Fi"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <ImageButton
+
+
+                <CheckedTextView
                     android:id="@+id/itButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="30dp"
-                    android:src="@drawable/wifi" />
+                    android:checkMark="@android:drawable/checkbox_off_background"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:paddingTop="10dip"
+                    android:textColor="#000000" />
+
             </LinearLayout>
 
             <TextView
