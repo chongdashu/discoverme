@@ -3,6 +3,8 @@ package edu.mit.discoverme;
 import java.util.Arrays;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileActivity extends Activity {
-	
 
 	String personName;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,12 +55,11 @@ public class ProfileActivity extends Activity {
 		TextView phoneField = (TextView) findViewById(R.id.personPhone);
 		TextView addressField = (TextView) findViewById(R.id.personAddress);
 
-
 		StateManager appState = ((StateManager) getApplicationContext());
 		String[] names = appState.getDirectoryNames();
-//		String[] emails = appState.getDirectory_emails();
-//		String[] phones = appState.getDirectory_phones();
-//		String[] addresss = appState.getDirectory_addresses();
+		// String[] emails = appState.getDirectory_emails();
+		// String[] phones = appState.getDirectory_phones();
+		// String[] addresss = appState.getDirectory_addresses();
 		String[] types = appState.getDirectory_friendType();
 
 		// String[] names =
@@ -119,8 +120,7 @@ public class ProfileActivity extends Activity {
 			approve.setVisibility(View.GONE);
 			decline.setVisibility(View.GONE);
 			addedAlready.setVisibility(View.VISIBLE);
-		}
- else {
+		} else {
 			nameField.setText(R.string.typeFriend);
 		}
 
@@ -170,7 +170,7 @@ public class ProfileActivity extends Activity {
 
 			// add to friends list
 			String[] friends = appState.getFriends();//
-			String[] newFriends = new String [friends.length+1];
+			String[] newFriends = new String[friends.length + 1];
 			for (int i = 0; i < friends.length; i++)
 				newFriends[i] = friends[i];
 			newFriends[friends.length] = personName;
@@ -218,36 +218,65 @@ public class ProfileActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			StateManager appState = ((StateManager) getApplicationContext());
-			// // delete from friends list
-			String[] friends = appState.getFriends();//
-			int len = friends.length;
-			String[] newFriends = new String[len - 1];
-			int j = 0;
-			int added = 0;
-			for (int i = 0; i < friends.length; i++)
-				if (!friends[i].equals(personName)) {
-					newFriends[j] = friends[i];
-					j++;
-				}
-			// Arrays.sort(newFriends);
-			appState.setFriends(newFriends);
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					ProfileActivity.this);
+			builder.setMessage("Are you sure you want to delete this friend?")
+					.setCancelable(false)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
 
-			// change type to stranger in directory list
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// TODO Auto-generated method stub
+									StateManager appState = ((StateManager) getApplicationContext());
+									// // delete from friends list
+									String[] friends = appState.getFriends();//
+									int len = friends.length;
+									String[] newFriends = new String[len - 1];
+									int j = 0;
+									int added = 0;
+									for (int i = 0; i < friends.length; i++)
+										if (!friends[i].equals(personName)) {
+											newFriends[j] = friends[i];
+											j++;
+										}
+									// Arrays.sort(newFriends);
+									appState.setFriends(newFriends);
 
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, personName);
-			String stS = getString(R.string.typeStranger);
-			directoryTypes[indexPerson] = stS;
-			appState.setDirectory_friendType(directoryTypes);
-			// go back to last page
-			// and flash a message on screen saying something
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.deleteFriendMesg), Toast.LENGTH_SHORT)
-					.show();
-			finish();
+									// change type to stranger in directory list
+
+									String[] directorynames = appState
+											.getDirectoryNames();
+									String[] directoryTypes = appState
+											.getDirectory_friendType();
+									int indexPerson = Arrays.binarySearch(
+											directorynames, personName);
+									String stS = getString(R.string.typeStranger);
+									directoryTypes[indexPerson] = stS;
+									appState.setDirectory_friendType(directoryTypes);
+									// go back to last page
+									// and flash a message on screen saying
+									// something
+									Toast.makeText(
+											getApplicationContext(),
+											getString(R.string.deleteFriendMesg),
+											Toast.LENGTH_SHORT).show();
+									finish();
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// TODO Auto-generated method stub
+									dialog.cancel();
+								}
+							});
+			AlertDialog alert = builder.create();
+			alert.show();
 		}
 	};
 	private final OnClickListener onBackClick = new OnClickListener() {
