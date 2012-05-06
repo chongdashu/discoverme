@@ -32,12 +32,14 @@ public class CreateEventActivity extends Activity {// implements
 	protected LinearLayout proposeChangeArea;
 	protected TextView activityTitle;
 
-	protected ImageButton food;
-	protected ImageButton silence;
-	protected ImageButton it;
+	protected CheckedTextView food;
+	protected CheckedTextView silence;
+	protected CheckedTextView it;
 	protected TextView locationSuggestionLabel;
-	
-	Boolean[] selection = {false, false, false}; //[0]: food, [1]: silence, [2]: it
+
+	Boolean[] selection = { false, false, false }; // [0]: food, [1]: silence,
+													// [2]: it
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class CreateEventActivity extends Activity {// implements
 		next = (Button) (findViewById(R.id.nextButton));
 		next.setText("Send Invite");
 		next.setOnClickListener(onPublishClick);
-		
+
 		activityTitle = (TextView) findViewById(R.id.navbar_title);
 		activityTitle.setText(R.string.activityTitleEventCreateNew);
 
@@ -78,15 +80,14 @@ public class CreateEventActivity extends Activity {// implements
 		timePicker.setCurrentMinute(date.getMinutes());
 
 		// get buttons
-		food = (ImageButton) findViewById(R.id.foodButton);
-		silence = (ImageButton) findViewById(R.id.silenceButton);
-		it = (ImageButton) findViewById(R.id.itButton);
+		food = (CheckedTextView) findViewById(R.id.foodButton);
+		silence = (CheckedTextView) findViewById(R.id.silenceButton);
+		it = (CheckedTextView) findViewById(R.id.itButton);
 		locationSuggestionLabel = (TextView) findViewById(R.id.locations_req_text);
 
 		food.setOnClickListener(onFoodRequestClick);
 		silence.setOnClickListener(onSilenceRequestClick);
 		it.setOnClickListener(onITRequestClick);
-
 
 		// friends = getResources().getStringArray(R.array.friends_array);
 
@@ -132,7 +133,8 @@ public class CreateEventActivity extends Activity {// implements
 			// Do something when "Select Participants" is clicked.
 
 			// We launch the "Select Participants Activity"
-			Intent intent = new Intent(CreateEventActivity.this, ParticipantListingActivity.class);
+			Intent intent = new Intent(CreateEventActivity.this,
+					ParticipantListingActivity.class);
 			// intent.putExtra("popupCode", "eventss");
 			startActivityForResult(intent, 2000);
 
@@ -145,7 +147,8 @@ public class CreateEventActivity extends Activity {// implements
 			// Do something when "Select Location" is clicked.
 
 			// We launch the "Select Location from Map Activity"
-			Intent intent = new Intent(CreateEventActivity.this, SelectEventLocationActivity.class);
+			Intent intent = new Intent(CreateEventActivity.this,
+					SelectEventLocationActivity.class);
 			// intent.putExtra("popupCode", "eventss");
 			startActivityForResult(intent, 1000);
 
@@ -166,27 +169,24 @@ public class CreateEventActivity extends Activity {// implements
 
 		@Override
 		public void onClick(View v) {
-			
+
 			String textTitle = editTextTitle.getText().toString();
 			String textParticipants = editTextParticipants.getText().toString();
 			String textLocation = editTextLocation.getText().toString();
-			
+
 			if (textTitle.length() == 0) {
 				Toast.makeText(getApplicationContext(),
 						"Please enter an Event Title", Toast.LENGTH_SHORT)
 						.show();
-			}
-			else if  (textParticipants.length() == 0) {
+			} else if (textParticipants.length() == 0) {
 				Toast.makeText(getApplicationContext(),
-						"Please select Participants for the event.", Toast.LENGTH_SHORT)
-						.show();
-			}
-			else if (textLocation.length() == 0){
+						"Please select Participants for the event.",
+						Toast.LENGTH_SHORT).show();
+			} else if (textLocation.length() == 0) {
 				Toast.makeText(getApplicationContext(),
 						"Please select an Event Location.", Toast.LENGTH_SHORT)
 						.show();
-			}
-			else {
+			} else {
 				// TODO Auto-generated method stub
 				StateManager appState = ((StateManager) getApplicationContext());
 
@@ -215,19 +215,20 @@ public class CreateEventActivity extends Activity {// implements
 				String[] newOrig = new String[events.length + 1];
 
 				newEvents[0] = (editTextTitle.getText()).toString();
-				newParticipants[0] = (editTextParticipants.getText()).toString();
+				newParticipants[0] = (editTextParticipants.getText())
+						.toString();
 				newLocation[0] = (editTextLocation.getText()).toString();
 				newLocationLNG[0] = locationLng;
 				newLocationLAT[0] = locationLat;
-				newTime[0] = (String.valueOf(timePicker.getCurrentHour())) + " "
-						+ (String.valueOf(timePicker.getCurrentMinute()));
+				newTime[0] = (String.valueOf(timePicker.getCurrentHour()))
+						+ " " + (String.valueOf(timePicker.getCurrentMinute()));
 				if (check.isChecked())
 					newType[0] = stC;
 				else
 					newType[0] = stO;
-				
+
 				newOrig[0] = stM;
-				
+
 				for (int i = 0; i < events.length; i++) {
 					newEvents[i + 1] = events[i];
 					newParticipants[i + 1] = participants[i];
@@ -249,13 +250,10 @@ public class CreateEventActivity extends Activity {// implements
 				appState.setEventOriginator(eventOriginator);
 
 				Toast.makeText(getApplicationContext(),
-						getString(R.string.publishEventMesg), Toast.LENGTH_SHORT)
-						.show();
+						getString(R.string.publishEventMesg),
+						Toast.LENGTH_SHORT).show();
 				finish();
 			}
-			
-
-			
 
 		}
 	};
@@ -283,10 +281,12 @@ public class CreateEventActivity extends Activity {// implements
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			selection[0] = !selection[0];
-			if(selection[0]){
-				food.setImageResource(R.drawable.food_pressed);
-			}else{
-				food.setImageResource(R.drawable.food);
+			if (!food.isChecked()) {
+				food.setChecked(true);
+				food.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+			} else {
+				food.setChecked(false);
+				food.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
 			}
 		}
 	};
@@ -297,12 +297,15 @@ public class CreateEventActivity extends Activity {// implements
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			selection[1] = !selection[1];
-			if(selection[1]){
-				silence.setImageResource(R.drawable.silence_pressed);
-			}else{
-				silence.setImageResource(R.drawable.silence);
+			if (!silence.isChecked()) {
+				silence.setChecked(true);
+				silence.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+			} else {
+				silence.setChecked(false);
+				silence.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
 			}
 		}
+
 	};
 
 	private final OnClickListener onITRequestClick = new OnClickListener() {
@@ -311,10 +314,12 @@ public class CreateEventActivity extends Activity {// implements
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			selection[2] = !selection[2];
-			if(selection[2]){
-				it.setImageResource(R.drawable.wifi_pressed);
-			}else{
-				it.setImageResource(R.drawable.wifi);
+			if (!it.isChecked()) {
+				it.setChecked(true);
+				it.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+			} else {
+				it.setChecked(false);
+				it.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
 			}
 		}
 	};
