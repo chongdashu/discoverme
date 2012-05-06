@@ -442,5 +442,9 @@ public class HomepageActivity extends MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public void onBackPressed(){
+		hideEverything();
+	}
 
 }
