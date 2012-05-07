@@ -105,10 +105,10 @@ public class ViewEventActivity extends CreateEventActivity {
 		else
 			proposeChange.setVisibility(View.INVISIBLE);
 		proposeChange.setText(R.string.cancelEventButtonText);
-		food.setVisibility(View.GONE);
-		silence.setVisibility(View.GONE);
-		it.setVisibility(View.GONE);
-		locationSuggestionLabel.setVisibility(View.GONE);
+//		food.setVisibility(View.GONE);
+//		silence.setVisibility(View.GONE);
+//		it.setVisibility(View.GONE);
+//		locationSuggestionLabel.setVisibility(View.GONE);
 	}
 	
 	protected OnClickListener onProposeChangeClick = new OnClickListener() {
@@ -210,6 +210,9 @@ public class ViewEventActivity extends CreateEventActivity {
 		editTextParticipants.setEnabled(true);
 		check.setEnabled(false);
 		timePicker.setEnabled(false);
+		food.setEnabled(false);
+		silence.setEnabled(false);
+		it.setEnabled(false);
 	}
 
 	private final OnClickListener onEditTextParticipantsClick = new OnClickListener() {
