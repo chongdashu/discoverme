@@ -34,23 +34,42 @@ public class ViewEventActivity extends CreateEventActivity {
 	protected int latE6;
 	protected int lngE6;
 	protected boolean originatorIsme;
-
+	private MyDataSource datasource;
+	private Event theEvent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		Intent intent = getIntent();
-		eventId = intent.getLongExtra("eventID", 0);
-		eventName = intent.getStringExtra("eventName");
-		eventPart = intent.getStringExtra("eventPart");
-		eventTime = intent.getStringExtra("eventTime");
-		eventLocation = intent.getStringExtra("eventLocation");
-		eventLocationLat = intent.getStringExtra("eventLocationLat");
-		eventLocationLng = intent.getStringExtra("eventLocationLng");
-		eventType = intent.getStringExtra("eventType");
-		eventOriginator = intent.getStringExtra("eventOriginator");
 
+		Intent intent = getIntent();
+		eventId = intent.getLongExtra("friendID", 0);
+
+		datasource = new MyDataSource(this);
+		datasource.open();
+		theEvent = datasource.getEvent(eventId);
+
+		eventName = theEvent.getName();
+		eventPart = theEvent.getParticipants();
+		eventTime = theEvent.getTime();
+		eventLocation = theEvent.getLocation();
+		eventLocationLat = theEvent.getLocationLat();
+		eventLocationLng = theEvent.getLocationLng();
+		eventType = theEvent.getType();
+		eventOriginator = theEvent.getOriginator();
+		datasource.close();
+
+		/*
+		 * eventId = intent.getLongExtra("eventID", 0); eventName =
+		 * intent.getStringExtra("eventName"); eventPart =
+		 * intent.getStringExtra("eventPart"); eventTime =
+		 * intent.getStringExtra("eventTime"); eventLocation =
+		 * intent.getStringExtra("eventLocation"); eventLocationLat =
+		 * intent.getStringExtra("eventLocationLat"); eventLocationLng =
+		 * intent.getStringExtra("eventLocationLng"); eventType =
+		 * intent.getStringExtra("eventType"); eventOriginator =
+		 * intent.getStringExtra("eventOriginator");
+		 */
 		/*
 		 * StateManager appState = ((StateManager) getApplicationContext());
 		 * String[] events = appState.getEvents(); String[] parts =
@@ -162,55 +181,62 @@ public class ViewEventActivity extends CreateEventActivity {
 	    	        	   dialog.dismiss();
 									// delete this event from the event list
 									// TODO Auto-generated method stub
-									StateManager appState = ((StateManager) getApplicationContext());
-
-									// adding to friends list
-									String[] events = appState.getEvents();//
-									String[] participants = appState
-											.getParticipants();//
-									String[] location = appState.getLocations();//
-									String[] locationLNG = appState
-											.getLocationsLNG();
-									String[] locationLAT = appState
-											.getLocationsLAT();//
-									String[] time = appState.getTime();//
-									String[] type = appState.getEventType();//
-									String[] eventOriginator = appState
-											.getEventOriginator();
-
-									String[] newEvents = new String[events.length - 1];
-									String[] newParticipants = new String[events.length - 1];
-									String[] newLocation = new String[events.length - 1];
-									String[] newLocationLNG = new String[events.length - 1];
-									String[] newLocationLAT = new String[events.length - 1];
-									String[] newTime = new String[events.length - 1];
-									String[] newType = new String[events.length - 1];
-									String[] newOrig = new String[events.length + 1];
-
-									 int j = 0;
-									 for (int i = 0; i < events.length; i++) {
-									 if (i != eventID) {
-											newEvents[j] = events[i];
-											newParticipants[j] = participants[i];
-											newLocation[j] = location[i];
-											newLocationLNG[j] = locationLNG[i];
-											newLocationLAT[j] = locationLAT[i];
-											newTime[j] = time[i];
-											newType[j] = type[i];
-											newOrig[j] = eventOriginator[i];
-											j++;
-									 }
-									 }
-
-									 appState.setEvents(newEvents);
-									 appState.setParticipants(newParticipants);
-									 appState.setLocations(newLocation);
-									 appState.setLocationsLNG(newLocationLNG);
-									 appState.setLocationsLAT(newLocationLAT);
-									 appState.setTime(newTime);
-									 appState.setEventType(newType);
-									appState.setEventOriginator(newOrig);
+									/*
+									 * StateManager appState = ((StateManager)
+									 * getApplicationContext());
+									 * 
+									 * // adding to friends list String[] events
+									 * = appState.getEvents();// String[]
+									 * participants = appState
+									 * .getParticipants();// String[] location =
+									 * appState.getLocations();// String[]
+									 * locationLNG = appState
+									 * .getLocationsLNG(); String[] locationLAT
+									 * = appState .getLocationsLAT();// String[]
+									 * time = appState.getTime();// String[]
+									 * type = appState.getEventType();//
+									 * String[] eventOriginator = appState
+									 * .getEventOriginator();
+									 * 
+									 * String[] newEvents = new
+									 * String[events.length - 1]; String[]
+									 * newParticipants = new
+									 * String[events.length - 1]; String[]
+									 * newLocation = new String[events.length -
+									 * 1]; String[] newLocationLNG = new
+									 * String[events.length - 1]; String[]
+									 * newLocationLAT = new String[events.length
+									 * - 1]; String[] newTime = new
+									 * String[events.length - 1]; String[]
+									 * newType = new String[events.length - 1];
+									 * String[] newOrig = new
+									 * String[events.length + 1];
+									 * 
+									 * int j = 0; for (int i = 0; i <
+									 * events.length; i++) { if (i != eventID) {
+									 * newEvents[j] = events[i];
+									 * newParticipants[j] = participants[i];
+									 * newLocation[j] = location[i];
+									 * newLocationLNG[j] = locationLNG[i];
+									 * newLocationLAT[j] = locationLAT[i];
+									 * newTime[j] = time[i]; newType[j] =
+									 * type[i]; newOrig[j] = eventOriginator[i];
+									 * j++; } }
+									 * 
+									 * appState.setEvents(newEvents);
+									 * appState.setParticipants
+									 * (newParticipants);
+									 * appState.setLocations(newLocation);
+									 * appState.setLocationsLNG(newLocationLNG);
+									 * appState.setLocationsLAT(newLocationLAT);
+									 * appState.setTime(newTime);
+									 * appState.setEventType(newType);
+									 * appState.setEventOriginator(newOrig);
+									 */
+									datasource.open();
+									datasource.deleteEvent(theEvent);
 									// end of deleting entry
+									datasource.close();
 	    	        	   Toast.makeText(getApplicationContext(),
 	    	   					getString(R.string.cancelEventMsg), Toast.LENGTH_SHORT)
 	    	   					.show();
