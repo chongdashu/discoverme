@@ -57,11 +57,14 @@ public class AuthenticationActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(AuthenticationActivity.this,
 						GDDiscoverMeActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
+				finish();
 			} else {
 				Toast.makeText(getApplicationContext(), "invalid credentials",
 						Toast.LENGTH_SHORT).show();
 			}
+			
 		}
 	};
 
