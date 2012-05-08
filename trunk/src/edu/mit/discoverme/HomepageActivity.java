@@ -94,11 +94,11 @@ public class HomepageActivity extends MapActivity {
 					Friend onefriend = (Friend) lv.getItemAtPosition(position);
 
 					intent.putExtra("friendID", onefriend.getId());
-					intent.putExtra("friendName", onefriend.getName());
-					intent.putExtra("friendFone", onefriend.getFone());
-					intent.putExtra("friendEmail", onefriend.getEmail());
-					intent.putExtra("friendAddress", onefriend.getAddress());
-					intent.putExtra("trype", "friend");
+					// intent.putExtra("friendName", onefriend.getName());
+					// intent.putExtra("friendFone", onefriend.getFone());
+					// intent.putExtra("friendEmail", onefriend.getEmail());
+					// intent.putExtra("friendAddress", onefriend.getAddress());
+					// intent.putExtra("trype", "friend");
 					hideEverything();
 					// fdatasource.close();
 					// edatasource.close();
@@ -113,16 +113,17 @@ public class HomepageActivity extends MapActivity {
 					Event oneEvent = (Event) lv.getItemAtPosition(position);
 
 					intent.putExtra("eventID", oneEvent.getId());
-					intent.putExtra("eventName", oneEvent.getName());
-					intent.putExtra("eventPart", oneEvent.getParticipants());
-					intent.putExtra("eventTime", oneEvent.getTime());
-					intent.putExtra("eventLocation", oneEvent.getLocation());
-					intent.putExtra("eventLocationLat",
-							oneEvent.getLocationLat());
-					intent.putExtra("eventLocationLng",
-							oneEvent.getLocationLng());
-					intent.putExtra("eventType", oneEvent.getType());
-					intent.putExtra("eventOriginator", oneEvent.getOriginator());
+					// intent.putExtra("eventName", oneEvent.getName());
+					// intent.putExtra("eventPart", oneEvent.getParticipants());
+					// intent.putExtra("eventTime", oneEvent.getTime());
+					// intent.putExtra("eventLocation", oneEvent.getLocation());
+					// intent.putExtra("eventLocationLat",
+					// oneEvent.getLocationLat());
+					// intent.putExtra("eventLocationLng",
+					// oneEvent.getLocationLng());
+					// intent.putExtra("eventType", oneEvent.getType());
+					// intent.putExtra("eventOriginator",
+					// oneEvent.getOriginator());
 
 					hideEverything();
 					// fdatasource.close();

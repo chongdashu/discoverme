@@ -142,6 +142,4 @@ public class AuthenticationActivity extends Activity {
 
 	}
 
-
-
 }
