@@ -43,7 +43,7 @@ public class ViewEventActivity extends CreateEventActivity {
 
 
 		Intent intent = getIntent();
-		eventId = intent.getLongExtra("friendID", 0);
+		eventId = intent.getLongExtra("eventID", 0);
 
 		datasource = new MyDataSource(this);
 		datasource.open();
