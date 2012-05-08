@@ -444,7 +444,12 @@ public class HomepageActivity extends MapActivity {
 	}
 	
 	public void onBackPressed(){
-		hideEverything();
+		if(poped != 0){
+			hideEverything();
+		}
+		else{
+			super.onBackPressed();
+		}
 	}
 
 }
