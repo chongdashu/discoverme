@@ -137,45 +137,73 @@ public class HomepageActivity extends MapActivity {
 					// intent.putExtra("notifID", position);
 					// hideEverything();
 					// startActivity(intent);
-					
-					int notifID = position;
-					
-					StateManager appState = ((StateManager) getApplicationContext());
-					int[] notifsType = appState.getNotifType();
-					String[] notifsName = appState.getNotifsNames();
-					int notificationType = notifsType[notifID];
-					String notificationName = notifsName[notifID];
+					Notif oneNotif = (Notif) lv.getItemAtPosition(position);
+					String type = oneNotif.getType();
 
-					if (notificationType == 1) {
+					if (type.equals("event")) {
 
-						Intent intent = new Intent(HomepageActivity.this,
-								ProfileActivity.class);
-						intent.putExtra("personName", notificationName);
+					Intent intent = new Intent(HomepageActivity.this,
+								ProposeEventChangeActivity.class);
+						intent.putExtra("notifID", oneNotif.getId());
+						intent.putExtra("eventTitle", "Quick snack!");
+						String[] participants = { "annie", "henna" };
+						intent.putExtra("participants", participants);
+						intent.putExtra("timeHrs", 5);
+						intent.putExtra("timeMins", 30);
+						intent.putExtra("locationName", "MIT");
 						hideEverything();
 						startActivity(intent);
 
-					} else if (notificationType == 2) {
-						Intent i2 = new Intent(HomepageActivity.this, ProposeEventChangeActivity.class);
-						
-						i2.putExtra("eventTitle", "Quick snack!");
-						
-						String[] participants = { "annie", "henna" };
-						i2.putExtra("participants", participants);
-						
-						i2.putExtra("timeHrs", 5);
-						i2.putExtra("timeMins",30);
-						
-						i2.putExtra("locationName", "MIT");
-						
-						startActivity(i2);
-						
-					// Intent i1 = new Intent(ViewNotificationActivity.this,
-					// ViewEventActivity.class);
-					// i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					// i1.putExtra("eventId", position);
-					// startActivity(intent);
+					} else {
+						Intent intent = new Intent(HomepageActivity.this,
+								StrangerProfileActivity.class);
+						intent.putExtra("notifID", oneNotif.getId());
+						hideEverything();
+						startActivity(intent);
 
 					}
+
+					//
+					/*
+					 * int notifID = position;
+					 * 
+					 * StateManager appState = ((StateManager)
+					 * getApplicationContext()); int[] notifsType =
+					 * appState.getNotifType(); String[] notifsName =
+					 * appState.getNotifsNames(); int notificationType =
+					 * notifsType[notifID]; String notificationName =
+					 * notifsName[notifID];
+					 * 
+					 * if (notificationType == 1) {
+					 * 
+					 * Intent intent = new Intent(HomepageActivity.this,
+					 * ProfileActivity.class); intent.putExtra("personName",
+					 * notificationName); hideEverything();
+					 * startActivity(intent);
+					 * 
+					 * } else if (notificationType == 2) { Intent i2 = new
+					 * Intent(HomepageActivity.this,
+					 * ProposeEventChangeActivity.class);
+					 * 
+					 * i2.putExtra("eventTitle", "Quick snack!");
+					 * 
+					 * String[] participants = { "annie", "henna" };
+					 * i2.putExtra("participants", participants);
+					 * 
+					 * i2.putExtra("timeHrs", 5); i2.putExtra("timeMins",30);
+					 * 
+					 * i2.putExtra("locationName", "MIT");
+					 * 
+					 * startActivity(i2);
+					 * 
+					 * // Intent i1 = new Intent(ViewNotificationActivity.this,
+					 * // ViewEventActivity.class); //
+					 * i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //
+					 * i1.putExtra("eventId", position); //
+					 * startActivity(intent);
+					 * 
+					 * }
+					 */
 						
 
 				}
@@ -337,10 +365,19 @@ public class HomepageActivity extends MapActivity {
 			notif.setSelected(false);
 		} else if (popup.equals("notifss")) {
 
-			String[] notifs = getResources().getStringArray(
-					R.array.notifs_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					notifs));
+			datasource.open();
+			List<Notif> values = datasource.getAllNotifs();
+			datasource.close();
+			ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
+					R.layout.list_item, values);
+
+			lv.setAdapter(adapter);
+
+			/*
+			 * String[] notifs = getResources().getStringArray(
+			 * R.array.notifs_array); lv.setAdapter(new
+			 * ArrayAdapter<String>(this, R.layout.list_item, notifs));
+			 */
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
 			friend.setSelected(false);

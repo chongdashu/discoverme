@@ -52,6 +52,7 @@ public class AuthenticationActivity extends Activity {
 				datasource.open();
 				loadFriends();
 				loadEvents();
+				loadNotifs();
 				datasource.close();
 				Toast.makeText(getApplicationContext(), "valid credentials!!",
 						Toast.LENGTH_SHORT).show();
@@ -137,6 +138,40 @@ public class AuthenticationActivity extends Activity {
 						one[5], one[6], one[7]);
 				// datasource.createEvent(arg[0], "part", "time", "location",
 				// "locationLat", "locationLng", "type", "originatoer");
+			}
+		} else {
+			datasource.createEvent(exp, "part", "time", "location",
+					"locationLat", "locationLng", "type", "originatoer");
+		}
+
+	}
+
+	private final void loadNotifs() {
+		SharedPreferences prefs = getSharedPreferences("credentials",
+				Context.MODE_WORLD_READABLE);
+		String username = prefs.getString("username", "none");
+		String password = prefs.getString("password", "none");
+
+		CharSequence cs = null;
+		String exp = "";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			URL url = new URL(
+					"http://people.csail.mit.edu/culim/projects/discoverme/notif.txt");
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+		// datasource.createFriend("name", "fone", "email", "address");
+
+		if (cs != null) {
+			String string = cs.toString();
+			String[] arg = string.split("\n");
+			for (int i = 0; i < arg.length; i = i + 1) {
+				String[] one = arg[i].split(":");
+				datasource.createNotification(one[0], one[1], one[2], one[3]);
+				// datasource.createNotification(name, type, details, readFlag);
 			}
 		} else {
 			datasource.createEvent(exp, "part", "time", "location",
