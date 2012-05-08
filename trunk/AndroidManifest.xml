@@ -11,7 +11,35 @@
     </uses-permission>
 
     <!-- (culim) Map View Stuff -->
-
+<uses-permission
+        android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission
+        android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission
+        android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-permission
+        android:name="android.permission.READ_CONTACTS" />
+    <uses-permission
+        android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission
+        android:name="android.permission.READ_SYNC_STATS" />
+    <uses-permission
+        android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission
+        android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission
+        android:name="android.permission.READ_SOCIAL_STREAM" />
+    <uses-permission
+        android:name="android.permission.WRITE_SOCIAL_STREAM" />
+	<!-- (saqib) synched data base stuff ^^ -->
     <application
         android:name=".StateManager"
         android:icon="@drawable/ic_launcher"
@@ -31,6 +59,40 @@
 
         <uses-library android:name="com.google.android.maps" />
 
+        <activity
+            android:name=".TestDatabaseActivity"
+            android:label="database"
+            android:theme="@android:style/Theme.NoTitleBar" 
+            android:screenOrientation="portrait"/>
+        
+        <activity
+            android:name=".FriendDatabaseActivity"
+            android:label="Frienddatabase"
+            android:theme="@android:style/Theme.NoTitleBar" 
+            android:screenOrientation="portrait"/>
+        
+        <activity
+            android:name=".EventDatabaseActivity"
+            android:label="Eventdatabase"
+            android:theme="@android:style/Theme.NoTitleBar" 
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MyDatabaseActivity"
+            android:label="mydatabase"
+            android:theme="@android:style/Theme.NoTitleBar" 
+            android:screenOrientation="portrait"/>
+        
+        
+        <activity
+            android:name=".AuthenticationActivity"
+            android:label="database"
+            android:theme="@android:style/Theme.NoTitleBar" 
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PrefActivity"
+            android:screenOrientation="portrait"
+            android:label="Example prefr" />
+        
         <activity
             android:name=".MapTestActivity"
             android:label="HelloGmaps"
@@ -60,6 +122,11 @@
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
             android:name=".ProfileActivity"
+            android:screenOrientation="portrait"
+            android:label="ProfileActivityLabel"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".FriendProfileActivity"
             android:screenOrientation="portrait"
             android:label="ProfileActivityLabel"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -104,6 +171,14 @@
             android:name=".InfoTabActivity"
             android:screenOrientation="portrait"
             android:label="@string/general_info_label" />
+        
+        
+        
+   
+        
+        
+        
+        
         <activity android:name=".WebContentActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".BasicItemActivity" />
