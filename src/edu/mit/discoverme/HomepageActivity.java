@@ -47,6 +47,7 @@ public class HomepageActivity extends MapActivity {
 	private ImageButton notif;
 
 	private ListView lv;
+	private MyDataSource datasource;
 
 
 	@Override
@@ -71,6 +72,7 @@ public class HomepageActivity extends MapActivity {
 		poped = 0;
 		hideEverything();
 
+		datasource = new MyDataSource(this);
 		//
 
 		// friend.setSelected(true);
@@ -88,23 +90,44 @@ public class HomepageActivity extends MapActivity {
 
 				if (popup.equals("friendss")) {
 					Intent intent = new Intent(HomepageActivity.this,
-							ProfileActivity.class);
-					intent.putExtra("personName", ((TextView) view).getText());
+							FriendProfileActivity.class);
+					Friend onefriend = (Friend) lv.getItemAtPosition(position);
+
+					intent.putExtra("friendID", onefriend.getId());
+					intent.putExtra("friendName", onefriend.getName());
+					intent.putExtra("friendFone", onefriend.getFone());
+					intent.putExtra("friendEmail", onefriend.getEmail());
+					intent.putExtra("friendAddress", onefriend.getAddress());
+					intent.putExtra("trype", "friend");
 					hideEverything();
+					// fdatasource.close();
+					// edatasource.close();
 					startActivity(intent);
 
 					// finishActivity(-1);
 				} else if (popup.equals("eventss")) {
 					// this will actually go to view event page
-					
-					// TODO get the event from State Manager
-					StateManager stateManager = (StateManager) getApplicationContext();
+
 					Intent intent = new Intent(HomepageActivity.this,
 							ViewEventActivity.class);
-					intent.putExtra("eventId", position);
-					hideEverything();
-					startActivity(intent);
+					Event oneEvent = (Event) lv.getItemAtPosition(position);
 
+					intent.putExtra("eventID", oneEvent.getId());
+					intent.putExtra("eventName", oneEvent.getName());
+					intent.putExtra("eventPart", oneEvent.getParticipants());
+					intent.putExtra("eventTime", oneEvent.getTime());
+					intent.putExtra("eventLocation", oneEvent.getLocation());
+					intent.putExtra("eventLocationLat",
+							oneEvent.getLocationLat());
+					intent.putExtra("eventLocationLng",
+							oneEvent.getLocationLng());
+					intent.putExtra("eventType", oneEvent.getType());
+					intent.putExtra("eventOriginator", oneEvent.getOriginator());
+
+					hideEverything();
+					// fdatasource.close();
+					// edatasource.close();
+					startActivity(intent);
 				} else if (popup.equals("notifss")) {
 					// this will actually go to view event or view profile page
 					// depending on type
@@ -276,7 +299,14 @@ public class HomepageActivity extends MapActivity {
 			// String[] friends = getResources().getStringArray(
 			// R.array.friends_array);
 			//
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, friends));
+			datasource.open();
+			List<Friend> values = datasource.getAllFriends();
+			datasource.close();
+			ArrayAdapter<Friend> adapter = new ArrayAdapter<Friend>(this,
+					R.layout.list_item, values);
+			lv.setAdapter(adapter);
+			// lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
+			// friends));
 			b.setVisibility(View.VISIBLE);
 
 			p.setText("Friends");
@@ -289,8 +319,15 @@ public class HomepageActivity extends MapActivity {
 
 			// String[] events = getResources().getStringArray(
 			// R.array.events_array);
-			lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					events));
+			datasource.open();
+			List<Event> values = datasource.getAllEvents();
+			datasource.close();
+			ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(this,
+					R.layout.list_item, values);
+
+			lv.setAdapter(adapter);
+			// lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
+			// events));
 			b.setVisibility(View.VISIBLE);
 			p.setText("Events");
 
@@ -449,6 +486,7 @@ public class HomepageActivity extends MapActivity {
 		return false;
 	}
 	
+	@Override
 	public void onBackPressed(){
 		if(poped != 0){
 			hideEverything();
@@ -456,6 +494,16 @@ public class HomepageActivity extends MapActivity {
 		else{
 			super.onBackPressed();
 		}
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		datasource.close();
+		super.onPause();
 	}
 
 }

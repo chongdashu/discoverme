@@ -12,6 +12,16 @@ import com.google.android.maps.GeoPoint;
 
 public class ViewEventActivity extends CreateEventActivity {
 
+	protected long eventId;
+	protected String eventName;
+	protected String eventPart;
+	protected String eventTime;
+	protected String eventLocation;
+	protected String eventLocationLat;
+	protected String eventLocationLng;
+	protected String eventType;
+	protected String eventOriginator;
+
 	protected int eventID;
 	protected String eventTitle;
 	protected String[] participants;
@@ -23,52 +33,78 @@ public class ViewEventActivity extends CreateEventActivity {
 	protected String locationName;
 	protected int latE6;
 	protected int lngE6;
-	protected boolean originatorIsme; 
+	protected boolean originatorIsme;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		eventID = intent.getIntExtra("eventId", 0);
+		eventId = intent.getLongExtra("eventID", 0);
+		eventName = intent.getStringExtra("eventName");
+		eventPart = intent.getStringExtra("eventPart");
+		eventTime = intent.getStringExtra("eventTime");
+		eventLocation = intent.getStringExtra("eventLocation");
+		eventLocationLat = intent.getStringExtra("eventLocationLat");
+		eventLocationLng = intent.getStringExtra("eventLocationLng");
+		eventType = intent.getStringExtra("eventType");
+		eventOriginator = intent.getStringExtra("eventOriginator");
 
-		StateManager appState = ((StateManager) getApplicationContext());
-		String[] events = appState.getEvents();
-		String[] parts = appState.getParticipants();
-		String[] types = appState.getEventType();
-		String[] locations = appState.getLocations();
-		String[] locations_lat = appState.getLocationsLAT();
-		String[] locations_lng = appState.getLocationsLNG();
-		String[] times = appState.getTime();
-		String[] originators = appState.getEventOriginator();
+		/*
+		 * StateManager appState = ((StateManager) getApplicationContext());
+		 * String[] events = appState.getEvents(); String[] parts =
+		 * appState.getParticipants(); String[] types = appState.getEventType();
+		 * String[] locations = appState.getLocations(); String[] locations_lat
+		 * = appState.getLocationsLAT(); String[] locations_lng =
+		 * appState.getLocationsLNG(); String[] times = appState.getTime();
+		 * String[] originators = appState.getEventOriginator();
+		 * 
+		 * String stC = getString(R.string.typeClosed); String stO =
+		 * getString(R.string.typeOpen);
+		 * 
+		 * String stM = getString(R.string.typeMe); String stNM =
+		 * getString(R.string.typeNotMe);
+		 * 
+		 * eventTitle = events[eventID]; participantsString = parts[eventID];
+		 * participants = participantsString.split(",");
+		 * 
+		 * if (types[eventID] == stO) closedEvent = false; else closedEvent =
+		 * true; if(originators[eventID].equals(stM)) originatorIsme = true;
+		 * else originatorIsme= false; String time = times[eventID]; String[]
+		 * arg = time.split(" "); timeHrs = Integer.valueOf(arg[0]); timeMins =
+		 * Integer.valueOf(arg[1]);
+		 * 
+		 * locationName = locations[eventID]; latE6 = (int)
+		 * (Float.valueOf(locations_lat[eventID])*1000000); lngE6 = (int)
+		 * (Float.valueOf(locations_lng[eventID])*1000000);
+		 */
+		//
 
-		String stC = getString(R.string.typeClosed);
-		String stO = getString(R.string.typeOpen);
-
-		String stM = getString(R.string.typeMe);
-		String stNM = getString(R.string.typeNotMe);
-
-		eventTitle = events[eventID];
-		participantsString = parts[eventID];
+		eventID = (int) eventId;
+		eventTitle = eventName;
+		participantsString = eventPart;
 		participants = participantsString.split(",");
 
-		if (types[eventID] == stO)
+		if (eventType == "open")
 			closedEvent = false;
 		else
 			closedEvent = true;
-		if(originators[eventID].equals(stM))
-		 originatorIsme = true;
-		else 
-			originatorIsme= false;
-		String time = times[eventID];
+		if (eventOriginator.equals("me"))
+			originatorIsme = true;
+		else
+			originatorIsme = false;
+		String time = eventTime;
 		String[] arg = time.split(" ");
 		timeHrs = Integer.valueOf(arg[0]);
 		timeMins = Integer.valueOf(arg[1]);
 
-		locationName = locations[eventID];
-		latE6 = (int) (Float.valueOf(locations_lat[eventID])*1000000);
-		lngE6 = (int) (Float.valueOf(locations_lng[eventID])*1000000);
+		locationName = eventLocation;
+		latE6 = (int) (Float.valueOf(eventLocationLat) * 1000000);
+		lngE6 = (int) (Float.valueOf(eventLocationLng) * 1000000);
+
 		
+
 		inititialize();
 
 	}
