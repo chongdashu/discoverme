@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class AuthenticationActivity extends Activity {
 	MyDataSource datasource;
+	DirDataSource dirdatasource;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,11 @@ public class AuthenticationActivity extends Activity {
 				loadEvents();
 				loadNotifs();
 				datasource.close();
+
+				dirdatasource = new DirDataSource(AuthenticationActivity.this);
+				dirdatasource.open();
+				loadPeople();
+				dirdatasource.close();
 				Toast.makeText(getApplicationContext(), "valid credentials!!",
 						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(AuthenticationActivity.this,
@@ -178,6 +184,39 @@ public class AuthenticationActivity extends Activity {
 					"locationLat", "locationLng", "type", "originatoer");
 		}
 
+	}
+
+	private final void loadPeople() {
+		SharedPreferences prefs = getSharedPreferences("credentials",
+				Context.MODE_WORLD_READABLE);
+		String username = prefs.getString("username", "none");
+		String password = prefs.getString("password", "none");
+
+		CharSequence cs = null;
+		String exp = "";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			URL url = new URL(
+					"http://people.csail.mit.edu/culim/projects/discoverme/friend.txt");
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+
+		// datasource.createFriend("name", "fone", "email", "address");
+
+		if (cs != null) {
+			String string = cs.toString();
+			String[] arg = string.split("\n");
+			for (int i = 0; i < arg.length; i = i + 1) {
+				String[] one = arg[i].split(";");
+				dirdatasource.createPerson(one[0], one[1], one[2], one[3]);
+				// datasource.createFriend(arg[0], "fone", "email", "address");
+			}
+		} else {
+			dirdatasource.createPerson(exp, "fone", "email", "address");
+		}
 	}
 
 }
