@@ -35,6 +35,8 @@ import com.google.android.maps.OverlayItem;
 
 public class HomepageActivity extends MapActivity {
 
+	public static final boolean NO_LOCATION_SEARCH = true;
+	
 	private String popup;
 	private TextView p;
 	private ImageButton b;
@@ -418,6 +420,10 @@ public class HomepageActivity extends MapActivity {
 
 	private String getAddressAt(GeoPoint p) {
 		String add = "";
+		if (NO_LOCATION_SEARCH)
+		{
+			return "Fake Location...";
+		}
 		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
 		try {
 			List<Address> addresses = geoCoder.getFromLocation(
