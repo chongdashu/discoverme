@@ -15,6 +15,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -48,6 +50,8 @@ public class HomepageActivity extends MapActivity {
 
 	private ListView lv;
 	private MyDataSource datasource;
+	
+	private Handler backgroundNotificationsHandler;
 
 
 	@Override
@@ -204,17 +208,27 @@ public class HomepageActivity extends MapActivity {
 					 * 
 					 * }
 					 */
-						
-
 				}
-
 			}
 		});
 
 		initializeMap();
-
+		
+		// Background thread that runs to check for notifications
+		backgroundNotificationsHandler = new Handler();
+		backgroundNotificationsHandler.removeCallbacks(checkNotificationsTask);
+		backgroundNotificationsHandler.postDelayed(checkNotificationsTask, 5000);
 	}
+	
+	private Runnable checkNotificationsTask = new Runnable() {
+		   public void run() {
+		       long nextUpdateTime = System.currentTimeMillis() + 1000;
+		       System.out.println("checkNotificationsTask update");
 
+		       backgroundNotificationsHandler.postDelayed(this, 5000);
+		   }
+		};
+	
 	private final OnClickListener onFriendClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
