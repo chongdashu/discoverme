@@ -105,7 +105,7 @@ public class ParticipantListingActivity extends Activity implements OnClickListe
 			// TODO Auto-generated method stub
 			// go back to last page
 			// and flash a message on screen saying friend added
-			Toast.makeText(getApplicationContext(), getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT).show();
 			selectedList = "";
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra("participants", selectedList);
