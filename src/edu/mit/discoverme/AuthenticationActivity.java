@@ -142,16 +142,6 @@ public class AuthenticationActivity extends Activity {
 
 	}
 
-	@Override
-	protected void onResume() {
-		datasource.open();
-		super.onResume();
-	}
 
-	@Override
-	protected void onPause() {
-		datasource.close();
-		super.onPause();
-	}
 
 }
