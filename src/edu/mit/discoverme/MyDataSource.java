@@ -25,6 +25,10 @@ public class MyDataSource {
 			MySQLiteHelper.COLUMN_LOCATION_LNG, MySQLiteHelper.COLUMN_TYPE,
 			MySQLiteHelper.COLUMN_ORIGINATOR };
 
+	private final String[] allNotifColumns = { MySQLiteHelper.COLUMN_NID,
+			MySQLiteHelper.COLUMN_NNAME, MySQLiteHelper.COLUMN_NTYPE,
+			MySQLiteHelper.COLUMN_NDETAIL, MySQLiteHelper.COLUMN_READ_FLAG };
+
 	public MyDataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
 	}
@@ -165,6 +169,67 @@ public class MyDataSource {
 				cursor.getString(3), cursor.getString(4), cursor.getString(5),
 				cursor.getString(6), cursor.getString(7), cursor.getString(8));
 		return event;
+	}
+
+	public Notif createNotification(String name, String type, String details,
+			String readFlag) {
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_NNAME, name);
+		values.put(MySQLiteHelper.COLUMN_NTYPE, type);
+		values.put(MySQLiteHelper.COLUMN_NDETAIL, details);
+		values.put(MySQLiteHelper.COLUMN_READ_FLAG, readFlag);
+
+		long insertId = database.insert(MySQLiteHelper.TABLE_NOTIFS, null,
+				values);
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_NOTIFS,
+				allNotifColumns, MySQLiteHelper.COLUMN_NID + " = " + insertId,
+				null, null, null, null);
+		cursor.moveToFirst();
+		Notif newNotif = cursorToNotif(cursor);
+		cursor.close();
+		return newNotif;
+	}
+
+	public Notif getNotif(long id) {
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_NOTIFS,
+				allNotifColumns, MySQLiteHelper.COLUMN_NID + " = " + id, null,
+				null, null, null);
+		cursor.moveToFirst();
+		Notif newNotif = cursorToNotif(cursor);
+		cursor.close();
+		return newNotif;
+	}
+
+	public void deleteNotif(Notif notif) {
+		long id = notif.getId();
+		System.out.println("Notif deleted with id: " + id);
+		database.delete(MySQLiteHelper.TABLE_NOTIFS, MySQLiteHelper.COLUMN_NID
+				+ " = " + id, null);
+	}
+
+	public List<Notif> getAllNotifs() {
+		List<Notif> notifs = new ArrayList<Notif>();
+
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_NOTIFS,
+				allNotifColumns, null, null, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Notif notif = cursorToNotif(cursor);
+			notifs.add(notif);
+			cursor.moveToNext();
+		}
+		// Make sure to close the cursor
+		cursor.close();
+		return notifs;
+	}
+
+	private Notif cursorToNotif(Cursor cursor) {
+		Notif notif = new Notif();
+		notif.setId(cursor.getLong(0));
+		notif.setNotif(cursor.getString(1), cursor.getString(2),
+				cursor.getString(3), cursor.getString(4));
+		return notif;
 	}
 
 }

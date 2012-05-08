@@ -130,6 +130,11 @@
             android:screenOrientation="portrait"
             android:label="ProfileActivityLabel"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
+            <activity
+            android:name=".StrangerProfileActivity"
+            android:screenOrientation="portrait"
+            android:label="ProfileActivityLabel"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
             android:name=".SearchActivity"
             android:screenOrientation="portrait"
