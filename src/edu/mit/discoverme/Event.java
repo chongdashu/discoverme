@@ -95,11 +95,13 @@ public class Event {
 	}
 
 
-	public void setEvent(String name, String participants, String time,
+	public void setEvent(String name, String participants, String responses,
+			String time,
 			String location, String locationLat, String locationLng,
 			String type, String originator) {
 		this.name = name;
 		this.participants = participants;
+		this.responses = responses;
 		this.time = time;
 		this.location = location;
 		this.locationLat = locationLat;

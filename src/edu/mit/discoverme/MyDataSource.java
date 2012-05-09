@@ -20,8 +20,8 @@ public class MyDataSource {
 
 	private final String[] allEventColumns = { MySQLiteHelper.COLUMN_EID,
 			MySQLiteHelper.COLUMN_ENAME, MySQLiteHelper.COLUMN_PART,
-			MySQLiteHelper.COLUMN_TIME, MySQLiteHelper.COLUMN_LOCATION,
-			MySQLiteHelper.COLUMN_LOCATION_LAT,
+			MySQLiteHelper.COLUMN_RSVP, MySQLiteHelper.COLUMN_TIME,
+			MySQLiteHelper.COLUMN_LOCATION, MySQLiteHelper.COLUMN_LOCATION_LAT,
 			MySQLiteHelper.COLUMN_LOCATION_LNG, MySQLiteHelper.COLUMN_TYPE,
 			MySQLiteHelper.COLUMN_ORIGINATOR };
 
@@ -105,12 +105,14 @@ public class MyDataSource {
 		return friend;
 	}
 
-	public Event createEvent(String name, String participants, String time,
+	public Event createEvent(String name, String participants,
+			String responses, String time,
 			String location, String locationLat, String locationLng,
 			String type, String originator) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_ENAME, name);
 		values.put(MySQLiteHelper.COLUMN_PART, participants);
+		values.put(MySQLiteHelper.COLUMN_RSVP, responses);
 		values.put(MySQLiteHelper.COLUMN_TIME, time);
 		values.put(MySQLiteHelper.COLUMN_LOCATION, location);
 		values.put(MySQLiteHelper.COLUMN_LOCATION_LAT, locationLat);
@@ -167,7 +169,8 @@ public class MyDataSource {
 		event.setId(cursor.getLong(0));
 		event.setEvent(cursor.getString(1), cursor.getString(2),
 				cursor.getString(3), cursor.getString(4), cursor.getString(5),
-				cursor.getString(6), cursor.getString(7), cursor.getString(8));
+				cursor.getString(6), cursor.getString(7), cursor.getString(8),
+				cursor.getString(9));
 		return event;
 	}
 

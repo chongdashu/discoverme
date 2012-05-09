@@ -16,7 +16,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -98,17 +97,8 @@ public class HomepageActivity extends MapActivity {
 					Friend onefriend = (Friend) lv.getItemAtPosition(position);
 
 					intent.putExtra("friendID", onefriend.getId());
-					// intent.putExtra("friendName", onefriend.getName());
-					// intent.putExtra("friendFone", onefriend.getFone());
-					// intent.putExtra("friendEmail", onefriend.getEmail());
-					// intent.putExtra("friendAddress", onefriend.getAddress());
-					// intent.putExtra("trype", "friend");
 					hideEverything();
-					// fdatasource.close();
-					// edatasource.close();
 					startActivity(intent);
-
-					// finishActivity(-1);
 				} else if (popup.equals("eventss")) {
 					// this will actually go to view event page
 
@@ -117,30 +107,9 @@ public class HomepageActivity extends MapActivity {
 					Event oneEvent = (Event) lv.getItemAtPosition(position);
 
 					intent.putExtra("eventID", oneEvent.getId());
-					// intent.putExtra("eventName", oneEvent.getName());
-					// intent.putExtra("eventPart", oneEvent.getParticipants());
-					// intent.putExtra("eventTime", oneEvent.getTime());
-					// intent.putExtra("eventLocation", oneEvent.getLocation());
-					// intent.putExtra("eventLocationLat",
-					// oneEvent.getLocationLat());
-					// intent.putExtra("eventLocationLng",
-					// oneEvent.getLocationLng());
-					// intent.putExtra("eventType", oneEvent.getType());
-					// intent.putExtra("eventOriginator",
-					// oneEvent.getOriginator());
-
 					hideEverything();
-					// fdatasource.close();
-					// edatasource.close();
 					startActivity(intent);
 				} else if (popup.equals("notifss")) {
-					// this will actually go to view event or view profile page
-					// depending on type
-					// Intent intent = new Intent(HomepageActivity.this,
-					// ViewNotificationActivity.class);
-					// intent.putExtra("notifID", position);
-					// hideEverything();
-					// startActivity(intent);
 					Notif oneNotif = (Notif) lv.getItemAtPosition(position);
 					String type = oneNotif.getType();
 
@@ -167,47 +136,6 @@ public class HomepageActivity extends MapActivity {
 
 					}
 
-					//
-					/*
-					 * int notifID = position;
-					 * 
-					 * StateManager appState = ((StateManager)
-					 * getApplicationContext()); int[] notifsType =
-					 * appState.getNotifType(); String[] notifsName =
-					 * appState.getNotifsNames(); int notificationType =
-					 * notifsType[notifID]; String notificationName =
-					 * notifsName[notifID];
-					 * 
-					 * if (notificationType == 1) {
-					 * 
-					 * Intent intent = new Intent(HomepageActivity.this,
-					 * ProfileActivity.class); intent.putExtra("personName",
-					 * notificationName); hideEverything();
-					 * startActivity(intent);
-					 * 
-					 * } else if (notificationType == 2) { Intent i2 = new
-					 * Intent(HomepageActivity.this,
-					 * ProposeEventChangeActivity.class);
-					 * 
-					 * i2.putExtra("eventTitle", "Quick snack!");
-					 * 
-					 * String[] participants = { "annie", "henna" };
-					 * i2.putExtra("participants", participants);
-					 * 
-					 * i2.putExtra("timeHrs", 5); i2.putExtra("timeMins",30);
-					 * 
-					 * i2.putExtra("locationName", "MIT");
-					 * 
-					 * startActivity(i2);
-					 * 
-					 * // Intent i1 = new Intent(ViewNotificationActivity.this,
-					 * // ViewEventActivity.class); //
-					 * i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //
-					 * i1.putExtra("eventId", position); //
-					 * startActivity(intent);
-					 * 
-					 * }
-					 */
 				}
 			}
 		});
@@ -220,8 +148,9 @@ public class HomepageActivity extends MapActivity {
 		backgroundNotificationsHandler.postDelayed(checkNotificationsTask, 5000);
 	}
 	
-	private Runnable checkNotificationsTask = new Runnable() {
-		   public void run() {
+	private final Runnable checkNotificationsTask = new Runnable() {
+		   @Override
+		public void run() {
 		       long nextUpdateTime = System.currentTimeMillis() + 1000;
 		       System.out.println("checkNotificationsTask update");
 
@@ -339,17 +268,12 @@ public class HomepageActivity extends MapActivity {
 		popupPage.setBackgroundDrawable(newMarker);
 
 		if (popup.equals("friendss")) {
-			// String[] friends = getResources().getStringArray(
-			// R.array.friends_array);
-			//
 			datasource.open();
 			List<Friend> values = datasource.getAllFriends();
 			datasource.close();
 			ArrayAdapter<Friend> adapter = new ArrayAdapter<Friend>(this,
 					R.layout.list_item, values);
 			lv.setAdapter(adapter);
-			// lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-			// friends));
 			b.setVisibility(View.VISIBLE);
 
 			p.setText("Friends");
@@ -360,8 +284,6 @@ public class HomepageActivity extends MapActivity {
 
 		} else if (popup.equals("eventss")) {
 
-			// String[] events = getResources().getStringArray(
-			// R.array.events_array);
 			datasource.open();
 			List<Event> values = datasource.getAllEvents();
 			datasource.close();
@@ -369,8 +291,6 @@ public class HomepageActivity extends MapActivity {
 					R.layout.list_item, values);
 
 			lv.setAdapter(adapter);
-			// lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-			// events));
 			b.setVisibility(View.VISIBLE);
 			p.setText("Events");
 
@@ -387,11 +307,6 @@ public class HomepageActivity extends MapActivity {
 
 			lv.setAdapter(adapter);
 
-			/*
-			 * String[] notifs = getResources().getStringArray(
-			 * R.array.notifs_array); lv.setAdapter(new
-			 * ArrayAdapter<String>(this, R.layout.list_item, notifs));
-			 */
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
 			friend.setSelected(false);
