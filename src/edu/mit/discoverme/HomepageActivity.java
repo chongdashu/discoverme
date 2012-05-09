@@ -121,7 +121,8 @@ public class HomepageActivity extends MapActivity {
 						//go to veiw event page
 					} else if (type.equals("EventAccepted")
 							|| type.equals("EventDeclined")
-							|| type.equals("EventCanceled")) {
+							|| type.equals("EventCanceled")
+							|| type.equals("FriendDel")) {
 						// do nothing
 					} else if (type.equals("EventProposedChange")) {
 						// go to this new page now which ius not there yet ...
@@ -393,7 +394,7 @@ public class HomepageActivity extends MapActivity {
 			@Override
 			public void onClick(View v) {
 				StateManager stateManager = (StateManager) getApplicationContext();
-				HomepageActivity homePageActivity = (HomepageActivity) HomepageActivity.this;
+				HomepageActivity homePageActivity = HomepageActivity.this;
 				
 				MapView mapView = (MapView) (homePageActivity.findViewById(R.id.mapview));
 				MapController mapController = mapView.getController();
