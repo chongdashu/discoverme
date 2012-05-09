@@ -50,6 +50,7 @@ public class AuthenticationActivity extends Activity {
 				datasource.open();
 
 				ServerLink.loadFriends(usr, datasource);
+				ServerLink.loadEvents("saqib01", datasource);
 				ServerLink.loadNotifs(usr, datasource);
 				datasource.close();
 

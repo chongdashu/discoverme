@@ -48,8 +48,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			+ " text not null," + COLUMN_TIME
 			+ " text not null," + COLUMN_LOCATION + " text not null,"
 			+ COLUMN_LOCATION_LAT + " text not null," + COLUMN_LOCATION_LNG
-			+ " text not null," + COLUMN_TYPE + " text not null,"
-			+ COLUMN_ORIGINATOR + " text not null );";
+ + " text not null," + COLUMN_TYPE
+			+ " text not null );";
 
 	// Database creation sql statement
 	private static final String FRIEND_TABLE_CREATE = "create table "

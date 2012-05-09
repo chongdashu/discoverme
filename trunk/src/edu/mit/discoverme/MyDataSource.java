@@ -23,8 +23,7 @@ public class MyDataSource {
 			MySQLiteHelper.COLUMN_PART, MySQLiteHelper.COLUMN_RSVP,
 			MySQLiteHelper.COLUMN_TIME, MySQLiteHelper.COLUMN_LOCATION,
 			MySQLiteHelper.COLUMN_LOCATION_LAT,
-			MySQLiteHelper.COLUMN_LOCATION_LNG, MySQLiteHelper.COLUMN_TYPE,
-			MySQLiteHelper.COLUMN_ORIGINATOR };
+			MySQLiteHelper.COLUMN_LOCATION_LNG, MySQLiteHelper.COLUMN_TYPE };
 
 	private final String[] allNotifColumns = { MySQLiteHelper.COLUMN_NID,
 			MySQLiteHelper.COLUMN_NNAME, MySQLiteHelper.COLUMN_NTYPE,
@@ -110,7 +109,7 @@ public class MyDataSource {
 		return friend;
 	}
 
-	public Event createEvent(String eventID, String name, String participants,
+	public void createEvent(String eventID, String name, String participants,
 			String responses, String time,
 			String location, String locationLat, String locationLng,
  String type) {
@@ -131,9 +130,9 @@ public class MyDataSource {
 						+ insertId,
 				null, null, null, null);
 		cursor.moveToFirst();
-		Event newEvent = cursorToEvent(cursor);
-		cursor.close();
-		return newEvent;
+		// Event newEvent = cursorToEvent(cursor);
+		// cursor.close();
+		// return newEvent;
 	}
 
 	public Event getEvent(long id) {

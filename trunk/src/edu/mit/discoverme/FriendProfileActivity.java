@@ -1,11 +1,11 @@
 package edu.mit.discoverme;
 
-import java.util.Arrays;
-
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,7 +62,6 @@ public class FriendProfileActivity extends Activity {
 		 * intent.getStringExtra("type");
 		 */
 		Button add = (Button) findViewById(R.id.addAsFriendButton);
-		add.setOnClickListener(onAddClick);
 
 		Button addedAlready = (Button) findViewById(R.id.pendingResponseButton);
 
@@ -70,10 +69,8 @@ public class FriendProfileActivity extends Activity {
 		deleteFriend.setOnClickListener(onDeleteClick);
 
 		Button approve = (Button) findViewById(R.id.addPendingYesButton);
-		approve.setOnClickListener(onApproveClick);
 
 		Button decline = (Button) findViewById(R.id.addPendingNoButton);
-		decline.setOnClickListener(onDeclineClick);
 
 		TextView nameField = (TextView) findViewById(R.id.personName);
 		TextView emailField = (TextView) findViewById(R.id.personEmail);
@@ -96,93 +93,7 @@ public class FriendProfileActivity extends Activity {
 
 	}
 
-	private final OnClickListener onAddClick = new OnClickListener() {
 
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			StateManager appState = ((StateManager) getApplicationContext());
-
-			// adding to friends list
-			String[] friends = appState.getFriends();//
-			String[] newFriends = new String[friends.length + 1];
-			int indexFriends = 0;
-			int added = 0;
-			for (int i = 0; i < friends.length; i++)
-				newFriends[i] = friends[i];
-			newFriends[friends.length] = friendName;
-			Arrays.sort(newFriends);
-			appState.setFriends(newFriends);
-
-			// change type to pending res in directory list
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, friendName);
-			String stPres = getString(R.string.typePendingRes);
-			directoryTypes[indexPerson] = stPres;
-			appState.setDirectory_friendType(directoryTypes);
-
-			// go back to last page
-			// and flash a message on screen saying friend added
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT)
-					.show();
-			finish();
-
-		}
-	};
-	private final OnClickListener onApproveClick = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			StateManager appState = ((StateManager) getApplicationContext());
-
-			// add to friends list
-			String[] friends = appState.getFriends();//
-			String[] newFriends = new String[friends.length + 1];
-			for (int i = 0; i < friends.length; i++)
-				newFriends[i] = friends[i];
-			newFriends[friends.length] = friendName;
-			Arrays.sort(newFriends);
-			appState.setFriends(newFriends);
-
-			// change type to friends in the directory
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, friendName);
-			String stF = getString(R.string.typeFriend);
-			directoryTypes[indexPerson] = stF;
-			appState.setDirectory_friendType(directoryTypes);
-
-			// and flash a message on screen saying something
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.addPendingYesMesg), Toast.LENGTH_SHORT)
-					.show();
-			finish();
-		}
-	};
-	private final OnClickListener onDeclineClick = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			// change type to stranger in directory list
-			StateManager appState = ((StateManager) getApplicationContext());
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, friendName);
-			String stS = getString(R.string.typeStranger);
-			directoryTypes[indexPerson] = stS;
-			appState.setDirectory_friendType(directoryTypes);
-			// go back to last page
-			// and flash a message on screen saying something
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.addPendingNoMesg), Toast.LENGTH_SHORT)
-					.show();
-			finish();
-		}
-	};
 
 	private final OnClickListener onDeleteClick = new OnClickListener() {
 
@@ -201,6 +112,12 @@ public class FriendProfileActivity extends Activity {
 									// TODO Auto-generated method stub
 									datasource.deleteFriend(theFriend);
 									datasource.close();
+									SharedPreferences prefs = getSharedPreferences("credentials",
+											Context.MODE_WORLD_READABLE);
+									String username = prefs.getString("username", "none");
+									ServerLink.deleteFriend(username,
+											theFriend.getEmail());
+									
 									// something
 									Toast.makeText(
 											getApplicationContext(),

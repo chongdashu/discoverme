@@ -39,7 +39,7 @@ public class ServerLink {
 
 	public static void loadEvents(String eventname, MyDataSource datasource) {
 		CharSequence cs = null;
-		String exp = "";
+		String exp = "none";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			URL url = new URL(
@@ -57,8 +57,10 @@ public class ServerLink {
 			String[] arg = string.split("\n");
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(";");
+
 				datasource.createEvent(eventname, one[0], one[1], one[2],
 						one[3], one[4], one[5], one[6], one[7]);
+
 				// datasource.createEvent(arg[0], "part", "time", "location",
 				// "locationLat", "locationLng", "type", "originatoer");
 			}
@@ -269,7 +271,9 @@ public class ServerLink {
 		String type = notif.getType();
 		if(type.equals("FriendReq"))
 		{}else if (type.equals("FriendRes"))
-		{}else if (type.equals("EventInvite"))
+		{}else if (type.equals("FriendDel")) {
+			// delete this notif from the table so it never shows up in the list
+		} else if (type.equals("EventInvite"))
 		{}else if (type.equals("EventCanceled"))
 		{}else if (type.equals("EventChanged"))
 		{}else if (type.equals("EventAccepted"))
