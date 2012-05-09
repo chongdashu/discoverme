@@ -24,11 +24,16 @@ public class CreateEventActivity extends Activity {// implements
 	protected EditText editTextTitle;
 	protected EditText editTextParticipants;
 	protected EditText editTextLocation;
+	protected TextView viewTextParticipants;
+	protected TextView viewTextMap;
+	protected TextView viewTextTitle;
 	protected String locationLng;
 	protected String locationLat;
 	protected CheckedTextView check;
 	protected CustomTimePicker timePicker;
 	protected Button proposeChange;
+	protected Button viewParticipantsButton;
+	protected Button viewMapButton;
 	protected LinearLayout proposeChangeArea;
 	protected TextView activityTitle;
 
@@ -84,10 +89,22 @@ public class CreateEventActivity extends Activity {// implements
 		silence = (CheckedTextView) findViewById(R.id.silenceButton);
 		it = (CheckedTextView) findViewById(R.id.itButton);
 		locationSuggestionLabel = (TextView) findViewById(R.id.locations_req_text);
+		
+		viewTextParticipants = (TextView)findViewById(R.id.view_event_view_participants);
+		viewParticipantsButton = (Button)findViewById(R.id.view_event_participants_button);
+		viewTextMap = (TextView)findViewById(R.id.view_event_view_map);
+		viewMapButton = (Button)findViewById(R.id.view_event_map_button);
+		viewTextTitle = (TextView)findViewById(R.id.view_event_view_title);
 
 		food.setOnClickListener(onFoodRequestClick);
 		silence.setOnClickListener(onSilenceRequestClick);
 		it.setOnClickListener(onITRequestClick);
+		
+		viewTextParticipants.setVisibility(View.GONE);
+		viewParticipantsButton.setVisibility(View.GONE);
+		viewTextMap.setVisibility(View.GONE);
+		viewMapButton.setVisibility(View.GONE);
+		viewTextTitle.setVisibility(View.GONE);
 
 		// friends = getResources().getStringArray(R.array.friends_array);
 
