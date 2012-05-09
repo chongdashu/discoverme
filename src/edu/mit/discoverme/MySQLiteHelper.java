@@ -18,6 +18,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public static final String TABLE_EVENTS = "events";
 	public static final String COLUMN_EID = "_eid";
+	public static final String COLUMN_EUID = "_euid";// event unique id
 	public static final String COLUMN_ENAME = "eventname";
 	public static final String COLUMN_PART = "participants";
 	public static final String COLUMN_RSVP = "rsvp";
@@ -41,7 +42,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	// Database creation sql statement
 	private static final String EVENT_TABLE_CREATE = "create table "
 			+ TABLE_EVENTS + "( " + COLUMN_EID
-			+ " integer primary key autoincrement, " + COLUMN_ENAME
+			+ " integer primary key autoincrement, " + COLUMN_EUID
+			+ " text not null," + COLUMN_ENAME
 			+ " text not null," + COLUMN_PART + " text not null," + COLUMN_RSVP
 			+ " text not null," + COLUMN_TIME
 			+ " text not null," + COLUMN_LOCATION + " text not null,"

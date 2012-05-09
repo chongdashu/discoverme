@@ -4,6 +4,7 @@ package edu.mit.discoverme;
 
 public class Event {
 	private long id;
+	private String eventID;// globaly unique name
 	private String name;
 	private String participants;
 	private String responses;
@@ -12,7 +13,15 @@ public class Event {
 	private String locationLat;
 	private String locationLng;
 	private String type;
-	private String originator;
+
+
+	public String getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(String eventID) {
+		this.eventID = eventID;
+	}
 
 	public long getId() {
 		return id;
@@ -86,19 +95,14 @@ public class Event {
 		this.type = type;
 	}
 
-	public String getOriginator() {
-		return originator;
-	}
-
-	public void setOriginator(String originator) {
-		this.originator = originator;
-	}
 
 
-	public void setEvent(String name, String participants, String responses,
+	public void setEvent(String eventID, String name, String participants,
+			String responses,
 			String time,
 			String location, String locationLat, String locationLng,
-			String type, String originator) {
+ String type) {
+		this.eventID = eventID;
 		this.name = name;
 		this.participants = participants;
 		this.responses = responses;
@@ -107,8 +111,6 @@ public class Event {
 		this.locationLat = locationLat;
 		this.locationLng = locationLng;
 		this.type = type;
-		this.originator = originator;
-
 	}
 	// Will be used by the ArrayAdapter in the ListView
 	@Override

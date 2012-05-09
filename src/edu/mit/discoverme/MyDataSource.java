@@ -19,9 +19,10 @@ public class MyDataSource {
 			MySQLiteHelper.COLUMN_EMAIL, MySQLiteHelper.COLUMN_ADDRESS };
 
 	private final String[] allEventColumns = { MySQLiteHelper.COLUMN_EID,
-			MySQLiteHelper.COLUMN_ENAME, MySQLiteHelper.COLUMN_PART,
-			MySQLiteHelper.COLUMN_RSVP, MySQLiteHelper.COLUMN_TIME,
-			MySQLiteHelper.COLUMN_LOCATION, MySQLiteHelper.COLUMN_LOCATION_LAT,
+			MySQLiteHelper.COLUMN_EUID, MySQLiteHelper.COLUMN_ENAME,
+			MySQLiteHelper.COLUMN_PART, MySQLiteHelper.COLUMN_RSVP,
+			MySQLiteHelper.COLUMN_TIME, MySQLiteHelper.COLUMN_LOCATION,
+			MySQLiteHelper.COLUMN_LOCATION_LAT,
 			MySQLiteHelper.COLUMN_LOCATION_LNG, MySQLiteHelper.COLUMN_TYPE,
 			MySQLiteHelper.COLUMN_ORIGINATOR };
 
@@ -80,6 +81,10 @@ public class MyDataSource {
 				+ " = " + id, null);
 	}
 
+	public void emptyFriendsTable() {
+		System.out.println("All Friends deleted with id: ");
+		database.delete(MySQLiteHelper.TABLE_FRIENDS, null, null);
+	}
 	public List<Friend> getAllFriends() {
 		List<Friend> friends = new ArrayList<Friend>();
 
@@ -105,11 +110,12 @@ public class MyDataSource {
 		return friend;
 	}
 
-	public Event createEvent(String name, String participants,
+	public Event createEvent(String eventID, String name, String participants,
 			String responses, String time,
 			String location, String locationLat, String locationLng,
-			String type, String originator) {
+ String type) {
 		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_EUID, eventID);
 		values.put(MySQLiteHelper.COLUMN_ENAME, name);
 		values.put(MySQLiteHelper.COLUMN_PART, participants);
 		values.put(MySQLiteHelper.COLUMN_RSVP, responses);
@@ -118,7 +124,6 @@ public class MyDataSource {
 		values.put(MySQLiteHelper.COLUMN_LOCATION_LAT, locationLat);
 		values.put(MySQLiteHelper.COLUMN_LOCATION_LNG, locationLng);
 		values.put(MySQLiteHelper.COLUMN_TYPE, type);
-		values.put(MySQLiteHelper.COLUMN_ORIGINATOR, originator);
 		long insertId = database.insert(MySQLiteHelper.TABLE_EVENTS, null,
 				values);
 		Cursor cursor = database.query(MySQLiteHelper.TABLE_EVENTS,

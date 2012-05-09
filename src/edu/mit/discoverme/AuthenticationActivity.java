@@ -1,8 +1,5 @@
 package edu.mit.discoverme;
 
-import java.io.IOException;
-import java.net.URL;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -51,14 +48,14 @@ public class AuthenticationActivity extends Activity {
 				editor.commit();
 				datasource = new MyDataSource(AuthenticationActivity.this);
 				datasource.open();
-				loadFriends();
-				loadEvents();
-				loadNotifs();
+
+				ServerLink.loadFriends(usr, datasource);
+				ServerLink.loadNotifs(usr, datasource);
 				datasource.close();
 
 				dirdatasource = new DirDataSource(AuthenticationActivity.this);
 				dirdatasource.open();
-				loadPeople();
+				ServerLink.loadPeople(dirdatasource);
 				dirdatasource.close();
 				Toast.makeText(getApplicationContext(), "valid credentials!!",
 						Toast.LENGTH_SHORT).show();
@@ -83,140 +80,5 @@ public class AuthenticationActivity extends Activity {
 		}
 	};
 
-	private final void loadFriends() {
-		SharedPreferences prefs = getSharedPreferences("credentials",
-				Context.MODE_WORLD_READABLE);
-		String username = prefs.getString("username", "none");
-		String password = prefs.getString("password", "none");
-
-		CharSequence cs = null;
-		String exp = "";
-		try {
-			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/friend.txt");
-			cs = Authenticate.getURLContent(url);
-			// do something with the URL...
-		} catch (IOException ioex) {
-			exp = ioex.toString();
-		}
-
-		// datasource.createFriend("name", "fone", "email", "address");
-
-		if (cs != null) {
-			String string = cs.toString();
-			String[] arg = string.split("\n");
-			for (int i = 0; i < arg.length; i = i + 1) {
-				String[] one = arg[i].split(";");
-				datasource.createFriend(one[0], one[1], one[2], one[3]);
-				// datasource.createFriend(arg[0], "fone", "email", "address");
-			}
-		} else {
-			datasource.createFriend(exp, "fone", "email", "address");
-		}
-	}
-
-	private final void loadEvents() {
-		SharedPreferences prefs = getSharedPreferences("credentials",
-				Context.MODE_WORLD_READABLE);
-		String username = prefs.getString("username", "none");
-		String password = prefs.getString("password", "none");
-
-		CharSequence cs = null;
-		String exp = "";
-		try {
-			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/event.txt");
-			cs = Authenticate.getURLContent(url);
-			// do something with the URL...
-		} catch (IOException ioex) {
-			exp = ioex.toString();
-		}
-		// datasource.createFriend("name", "fone", "email", "address");
-
-		if (cs != null) {
-			String string = cs.toString();
-			String[] arg = string.split("\n");
-			for (int i = 0; i < arg.length; i = i + 1) {
-				String[] one = arg[i].split(";");
-				datasource.createEvent(one[0], one[1], one[2], one[3], one[4],
-						one[5], one[6], one[7], one[8]);
-				// datasource.createEvent(arg[0], "part", "time", "location",
-				// "locationLat", "locationLng", "type", "originatoer");
-			}
-		} else {
-			datasource.createEvent(exp, "part", "rsvp", "time", "location",
-					"locationLat", "locationLng", "type", "originatoer");
-		}
-
-	}
-
-	private final void loadNotifs() {
-		SharedPreferences prefs = getSharedPreferences("credentials",
-				Context.MODE_WORLD_READABLE);
-		String username = prefs.getString("username", "none");
-		String password = prefs.getString("password", "none");
-
-		CharSequence cs = null;
-		String exp = "";
-		try {
-			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/notif.txt");
-			cs = Authenticate.getURLContent(url);
-			// do something with the URL...
-		} catch (IOException ioex) {
-			exp = ioex.toString();
-		}
-		// datasource.createFriend("name", "fone", "email", "address");
-
-		if (cs != null) {
-			String string = cs.toString();
-			String[] arg = string.split("\n");
-			for (int i = 0; i < arg.length; i = i + 1) {
-				String[] one = arg[i].split(":");
-				datasource.createNotification(one[0], one[1], one[2], one[3]);
-				// datasource.createNotification(name, type, details, readFlag);
-			}
-		} else {
-			datasource.createEvent(exp, "part", "rsvp", "time", "location",
-					"locationLat", "locationLng", "type", "originatoer");
-		}
-
-	}
-
-	private final void loadPeople() {
-		SharedPreferences prefs = getSharedPreferences("credentials",
-				Context.MODE_WORLD_READABLE);
-		String username = prefs.getString("username", "none");
-		String password = prefs.getString("password", "none");
-
-		CharSequence cs = null;
-		String exp = "";
-		try {
-			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/friend.txt");
-			cs = Authenticate.getURLContent(url);
-			// do something with the URL...
-		} catch (IOException ioex) {
-			exp = ioex.toString();
-		}
-
-		// datasource.createFriend("name", "fone", "email", "address");
-
-		if (cs != null) {
-			String string = cs.toString();
-			String[] arg = string.split("\n");
-			for (int i = 0; i < arg.length; i = i + 1) {
-				String[] one = arg[i].split(";");
-				dirdatasource.createPerson(one[0], one[1], one[2], one[3]);
-				// datasource.createFriend(arg[0], "fone", "email", "address");
-			}
-		} else {
-			dirdatasource.createPerson(exp, "fone", "email", "address");
-		}
-	}
 
 }
