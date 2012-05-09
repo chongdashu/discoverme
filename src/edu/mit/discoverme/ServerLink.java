@@ -293,14 +293,20 @@ public class ServerLink {
 		CharSequence cs = null;
 		String type = notif.getType();
 		if(type.equals("FriendReq"))
-		{}else if (type.equals("FriendRes"))
-		{}else if (type.equals("FriendDel")) {
+ {/* do nothing */
+		} else if (type.equals("FriendRes"))
+ {
+
+		} else if (type.equals("FriendDel")) {
 			// delete this notif from the table so it never shows up in the list
-			dataSource.deleteNotif(notif);
+			// dataSource.deleteNotif(notif);
 		} else if (type.equals("EventInvite"))
-		{}else if (type.equals("EventCanceled"))
-		{}else if (type.equals("EventChanged"))
-		{}else if (type.equals("EventAccepted"))
+		{/*do nothing*/}else if (type.equals("EventCanceled"))
+		{
+			
+		}else if (type.equals("EventChanged"))
+ {/* do nothing */
+		} else if (type.equals("EventAccepted"))
 		{}else if (type.equals("EventDeclined"))
 		{}else if (type.equals("EventProposedChange")){}
 		
