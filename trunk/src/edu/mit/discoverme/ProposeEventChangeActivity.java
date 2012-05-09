@@ -3,7 +3,6 @@ package edu.mit.discoverme;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +20,8 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 	protected String eventTitle;
 	protected String[] participants;
 	protected String participantsString;
+	protected String[] rsvp;
+	protected String rsvpString;
 	protected boolean closedEvent;
 	protected int timeHrs;
 	protected int timeMins;
@@ -31,6 +32,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 	protected boolean originatorIsme;
 
 	protected boolean inEditMode;
+	private MyDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +40,37 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
+		long notifID = intent.getLongExtra("notifID", 0);
 
+		// datasource = new MyDataSource(this);
+		// datasource.open();
+		// Notif notif = datasource.getNotif(notifID);
+		// datasource.close();
+		String eventuid = "saqib01";
+		// notif.getDetail();
+		String eventRow = ServerLink.getEvent(eventuid);
+
+		
 		// Begin changes here
-		eventTitle = intent.getStringExtra("eventTitle");// events[eventID];
-		// participantsString = parts[eventID];
-		participants = intent.getStringArrayExtra("participants"); // participantsString.split(",");
-		participantsString = Utils.foldParticipantsList(participants);
-		// if (types[eventID] == stO)
-		// closedEvent = false;
-		// else
-		closedEvent = true;
-		// if(originators[eventID].equals(stM))
-		// originatorIsme = true;
-		// else
+		String [] arg = eventRow.split(";");
+		eventTitle = arg[0];
+		participantsString = arg[1];
+		participants = participantsString.split(",");
+		rsvpString = arg[2];
+		String time = arg[3];
+		if (arg[7].equals("closed"))
+			closedEvent = true;
+		else
+			closedEvent = false;
 		originatorIsme = false;
-		// String time = times[eventID];
-		// String[] arg = time.split(" ");
-		timeHrs = intent.getIntExtra("timeHrs", 0);
-		timeMins = intent.getIntExtra("timeMins", 0);
-
-		locationName = intent.getStringExtra("locationName"); // locations[eventID];
-		latE6 = intent.getIntExtra("lat", (int) (42.360383 * 1000000)); // (int)
+		timeHrs = Integer.valueOf((time.split(" "))[0]);
+		timeMins =  Integer.valueOf((time.split(" "))[1]);
+		locationName = arg[4];
+		latE6 = (int) (Float.valueOf(arg[5]) * 10000000);
 																		// (((float)
 																		// Float.valueOf(locations_lat[eventID]))*1000000);
-		lngE6 = intent.getIntExtra("lng", (int) (-71.090899 * 1000000)); // (int)
+		lngE6 = (int) (Float.valueOf(arg[6]) * 10000000);
+
 																			// (((float)
 																			// Float.valueOf(locations_lng[eventID]))*1000000);
 

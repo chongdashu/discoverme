@@ -115,10 +115,20 @@ public class HomepageActivity extends MapActivity {
 
 					if(type.equals("FriendReq") || type.equals("FriendRes"))
 					{
-						//go to strnager profile page
+						Intent intent = new Intent(HomepageActivity.this,
+								StrangerProfileActivity.class);
+						intent.putExtra("email", oneNotif.getDetail());
+						hideEverything();
+						startActivity(intent);
+
 					} else if (type.equals("EventInvite")
 							|| type.equals("EventChanged")) {
-						//go to veiw event page
+
+						Intent intent = new Intent(HomepageActivity.this,
+								ProposeEventChangeActivity.class);
+						intent.putExtra("notifID", oneNotif.getId());
+						hideEverything();
+						startActivity(intent);
 					} else if (type.equals("EventAccepted")
 							|| type.equals("EventDeclined")
 							|| type.equals("EventCanceled")
