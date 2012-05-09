@@ -20,6 +20,15 @@
             android:layout_above="@+id/select_event_location_confirmation_area"
             android:apiKey="@string/google_map_api_key_cu"
             android:clickable="true" />
+       
+        <ImageView 
+            android:id="@+id/map_legend"
+            android:layout_width="200dip"
+            android:layout_height="200dip"
+            android:src="@drawable/map_key"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+        />
 
         <LinearLayout
             android:id="@+id/select_event_location_confirmation_area"
