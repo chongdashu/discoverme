@@ -1,8 +1,10 @@
 package edu.mit.discoverme;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +15,7 @@ import com.google.android.maps.GeoPoint;
 public class ViewEventActivity extends CreateEventActivity {
 
 	protected long eventId;
+	protected String eventUniqueId;
 	protected String eventName;
 	protected String eventPart;
 	protected String eventResponses;
@@ -52,6 +55,7 @@ public class ViewEventActivity extends CreateEventActivity {
 		datasource.open();
 		theEvent = datasource.getEvent(eventId);
 
+		eventUniqueId = theEvent.getEventID();
 		eventName = theEvent.getName();
 		eventPart = theEvent.getParticipants();
 		eventResponses = theEvent.getResponses();
@@ -60,7 +64,14 @@ public class ViewEventActivity extends CreateEventActivity {
 		eventLocationLat = theEvent.getLocationLat();
 		eventLocationLng = theEvent.getLocationLng();
 		eventType = theEvent.getType();
-		eventOriginator = theEvent.getOriginator();
+
+		SharedPreferences prefs = getSharedPreferences("credentials",
+				Context.MODE_WORLD_READABLE);
+		String username = prefs.getString("username", "none");
+		if (eventUniqueId.startsWith(username))
+			eventOriginator = "me";
+		else
+			eventOriginator = "notme";
 		datasource.close();
 
 		/*

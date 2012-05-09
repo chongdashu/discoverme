@@ -113,28 +113,47 @@ public class HomepageActivity extends MapActivity {
 					Notif oneNotif = (Notif) lv.getItemAtPosition(position);
 					String type = oneNotif.getType();
 
-					if (type.equals("event")) {
-
-					Intent intent = new Intent(HomepageActivity.this,
-								ProposeEventChangeActivity.class);
-						intent.putExtra("notifID", oneNotif.getId());
-						intent.putExtra("eventTitle", "Quick snack!");
-						String[] participants = { "annie", "henna" };
-						intent.putExtra("participants", participants);
-						intent.putExtra("timeHrs", 5);
-						intent.putExtra("timeMins", 30);
-						intent.putExtra("locationName", "MIT");
-						hideEverything();
-						startActivity(intent);
-
-					} else {
-						Intent intent = new Intent(HomepageActivity.this,
-								StrangerProfileActivity.class);
-						intent.putExtra("notifID", oneNotif.getId());
-						hideEverything();
-						startActivity(intent);
-
+					if(type.equals("FriendReq") || type.equals("FriendRes"))
+					{
+						//go to strnager profile page
+					} else if (type.equals("EventInvite")
+							|| type.equals("EventChanged")) {
+						//go to veiw event page
+					} else if (type.equals("EventAccepted")
+							|| type.equals("EventDeclined")
+							|| type.equals("EventCanceled")) {
+						// do nothing
+					} else if (type.equals("EventProposedChange")) {
+						// go to this new page now which ius not there yet ...
+						// which will read the modified fiel in view event
+						// format
 					}
+					
+					
+					
+					
+					/*
+					 * if (type.equals("event")) {
+					 * 
+					 * Intent intent = new Intent(HomepageActivity.this,
+					 * ProposeEventChangeActivity.class);
+					 * intent.putExtra("notifID", oneNotif.getId());
+					 * intent.putExtra("eventTitle", "Quick snack!"); String[]
+					 * participants = { "annie", "henna" };
+					 * intent.putExtra("participants", participants);
+					 * intent.putExtra("timeHrs", 5);
+					 * intent.putExtra("timeMins", 30);
+					 * intent.putExtra("locationName", "MIT"); hideEverything();
+					 * startActivity(intent);
+					 * 
+					 * } else { Intent intent = new
+					 * Intent(HomepageActivity.this,
+					 * StrangerProfileActivity.class);
+					 * intent.putExtra("notifID", oneNotif.getId());
+					 * hideEverything(); startActivity(intent);
+					 * 
+					 * }
+					 */
 
 				}
 			}
