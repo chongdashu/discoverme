@@ -71,6 +71,29 @@ public class ServerLink {
 
 	}
 
+	public static String getEvent(String eventname) {
+		CharSequence cs = null;
+		String exp = "none";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			URL url = new URL(
+					"http://people.csail.mit.edu/culim/projects/discoverme/events/"
+							+ eventname.trim() + ".txt");
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+
+		if (cs != null) {
+			String string = cs.toString();
+			return string;
+		} else {
+			return "event file not found;part,part;rsvp,rsvp;time;location;locationLat;locationLng;type;";
+		}
+
+	}
+
 	public static void updateLocation(String username, String location,
 			String locationLat, String locationLng) {
 		CharSequence cs = null;
