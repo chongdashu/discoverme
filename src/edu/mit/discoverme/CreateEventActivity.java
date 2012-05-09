@@ -3,21 +3,22 @@ package edu.mit.discoverme;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateEventActivity extends Activity {// implements
 													// OnClickListener{
-
+	private MyDataSource datasource;
 	Button next;
 	Button back;
 
@@ -209,67 +210,37 @@ public class CreateEventActivity extends Activity {// implements
 						.show();
 			} else {
 				// TODO Auto-generated method stub
-				StateManager appState = ((StateManager) getApplicationContext());
+				datasource = new MyDataSource(CreateEventActivity.this);
+				datasource.open();
 
-				// adding to friends list
-				String[] events = appState.getEvents();//
-				String[] participants = appState.getParticipants();//
-				String[] location = appState.getLocations();//
-				String[] locationLNG = appState.getLocationsLNG();
-				String[] locationLAT = appState.getLocationsLAT();//
-				String[] time = appState.getTime();//
-				String[] type = appState.getEventType();//
-				String[] eventOriginator = appState.getEventOriginator();
-
-				String stC = getString(R.string.typeClosed);
-				String stO = getString(R.string.typeOpen);
-
-				String stM = getString(R.string.typeMe);
-
-				String[] newEvents = new String[events.length + 1];
-				String[] newParticipants = new String[events.length + 1];
-				String[] newLocation = new String[events.length + 1];
-				String[] newLocationLNG = new String[events.length + 1];
-				String[] newLocationLAT = new String[events.length + 1];
-				String[] newTime = new String[events.length + 1];
-				String[] newType = new String[events.length + 1];
-				String[] newOrig = new String[events.length + 1];
-
-				newEvents[0] = (editTextTitle.getText()).toString();
-				newParticipants[0] = (editTextParticipants.getText())
+				SharedPreferences prefs = getSharedPreferences("credentials",
+						Context.MODE_WORLD_READABLE);
+				String username = prefs.getString("username", "none");
+				String eventUniqueID =username+ServerLink.indx; 
+				String newEvent = (editTextTitle.getText()).toString();
+				String newParticipants = (editTextParticipants.getText())
 						.toString();
-				newLocation[0] = (editTextLocation.getText()).toString();
-				newLocationLNG[0] = locationLng;
-				newLocationLAT[0] = locationLat;
-				newTime[0] = (String.valueOf(timePicker.getCurrentHour()))
+				String[] arg = newParticipants.split(",");
+				String newRsvp = "";
+				for (int i = 0; i < arg.length; i++)
+					newRsvp = newRsvp + ",";
+				String newLocation = (editTextLocation.getText()).toString();
+				String newLocationLNG = locationLng;
+				String newLocationLAT = locationLat;
+				String newTime = (String.valueOf(timePicker.getCurrentHour()))
 						+ " " + (String.valueOf(timePicker.getCurrentMinute()));
+				String newType="";
 				if (check.isChecked())
-					newType[0] = stC;
+					newType = "closed";
 				else
-					newType[0] = stO;
+					newType = "open";
+				Event theEvent = datasource.createEvent(eventUniqueID,
+						newEvent,
+						newParticipants, newRsvp, newTime, newLocation,
+						newLocationLAT, newLocationLNG, newType);
+				datasource.close();
 
-				newOrig[0] = stM;
-
-				for (int i = 0; i < events.length; i++) {
-					newEvents[i + 1] = events[i];
-					newParticipants[i + 1] = participants[i];
-					newLocation[i + 1] = location[i];
-					newLocationLNG[i + 1] = locationLNG[i];
-					newLocationLAT[i + 1] = locationLAT[i];
-					newTime[i + 1] = time[i];
-					newType[i + 1] = type[i];
-					newOrig[i + 1] = eventOriginator[i];
-				}
-
-				appState.setEvents(newEvents);
-				appState.setParticipants(newParticipants);
-				appState.setLocations(newLocation);
-				appState.setLocationsLNG(newLocationLNG);
-				appState.setLocationsLAT(newLocationLAT);
-				appState.setTime(newTime);
-				appState.setEventType(newType);
-				appState.setEventOriginator(eventOriginator);
-
+				ServerLink.createEvent(username, theEvent);
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.publishEventMesg),
 						Toast.LENGTH_SHORT).show();

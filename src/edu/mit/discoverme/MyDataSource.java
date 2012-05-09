@@ -109,7 +109,7 @@ public class MyDataSource {
 		return friend;
 	}
 
-	public void createEvent(String eventID, String name, String participants,
+	public Event createEvent(String eventID, String name, String participants,
 			String responses, String time,
 			String location, String locationLat, String locationLng,
  String type) {
@@ -130,9 +130,9 @@ public class MyDataSource {
 						+ insertId,
 				null, null, null, null);
 		cursor.moveToFirst();
-		// Event newEvent = cursorToEvent(cursor);
-		// cursor.close();
-		// return newEvent;
+		Event newEvent = cursorToEvent(cursor);
+		cursor.close();
+		return newEvent;
 	}
 
 	public Event getEvent(long id) {
