@@ -15,13 +15,13 @@ public class HomepageMapOverlay extends BalloonItemizedOverlay<OverlayItem> {
 	private Context mContext;
 
 	public HomepageMapOverlay(Context context, MapView mapView) {
-		super(boundCenterBottom(context.getResources().getDrawable(R.drawable.marker)), mapView);
+		super(boundCenter(context.getResources().getDrawable(R.drawable.marker)), mapView);
 		populate();
 		mContext = context;
 	}
 	
 	public HomepageMapOverlay(Drawable defaultMarker, Context context, MapView mapView) {
-		super(boundCenterBottom(defaultMarker), mapView);
+		super(boundCenter(defaultMarker), mapView);
 		populate();
 		mContext = context;
 	}
