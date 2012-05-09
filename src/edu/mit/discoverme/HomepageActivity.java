@@ -366,6 +366,25 @@ public class HomepageActivity extends MapActivity {
 		// Pan to user's current location
 		mapController.setZoom(18);
 		mapController.animateTo(stateManager.userGeoPoint);
+		
+		// Add button listener
+		ImageButton userLocation = (ImageButton)findViewById(R.id.btn_my_location);
+		userLocation.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				StateManager stateManager = (StateManager) getApplicationContext();
+				HomepageActivity homePageActivity = (HomepageActivity) HomepageActivity.this;
+				
+				MapView mapView = (MapView) (homePageActivity.findViewById(R.id.mapview));
+				MapController mapController = mapView.getController();
+				
+				mapController.animateTo(stateManager.userGeoPoint);
+				
+				
+				
+			}
+		});
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
 
