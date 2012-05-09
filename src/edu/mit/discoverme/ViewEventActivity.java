@@ -132,12 +132,22 @@ public class ViewEventActivity extends CreateEventActivity {
 		
 		next.setVisibility(View.INVISIBLE);
 		
+		editTextLocation.setVisibility(View.GONE);
+		editTextParticipants.setVisibility(View.GONE);
+		editTextTitle.setVisibility(View.GONE);
+		
+		viewTextParticipants.setVisibility(View.VISIBLE);
+		viewParticipantsButton.setVisibility(View.VISIBLE);
+		viewTextMap.setVisibility(View.VISIBLE);
+		viewMapButton.setVisibility(View.VISIBLE);
+		viewTextTitle.setVisibility(View.VISIBLE);
+		
 		setAllEnabled();
 		
 		activityTitle.setText(R.string.activityTitleEventView);
 		
-		editTextTitle.setText(eventTitle);
-		editTextParticipants.setText(Utils.foldParticipantsList(participants));
+		viewTextTitle.setText(eventTitle);
+		viewTextParticipants.setText(Utils.foldParticipantsList(participants));
 		if (closedEvent) {
 			check.setChecked(true);
 			check.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
@@ -147,7 +157,7 @@ public class ViewEventActivity extends CreateEventActivity {
 			check.setChecked(false);
 			check.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
 		}
-		editTextLocation.setText(locationName);
+		viewTextMap.setText(locationName);
 		timePicker.setCurrentHour(timeHrs);
 		timePicker.setCurrentMinute(timeMins);
 		
@@ -262,14 +272,14 @@ public class ViewEventActivity extends CreateEventActivity {
 		// editTextLocation.setOnClickListener(onEditTextLocationClick);
 
 		// editTextParticipants.setFocusable(false);
-		editTextParticipants.setOnClickListener(onEditTextParticipantsClick);
+		viewParticipantsButton.setOnClickListener(onEditTextParticipantsClick);
 		check.setFocusable(false);
 		timePicker.setFocusable(false);
 		
 		editTextTitle.setEnabled(false);
-		editTextLocation.setOnClickListener(onEditTextLocationClick);
+		viewMapButton.setOnClickListener(onEditTextLocationClick);
 		// editTextLocation.setEnabled(false);
-		editTextParticipants.setEnabled(true);
+//		editTextParticipants.setEnabled(true);
 		check.setEnabled(false);
 		timePicker.setEnabled(false);
 		food.setEnabled(false);
