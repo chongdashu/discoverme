@@ -26,8 +26,8 @@
             android:layout_width="200dip"
             android:layout_height="200dip"
             android:src="@drawable/map_key"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
         />
 
         <LinearLayout
