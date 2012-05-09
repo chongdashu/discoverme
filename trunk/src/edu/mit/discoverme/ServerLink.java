@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ServerLink {
 	
-	private static int indx = 0;// number of events i created
+	public static int indx = 0;// number of events i created
 	public static void loadFriends(String username, MyDataSource datasource) {
 		datasource.emptyFriendsTable();
 		CharSequence cs = null;
@@ -193,7 +193,7 @@ public class ServerLink {
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			String eventID = username + indx;
+			String eventID = event.getEventID();
 			String part = event.getParticipants();
 			String rsvp = event.getResponses();
 			String location = event.getLocation();
