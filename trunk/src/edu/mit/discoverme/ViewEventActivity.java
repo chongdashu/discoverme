@@ -205,63 +205,11 @@ public class ViewEventActivity extends CreateEventActivity {
 					public void onClick(DialogInterface dialog, int id) {
 	    	               // Do whatever you want for 'Yes' here. 
 	    	        	   dialog.dismiss();
-									// delete this event from the event list
-									// TODO Auto-generated method stub
-									/*
-									 * StateManager appState = ((StateManager)
-									 * getApplicationContext());
-									 * 
-									 * // adding to friends list String[] events
-									 * = appState.getEvents();// String[]
-									 * participants = appState
-									 * .getParticipants();// String[] location =
-									 * appState.getLocations();// String[]
-									 * locationLNG = appState
-									 * .getLocationsLNG(); String[] locationLAT
-									 * = appState .getLocationsLAT();// String[]
-									 * time = appState.getTime();// String[]
-									 * type = appState.getEventType();//
-									 * String[] eventOriginator = appState
-									 * .getEventOriginator();
-									 * 
-									 * String[] newEvents = new
-									 * String[events.length - 1]; String[]
-									 * newParticipants = new
-									 * String[events.length - 1]; String[]
-									 * newLocation = new String[events.length -
-									 * 1]; String[] newLocationLNG = new
-									 * String[events.length - 1]; String[]
-									 * newLocationLAT = new String[events.length
-									 * - 1]; String[] newTime = new
-									 * String[events.length - 1]; String[]
-									 * newType = new String[events.length - 1];
-									 * String[] newOrig = new
-									 * String[events.length + 1];
-									 * 
-									 * int j = 0; for (int i = 0; i <
-									 * events.length; i++) { if (i != eventID) {
-									 * newEvents[j] = events[i];
-									 * newParticipants[j] = participants[i];
-									 * newLocation[j] = location[i];
-									 * newLocationLNG[j] = locationLNG[i];
-									 * newLocationLAT[j] = locationLAT[i];
-									 * newTime[j] = time[i]; newType[j] =
-									 * type[i]; newOrig[j] = eventOriginator[i];
-									 * j++; } }
-									 * 
-									 * appState.setEvents(newEvents);
-									 * appState.setParticipants
-									 * (newParticipants);
-									 * appState.setLocations(newLocation);
-									 * appState.setLocationsLNG(newLocationLNG);
-									 * appState.setLocationsLAT(newLocationLAT);
-									 * appState.setTime(newTime);
-									 * appState.setEventType(newType);
-									 * appState.setEventOriginator(newOrig);
-									 */
+
 									datasource.open();
 									datasource.deleteEvent(theEvent);
 									// end of deleting entry
+									ServerLink.cancelEvent(theEvent);
 									datasource.close();
 	    	        	   Toast.makeText(getApplicationContext(),
 	    	   					getString(R.string.cancelEventMsg), Toast.LENGTH_SHORT)
