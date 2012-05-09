@@ -296,6 +296,7 @@ public class ServerLink {
 		{}else if (type.equals("FriendRes"))
 		{}else if (type.equals("FriendDel")) {
 			// delete this notif from the table so it never shows up in the list
+			dataSource.deleteNotif(notif);
 		} else if (type.equals("EventInvite"))
 		{}else if (type.equals("EventCanceled"))
 		{}else if (type.equals("EventChanged"))
