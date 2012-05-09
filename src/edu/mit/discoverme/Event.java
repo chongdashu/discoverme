@@ -6,6 +6,7 @@ public class Event {
 	private long id;
 	private String name;
 	private String participants;
+	private String responses;
 	private String time;
 	private String location;
 	private String locationLat;
@@ -35,6 +36,14 @@ public class Event {
 
 	public void setParticipants(String participants) {
 		this.participants = participants;
+	}
+	
+	public String getResponses() {
+		return responses;
+	}
+
+	public void setResponses(String responses) {
+		this.responses = responses;
 	}
 
 	public String getTime() {
