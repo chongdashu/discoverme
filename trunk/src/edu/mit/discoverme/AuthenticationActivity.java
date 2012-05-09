@@ -141,12 +141,12 @@ public class AuthenticationActivity extends Activity {
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(";");
 				datasource.createEvent(one[0], one[1], one[2], one[3], one[4],
-						one[5], one[6], one[7]);
+						one[5], one[6], one[7], one[8]);
 				// datasource.createEvent(arg[0], "part", "time", "location",
 				// "locationLat", "locationLng", "type", "originatoer");
 			}
 		} else {
-			datasource.createEvent(exp, "part", "time", "location",
+			datasource.createEvent(exp, "part", "rsvp", "time", "location",
 					"locationLat", "locationLng", "type", "originatoer");
 		}
 
@@ -180,7 +180,7 @@ public class AuthenticationActivity extends Activity {
 				// datasource.createNotification(name, type, details, readFlag);
 			}
 		} else {
-			datasource.createEvent(exp, "part", "time", "location",
+			datasource.createEvent(exp, "part", "rsvp", "time", "location",
 					"locationLat", "locationLng", "type", "originatoer");
 		}
 
