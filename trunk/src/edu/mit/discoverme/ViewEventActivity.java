@@ -15,6 +15,7 @@ public class ViewEventActivity extends CreateEventActivity {
 	protected long eventId;
 	protected String eventName;
 	protected String eventPart;
+	protected String eventResponses;
 	protected String eventTime;
 	protected String eventLocation;
 	protected String eventLocationLat;
@@ -26,6 +27,8 @@ public class ViewEventActivity extends CreateEventActivity {
 	protected String eventTitle;
 	protected String[] participants;
 	protected String participantsString;
+	protected String[] responses;
+	protected String responsesString;
 	protected boolean closedEvent;
 	protected int timeHrs;
 	protected int timeMins;
@@ -51,6 +54,7 @@ public class ViewEventActivity extends CreateEventActivity {
 
 		eventName = theEvent.getName();
 		eventPart = theEvent.getParticipants();
+		eventResponses = theEvent.getResponses();
 		eventTime = theEvent.getTime();
 		eventLocation = theEvent.getLocation();
 		eventLocationLat = theEvent.getLocationLat();
@@ -104,6 +108,9 @@ public class ViewEventActivity extends CreateEventActivity {
 		eventTitle = eventName;
 		participantsString = eventPart;
 		participants = participantsString.split(",");
+		
+		responsesString = eventResponses;
+		responses = responsesString.split(",");
 
 		if (eventType == "open")
 			closedEvent = false;
@@ -121,8 +128,6 @@ public class ViewEventActivity extends CreateEventActivity {
 		locationName = eventLocation;
 		latE6 = (int) (Float.valueOf(eventLocationLat) * 1000000);
 		lngE6 = (int) (Float.valueOf(eventLocationLng) * 1000000);
-
-		
 
 		inititialize();
 
@@ -309,7 +314,8 @@ public class ViewEventActivity extends CreateEventActivity {
 			intent.putExtra("mode", SelectEventLocationActivity.MODE_VIEW);
 			intent.putExtra("lat", latE6);
 			intent.putExtra("lng", lngE6);
-			intent.putExtra("participants", participantsString);
+			intent.putExtra("participants", participants);
+			intent.putExtra("responses", responses);
 			startActivity(intent);
 
 		}

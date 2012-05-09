@@ -41,6 +41,8 @@ public class SelectEventLocationActivity extends MapActivity {
 	protected int mode;
 	protected int latE6;
 	protected int lngE6;
+	protected String[] participants;
+	protected String[] responses;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,9 @@ public class SelectEventLocationActivity extends MapActivity {
 			latE6 = getIntent().getIntExtra("lat", (int)(42.360383*1000000));
 			lngE6 = getIntent().getIntExtra("lng", (int)(-71.090899*1000000));
 		}
+		
+		participants = getIntent().getStringArrayExtra("participants");
+		responses = getIntent().getStringArrayExtra("responses");
 
 		initializeMap();
 		initializeConfirmationArea();
@@ -92,7 +97,7 @@ public class SelectEventLocationActivity extends MapActivity {
 			mapView.getOverlays().remove(linesOverlay);
 		}
 		
-		linesOverlay = new SelectEventLocationLinesOverlayColor(target, friendpoints);
+		linesOverlay = new SelectEventLocationLinesOverlayColor(target, friendpoints, responses);
 		mapView.getOverlays().add(linesOverlay);
 	}
 
@@ -182,12 +187,14 @@ public class SelectEventLocationActivity extends MapActivity {
 				getResources().getDrawable(R.drawable.marker2), this, mapView);
 		mapOverlays.add(friendsOverlay);
 
-		String[] friends = getResources().getStringArray(R.array.friends_array);
-		friendpoints = stateManager.friendPoints;
+		// Old: Show all frinds in friend list on map.
+		// String[] friends = getResources().getStringArray(R.array.friends_array);
+		
+		friendpoints = stateManager.getGeoPointsFromFriends(participants);
 		
 		int f = 0;
 		for (GeoPoint geoPoint : friendpoints) {
-			OverlayItem item = new OverlayItem(geoPoint, friends[f], stateManager.friendAddresses.get(f));
+			OverlayItem item = new OverlayItem(geoPoint, participants[f], stateManager.friendAddresses.get(f));
 			friendsOverlay.addOverlay(item);
 			f++;
 		}

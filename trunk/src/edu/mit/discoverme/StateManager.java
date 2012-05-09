@@ -237,4 +237,15 @@ public class StateManager extends Application {
 				R.array.notifs_names_array);
 	}
 	/* notif thing implemented above */
+
+	public Vector<GeoPoint> getGeoPointsFromFriends(String[] friendNames) {
+		Vector<GeoPoint> geoPoints = new Vector<GeoPoint>();
+		
+		for (int i=0; i < friendNames.length; i++)
+		{
+			geoPoints.add(friendPoints.get(i));
+		}
+		
+		return geoPoints;
+	}
 }

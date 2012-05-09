@@ -162,11 +162,15 @@ public class CreateEventActivity extends Activity {// implements
 		@Override
 		public void onClick(View v) {
 			// Do something when "Select Location" is clicked.
-
+			
+			// Get participants (and sanitize)
+			String participantsString = editTextParticipants.getText().toString().replace(" ", "");
+			String participants[] = participantsString.split(",");
+			
 			// We launch the "Select Location from Map Activity"
 			Intent intent = new Intent(CreateEventActivity.this,
 					SelectEventLocationActivity.class);
-			// intent.putExtra("popupCode", "eventss");
+			intent.putExtra("participants", participants);
 			startActivityForResult(intent, 1000);
 
 		}

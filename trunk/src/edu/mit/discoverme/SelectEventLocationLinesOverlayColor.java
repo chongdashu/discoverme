@@ -19,20 +19,42 @@ public class SelectEventLocationLinesOverlayColor
 	public Vector<Integer> colors = new Vector<Integer>();
 
 	protected SelectEventLocationLinesOverlayColor(GeoPoint target,
-			Vector<GeoPoint> sources) {
+			Vector<GeoPoint> sources, String[] responses) {
 		super(target, sources);
 		for (int i = 0; i < sources.size(); i++) {
-			double rand = Math.random();
-
-			if (rand < 0.2) {
-				colors.add(Color.GRAY);
-			} else if (rand >= 0.2 && rand < 0.6) {
-				colors.add(Color.RED);
-			} else if (rand >= 0.6 && rand < 1.6) {
-				colors.add(Color.GREEN);
-			} else {
-				colors.add(Color.GREEN);
-			}
+			
+			// Set the color based on the participants' response
+			colors.add(getColorFromResponse(responses[i]));
+			
+//			// Old code:
+//			// This just creates random colors
+//			double rand = Math.random();
+//
+//			if (rand < 0.2) {
+//				colors.add(Color.GRAY);
+//			} else if (rand >= 0.2 && rand < 0.6) {
+//				colors.add(Color.RED);
+//			} else if (rand >= 0.6 && rand < 1.6) {
+//				colors.add(Color.GREEN);
+//			} else {
+//				colors.add(Color.GREEN);
+//			}
+		}
+	}
+	
+	private int getColorFromResponse(String response)
+	{
+		if (response.compareTo("yes") == 0)
+		{
+			return Color.GREEN;
+		}
+		else if (response.compareTo("no") == 0)
+		{
+			return Color.RED;
+		}
+		else
+		{
+			return Color.GRAY;
 		}
 	}
 
