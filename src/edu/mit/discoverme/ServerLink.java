@@ -359,8 +359,32 @@ public class ServerLink {
 		} else if (type.equals("EventInvite"))
 		{/*do nothing*/}else if (type.equals("EventCanceled"))
 		{
+			String eventName = notif.getDetail().trim();
+			List<Event> events = dataSource.getAllEvents();
+			Event theEvent = new Event();
+			for (int event = 0; event < events.size(); event++) {
+				String eventUID = events.get(event).getEventID();
+				if (eventUID.equals(eventName)) {
+					theEvent = events.get(event);
+					dataSource.deleteEvent(theEvent);
+					break;
+				}
+			}
 
-		} else if (type.equals("EventChanged")) {/* do nothing */
+		} else if (type.equals("EventChanged")) {// delete old instance from
+													// users table
+			String eventName = notif.getDetail().trim();
+			List<Event> events = dataSource.getAllEvents();
+			Event theEvent = new Event();
+			for (int event = 0; event < events.size(); event++) {
+				String eventUID = events.get(event).getEventID();
+				if (eventUID.equals(eventName)) {
+					theEvent = events.get(event);
+					dataSource.deleteEvent(theEvent);
+					break;
+				}
+			}
+
 		} else if (type.equals("EventAccepted")) {
 			String notifDetail = notif.getDetail();
 			String[] arg = notifDetail.split(",");
