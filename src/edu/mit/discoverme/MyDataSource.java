@@ -179,12 +179,13 @@ public class MyDataSource {
 	}
 
 	public Notif createNotification(String name, String type, String details,
-			String readFlag) {
+			String readFlag, String procFlag) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_NNAME, name);
 		values.put(MySQLiteHelper.COLUMN_NTYPE, type);
 		values.put(MySQLiteHelper.COLUMN_NDETAIL, details);
 		values.put(MySQLiteHelper.COLUMN_READ_FLAG, readFlag);
+		values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, procFlag);
 
 		long insertId = database.insert(MySQLiteHelper.TABLE_NOTIFS, null,
 				values);
@@ -235,7 +236,7 @@ public class MyDataSource {
 		Notif notif = new Notif();
 		notif.setId(cursor.getLong(0));
 		notif.setNotif(cursor.getString(1), cursor.getString(2),
-				cursor.getString(3), cursor.getString(4));
+				cursor.getString(3), cursor.getString(4), cursor.getString(4));
 		return notif;
 	}
 

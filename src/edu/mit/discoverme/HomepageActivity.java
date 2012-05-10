@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -183,6 +184,18 @@ public class HomepageActivity extends MapActivity {
 		public void run() {
 		       long nextUpdateTime = System.currentTimeMillis() + 1000;
 		       System.out.println("checkNotificationsTask update");
+			StateManager stateManager = (StateManager) getApplicationContext();
+			SharedPreferences prefs = getSharedPreferences("credentials",
+					Context.MODE_WORLD_READABLE);
+			String username = prefs.getString("username", "none");
+			datasource.open();
+			ServerLink.loadNotifs(username, datasource);
+			datasource.close();
+			String locationLat = String.valueOf(stateManager.userLat);
+			String locationLng = String.valueOf(stateManager.userLon);
+			String location = stateManager.userAddress;
+			ServerLink.updateLocation(username, location, locationLat,
+					locationLng);
 
 		       backgroundNotificationsHandler.postDelayed(this, 5000);
 		   }

@@ -136,7 +136,8 @@ public class ServerLink {
 			String[] arg = string.split("\n");
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(":");
-				datasource.createNotification(one[2], one[0], one[1], "no");
+				datasource.createNotification(one[2], one[0], one[1], "no",
+						"no");
 				// datasource.createNotification(name, type, details, readFlag);
 			}
 		} else {

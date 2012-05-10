@@ -9,6 +9,8 @@ public class Notif {
 	private String type;
 	private String detail;
 	private String readFlag;
+	private String procFlag;
+
 
 	public long getId() {
 		return id;
@@ -49,12 +51,23 @@ public class Notif {
 	public void setReadFlag(String readFlag) {
 		this.readFlag = readFlag;
 	}
+
+	public String getProcFlag() {
+		return procFlag;
+	}
+
+	public void setProcFlag(String procFlag) {
+		this.procFlag = procFlag;
+	}
+
 	public void setNotif(String name, String type, String details,
-			String readFlag) {
+			String readFlag, String procFlag) {
 		this.name = name;
 		this.type = type;
 		this.detail = details;
 		this.readFlag = readFlag;
+		this.procFlag = procFlag;
+
 	}
 	// Will be used by the ArrayAdapter in the ListView
 	@Override
