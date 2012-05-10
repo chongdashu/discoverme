@@ -1,4 +1,3 @@
-Sunila Saqib;6171234567;saqib@mit.edu;32G-807
 Phil Mercer;61798765432;pmerc@mit.edu;32G-123
 Ethan Xu;617321654876;ethanxu@mit.edu;32H-455
 Chong-U Lim;6178887788;culim@mit.edu;14N-207
