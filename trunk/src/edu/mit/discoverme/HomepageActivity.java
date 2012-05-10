@@ -1,6 +1,7 @@
 package edu.mit.discoverme;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
@@ -345,6 +346,8 @@ public class HomepageActivity extends MapActivity {
 
 			datasource.open();
 			List<Notif> values = datasource.getAllNotifs();
+			String[] arrayS = { "sunila", "saqib", "onetwothree" };
+			Collections.sort(values, new NotifComparator());
 
 			ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
 					R.layout.list_item, values);
