@@ -131,37 +131,6 @@ public class SelectEventLocationActivity extends MapActivity {
 		
 		StateManager stateManager = (StateManager) getApplicationContext();
 
-		// Get to current location
-//		Criteria criteria = new Criteria();
-//		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-//		criteria.setPowerRequirement(Criteria.POWER_LOW);
-//		criteria.setAltitudeRequired(false);
-//		criteria.setBearingRequired(false);
-//		criteria.setSpeedRequired(false);
-//		criteria.setCostAllowed(true);
-//
-//		LocationManager locationManager;
-//		locationManager = (LocationManager) this
-//				.getSystemService(Context.LOCATION_SERVICE);
-//		String bestProvider = locationManager.getBestProvider(criteria, true);
-//
-//		Location locLast = locationManager.getLastKnownLocation(bestProvider);
-		// GeoPoint test;
-//		float lat;
-//		float lng;
-//		if (locLast != null) {
-//			lat = (float) locLast.getLatitude();
-//			lng = (float) locLast.getLongitude();
-//
-//			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
-//			System.out.println("lat:" + lat + ", lng:" + lng);
-//		} else {
-//			lat = 42.360383f;
-//			lng = -71.090899f;
-//
-//			test = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
-//			System.out.println("lat:" + lat + ", lng:" + lng);
-//		}
 		mapController.setZoom(18);
 		mapController.animateTo(stateManager.userGeoPoint);
 
@@ -203,7 +172,8 @@ public class SelectEventLocationActivity extends MapActivity {
 		if (mode == MODE_VIEW || mode == MODE_PROPOSE){
 			GeoPoint loc = new GeoPoint(latE6, lngE6);
 			OverlayItem locItem = new OverlayItem(loc, "", "");
-			mapController.animateTo(loc);
+			// mapController.animateTo(loc);
+			Utils.animateAndZoomToFit(mapController, friendpoints);
 			selectLocationOverlay.addOverlay(locItem);
 			
 			drawColorMapLinesTo(loc);
