@@ -143,7 +143,7 @@ public class SelectEventLocationActivity extends MapActivity {
 				drawable, this);
 		mapOverlays.add(selectLocationOverlay);
 		
-		// Add the user overlay
+		// Create overlay for User
 		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,
 				mapView);
 		mapOverlays.add(itemizedoverlay);
@@ -188,7 +188,9 @@ public class SelectEventLocationActivity extends MapActivity {
 			
 			RecommendedLocationsOverlay recommendedOverlay = new RecommendedLocationsOverlay(this,
 					mapView);
-			mapOverlays.add(recommendedOverlay);
+			
+			// TODO: add back the recommendations after testing
+			// mapOverlays.add(recommendedOverlay);
 
 			OverlayItem recItem = new OverlayItem(recPoint, "Phil's Cafe and Meeting Center", "100 Vassar St");
 			recommendedOverlay.addOverlay(recItem);

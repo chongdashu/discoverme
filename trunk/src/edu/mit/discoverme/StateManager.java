@@ -9,7 +9,8 @@ import com.google.android.maps.GeoPoint;
 public class StateManager extends Application {
 
 	// user info
-	public String userName = "John Doe";
+	public String userName;
+	public String fullName;
 	public GeoPoint userGeoPoint;
 	public float userLat;
 	public float userLon;

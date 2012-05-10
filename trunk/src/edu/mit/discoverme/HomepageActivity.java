@@ -174,6 +174,7 @@ public class HomepageActivity extends MapActivity {
 			}
 		});
 
+		initializeUser();
 		initializeMap();
 		
 		// Background thread that runs to check for notifications
@@ -182,6 +183,25 @@ public class HomepageActivity extends MapActivity {
 		backgroundNotificationsHandler.postDelayed(checkNotificationsTask, 5000);
 	}
 	
+	private void initializeUser() {
+		StateManager stateManager = (StateManager) getApplicationContext();
+		SharedPreferences prefs = getSharedPreferences("credentials",
+				Context.MODE_WORLD_READABLE);
+		String username = prefs.getString("username", "none");
+		
+		stateManager.userName = username;
+		dirdatasource.open();
+				
+		List<Friend> allPeople = dirdatasource.getAllPeople();
+		for (Friend friend : allPeople) {
+			if (friend.getMITId().equals(username)){
+				stateManager.fullName = friend.getName();
+			}
+		}
+			
+		dirdatasource.close();
+	}
+
 	private final Runnable checkNotificationsTask = new Runnable() {
 		   @Override
 		public void run() {
@@ -443,7 +463,7 @@ public class HomepageActivity extends MapActivity {
 		mapOverlays.add(itemizedoverlay);
 		
 		stateManager.userAddress = getAddressAt(stateManager.userGeoPoint);
-		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint, stateManager.userName,
+		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint, stateManager.fullName,
 				stateManager.userAddress);
 		itemizedoverlay.addOverlay(overlayitem);
 
@@ -452,8 +472,11 @@ public class HomepageActivity extends MapActivity {
 				getResources().getDrawable(R.drawable.marker2), this, mapView);
 		mapOverlays.add(friendsOverlay);
 
-		String[] friends = getResources().getStringArray(R.array.friends_array);
-		stateManager.friendPoints = getRandomGeopointsAround(lat, lng, 5);
+		// String[] friends = getResources().getStringArray(R.array.friends_array);
+		datasource.open();
+		List<Friend> allFriends = datasource.getAllFriends();
+		datasource.close();
+		stateManager.friendPoints = getRandomGeopointsAround(lat, lng, allFriends.size());
 		stateManager.friendAddresses = new Vector<String>();
 		int f = 0;
 		for (GeoPoint geoPoint : stateManager.friendPoints) {
@@ -461,7 +484,7 @@ public class HomepageActivity extends MapActivity {
 			String address = getAddressAt(geoPoint);
 			stateManager.friendAddresses.add(address);
 			
-			OverlayItem item = new OverlayItem(geoPoint, friends[f], address);
+			OverlayItem item = new OverlayItem(geoPoint, allFriends.get(f).getName(), address);
 			friendsOverlay.addOverlay(item);
 			f++;
 		}

@@ -45,8 +45,8 @@ public class CreateEventActivity extends Activity {// implements
 	
 	private int[] selectedArray;
 
-	Boolean[] selection = { false, false, false }; // [0]: food, [1]: silence,
-													// [2]: it
+	// [0]: food, [1]: silence,	// [2]: IT
+	Boolean[] selection = { false, false, false }; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,16 +109,6 @@ public class CreateEventActivity extends Activity {// implements
 		viewMapButton.setVisibility(View.GONE);
 		viewTextTitle.setVisibility(View.GONE);
 
-		// friends = getResources().getStringArray(R.array.friends_array);
-
-		// selected = new int[friends.length];
-
-		// ListView l = (ListView) findViewById(R.id.meeting_reqs_view);
-		// l.setBackgroundColor(Color.WHITE);
-		// l.setCacheColorHint(Color.WHITE);
-		// l.setAdapter(new MyAdapter(this, R.layout.suggested_location,
-		// meetingReqs));
-
 	}
 
 	@Override
@@ -129,7 +119,7 @@ public class CreateEventActivity extends Activity {// implements
 			if (resultCode == Activity.RESULT_OK) {
 				String location = data.getStringExtra("LocationName");
 				locationLat = data.getStringExtra("LocationLat");
-				locationLng = data.getStringExtra("LocationLat");
+				locationLng = data.getStringExtra("LocationLng");
 
 				editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
 				editTextLocation.setText(location);
@@ -140,7 +130,7 @@ public class CreateEventActivity extends Activity {// implements
 			if (resultCode == Activity.RESULT_OK) {
 				String participants = data.getStringExtra("participants");
 				editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
-				editTextParticipants.setText(participants);
+				editTextParticipants.setText(participants.trim());
 				selectedArray = data.getIntArrayExtra("selectedArray");
 			}
 			break;
@@ -158,8 +148,6 @@ public class CreateEventActivity extends Activity {// implements
 					AddParticipantsListActivity.class);
 			intent.putExtra("selectedArray", selectedArray);
 			
-			
-			// intent.putExtra("popupCode", "eventss");
 			startActivityForResult(intent, 2000);
 
 		}
@@ -187,7 +175,6 @@ public class CreateEventActivity extends Activity {// implements
 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			// go back to last page
 			finish();
 
@@ -215,7 +202,6 @@ public class CreateEventActivity extends Activity {// implements
 						"Please select an Event Location.", Toast.LENGTH_SHORT)
 						.show();
 			} else {
-				// TODO Auto-generated method stub
 				datasource = new MyDataSource(CreateEventActivity.this);
 				datasource.open();
 
@@ -224,10 +210,12 @@ public class CreateEventActivity extends Activity {// implements
 				String username = prefs.getString("username", "none");
 				String eventUniqueID =username+ServerLink.indx; 
 				String newEvent = (editTextTitle.getText()).toString();
-				String newParticipants = (editTextParticipants.getText())
-						.toString();
+				String newParticipants = 
+						username +	"," + // Add event creator to participants
+						(editTextParticipants.getText()).toString();
 				String[] arg = newParticipants.split(",");
-				String newRsvp = "";
+				//String newRsvp = "";
+				String newRsvp = "yes,"; // Add event creator's yes-response
 				for (int i = 0; i < arg.length; i++)
 					newRsvp = newRsvp + "pending,";
 				String newLocation = (editTextLocation.getText()).toString();

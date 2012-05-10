@@ -118,6 +118,7 @@ public class ViewEventActivity extends CreateEventActivity {
 		eventID = (int) eventId;
 		eventTitle = eventName;
 		participantsString = eventPart;
+		participantsString.trim();
 		participants = participantsString.split(",");
 		
 		responsesString = eventResponses;

@@ -36,6 +36,10 @@ public class Friend {
 	public String getEmail() {
 		return email;
 	}
+	
+	public String getMITId() {
+		return email.split("@")[0];
+	}
 
 	public void setEmail(String email) {
 		this.email = email;
