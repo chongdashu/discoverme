@@ -42,6 +42,8 @@ public class CreateEventActivity extends Activity {// implements
 	protected CheckedTextView silence;
 	protected CheckedTextView it;
 	protected TextView locationSuggestionLabel;
+	
+	private int[] selectedArray;
 
 	Boolean[] selection = { false, false, false }; // [0]: food, [1]: silence,
 													// [2]: it
@@ -139,6 +141,7 @@ public class CreateEventActivity extends Activity {// implements
 				String participants = data.getStringExtra("participants");
 				editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
 				editTextParticipants.setText(participants);
+				selectedArray = data.getIntArrayExtra("selectedArray");
 			}
 			break;
 		}
@@ -153,6 +156,9 @@ public class CreateEventActivity extends Activity {// implements
 			// We launch the "Select Participants Activity"
 			Intent intent = new Intent(CreateEventActivity.this,
 					ParticipantListingActivity.class);
+			intent.putExtra("selectedArray", selectedArray);
+			
+			
 			// intent.putExtra("popupCode", "eventss");
 			startActivityForResult(intent, 2000);
 
