@@ -65,8 +65,7 @@ public class ServerLink {
 				// "locationLat", "locationLng", "type", "originatoer");
 			}
 		} else {
-			datasource.createEvent(exp, "part", "rsvp", "time", "location",
-					"locationLat", "locationLng", "type", "originatoer");
+
 		}
 
 	}
@@ -141,8 +140,7 @@ public class ServerLink {
 				// datasource.createNotification(name, type, details, readFlag);
 			}
 		} else {
-			datasource.createEvent(exp, "part", "rsvp", "time", "location",
-					"locationLat", "locationLng", "type", "originatoer");
+
 		}
 		processAllNotifs(datasource);
 
@@ -287,6 +285,7 @@ public class ServerLink {
 		datasource.close();
 		for (Notif notif : notifs) {
 			processNotif(notif, datasource);
+			// datasource.updateProcessedNotif(notif);
 		}
 	}
 
@@ -311,7 +310,27 @@ public class ServerLink {
 		{}else if (type.equals("EventDeclined"))
 		{}else if (type.equals("EventProposedChange")){}
 		
-			
 		
+	}
+
+	public static void setAllNotifsAsSeen(MyDataSource datasource) {
+		datasource.open();
+		List<Notif> notifs = datasource.getAllNotifs();
+		datasource.close();
+		for (Notif notif : notifs) {
+			// datasource.updateSeenNotif(notif);
+		}
+	}
+
+	public static int countUnseenNotif(MyDataSource datasource) {
+		datasource.open();
+		List<Notif> notifs = datasource.getAllNotifs();
+		datasource.close();
+		int count = 0;
+		for (Notif notif : notifs) {
+			if (notif.getReadFlag().equals("no"))
+				count = count + 1;
+		}
+		return count;
 	}
 }

@@ -51,7 +51,7 @@ public class AuthenticationActivity extends Activity {
 
 				ServerLink.loadFriends(usr, datasource);
 				ServerLink.loadEvents("saqib01", datasource);
-				ServerLink.loadNotifs(usr, datasource);
+				// ServerLink.loadNotifs(usr, datasource);
 				datasource.close();
 
 				dirdatasource = new DirDataSource(AuthenticationActivity.this);

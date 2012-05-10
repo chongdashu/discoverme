@@ -246,6 +246,7 @@ public class HomepageActivity extends MapActivity {
 			if (poped == 1 && popup.equals("notifss")) {
 				hideEverything();
 
+
 			} else {
 				// make everything visible here
 				popup = "notifss";
@@ -355,6 +356,9 @@ public class HomepageActivity extends MapActivity {
 			friend.setSelected(false);
 			event.setSelected(false);
 			notif.setSelected(true);
+			datasource.open();
+			ServerLink.setAllNotifsAsSeen(datasource);
+			datasource.close();
 
 		}
 
