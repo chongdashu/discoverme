@@ -11,18 +11,18 @@ import android.view.animation.TranslateAnimation;
 import android.view.animation.Animation.AnimationListener;
 
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapController;
 
 public class Utils {
-	
-	public static String foldParticipantsList(String[] participants)
-	{
+
+	public static String foldParticipantsList(String[] participants) {
 		String s = "";
-		
+
 		for (int i = 0; i < participants.length; i++) {
 			String string = participants[i];
 			s = s + string + ", ";
 		}
-		
+
 		return s;
 	}
 	public static Vector<GeoPoint> getRandomGeopointsAround(float lat,
@@ -47,7 +47,7 @@ public class Utils {
 
 		return geopoints;
 	}
-	
+
 	public static void setLayoutAnim_slidedown(ViewGroup panel, Context ctx) {
 
 		AnimationSet set = new AnimationSet(true);
@@ -128,6 +128,30 @@ public class Utils {
 				set, 0.25f);
 		panel.setLayoutAnimation(controller);
 
+	}
+
+	public static void animateAndZoomToFit(MapController controller,
+			Vector<GeoPoint> points) {
+		int minLat = Integer.MAX_VALUE;
+		int maxLat = Integer.MIN_VALUE;
+		int minLon = Integer.MAX_VALUE;
+		int maxLon = Integer.MIN_VALUE;
+
+		for (GeoPoint p : points) {
+
+			int lat = p.getLatitudeE6();
+			int lon = p.getLongitudeE6();
+
+			maxLat = Math.max(lat, maxLat);
+			minLat = Math.min(lat, minLat);
+			maxLon = Math.max(lon, maxLon);
+			minLon = Math.min(lon, minLon);
+		}
+
+		controller.zoomToSpan(Math.abs(maxLat - minLat),
+				Math.abs(maxLon - minLon));
+		controller.animateTo(new GeoPoint((maxLat + minLat) / 2,
+				(maxLon + minLon) / 2));
 	}
 
 }
