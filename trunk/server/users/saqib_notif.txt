@@ -1,9 +1,9 @@
 FriendReq:phil:Phil Added You
-FriendRes:culim:Phil Added You
+FriendRes:culim:chong accepted friend request
 FriendDel:ethanxu:ethan deleted You
 EventInvite:phil01:Phil invited you to event
-EventCanceled:phil01:Phil canceled an event
-EventChanged:phil01:Phil changed an event
+EventCanceled:phil02:Phil canceled an event
+EventChanged:phil03:Phil changed an event
 EventAccepted:culim,saqib01:chong accepted ur event invitation
-EventDeclined:phil,saqib01:Phil declined ur event invitation
+EventDeclined:pmerc,saqib01:Phil declined ur event invitation
 EventProposedChange:phil,saqib01:Phil propsed a change to your event event
