@@ -2,6 +2,7 @@ package edu.mit.discoverme;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
@@ -478,16 +479,22 @@ public class HomepageActivity extends MapActivity {
 		datasource.close();
 		stateManager.friendPoints = getRandomGeopointsAround(lat, lng, allFriends.size());
 		stateManager.friendAddresses = new Vector<String>();
+		stateManager.addressMap = new HashMap<String,String>();
 		int f = 0;
 		for (GeoPoint geoPoint : stateManager.friendPoints) {
 			
 			String address = getAddressAt(geoPoint);
 			stateManager.friendAddresses.add(address);
 			
+			stateManager.addressMap.put(allFriends.get(f).getMITId(), address);
+			stateManager.geopointMap.put(allFriends.get(f).getMITId(), geoPoint);
+			
 			OverlayItem item = new OverlayItem(geoPoint, allFriends.get(f).getName(), address);
 			friendsOverlay.addOverlay(item);
 			f++;
 		}
+		
+		stateManager.geopointMap.put(stateManager.userName, stateManager.userGeoPoint);
 
 	}
 

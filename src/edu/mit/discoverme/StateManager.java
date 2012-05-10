@@ -1,5 +1,6 @@
 package edu.mit.discoverme;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import android.app.Application;
@@ -17,6 +18,8 @@ public class StateManager extends Application {
 	public String userAddress;
 	public Vector<GeoPoint> friendPoints;
 	public Vector<String> friendAddresses;
+	public HashMap<String, String> addressMap;
+	public HashMap<String, GeoPoint> geopointMap = new HashMap<String,GeoPoint>();
 	
 	// people
 	private String[] friends;
@@ -244,7 +247,7 @@ public class StateManager extends Application {
 		
 		for (int i=0; i < friendNames.length; i++)
 		{
-			geoPoints.add(friendPoints.get(i));
+			geoPoints.add(geopointMap.get(friendNames[i]));
 		}
 		
 		return geoPoints;
