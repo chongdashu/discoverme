@@ -151,6 +151,13 @@ public class MyDataSource {
 				+ " = " + id, null);
 	}
 
+	public void updateEventRSVP(long id, String rsvp) {
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_RSVP, rsvp);
+		database.update(MySQLiteHelper.TABLE_EVENTS, values,
+				MySQLiteHelper.COLUMN_EID + " = " + id, null);
+	}
+
 	public List<Event> getAllEvents() {
 		List<Event> events = new ArrayList<Event>();
 
@@ -206,6 +213,32 @@ public class MyDataSource {
 		Notif newNotif = cursorToNotif(cursor);
 		cursor.close();
 		return newNotif;
+	}
+
+	public void updateProcessedNotif(Notif notif) {
+
+		long id = notif.getId();
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_NNAME, notif.getName());
+		values.put(MySQLiteHelper.COLUMN_NTYPE, notif.getType());
+		values.put(MySQLiteHelper.COLUMN_NDETAIL, notif.getDetail());
+		values.put(MySQLiteHelper.COLUMN_READ_FLAG, notif.getReadFlag());
+		values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, "yes");
+		database.update(MySQLiteHelper.TABLE_NOTIFS, values,
+				MySQLiteHelper.COLUMN_NID + " = " + id, null);
+	}
+
+	public void updateSeenNotif(Notif notif) {
+
+		long id = notif.getId();
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_NNAME, notif.getName());
+		values.put(MySQLiteHelper.COLUMN_NTYPE, notif.getType());
+		values.put(MySQLiteHelper.COLUMN_NDETAIL, notif.getDetail());
+		values.put(MySQLiteHelper.COLUMN_READ_FLAG, "yes");
+		values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, notif.getProcFlag());
+		database.update(MySQLiteHelper.TABLE_NOTIFS, values,
+				MySQLiteHelper.COLUMN_NID + " = " + id, null);
 	}
 
 	public void deleteNotif(Notif notif) {
