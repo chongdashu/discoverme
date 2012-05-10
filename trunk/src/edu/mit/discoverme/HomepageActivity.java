@@ -351,8 +351,9 @@ public class HomepageActivity extends MapActivity {
 			datasource.open();
 			List<Notif> values = datasource.getAllNotifs();
 			Collections.sort(values, new NotifComparator());
-			ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
-					R.layout.list_item, values);
+			//ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
+			//		R.layout.list_item, values);
+			NotifAdapter adapter = new NotifAdapter(this, R.layout.list_item, values);
 			lv.setAdapter(adapter);
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
