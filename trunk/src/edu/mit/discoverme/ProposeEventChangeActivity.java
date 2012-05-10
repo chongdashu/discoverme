@@ -1,8 +1,10 @@
 package edu.mit.discoverme;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,37 +19,48 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	protected String eventuid;
 	protected String eventTitle;
 	protected String[] participants;
 	protected String participantsString;
 	protected String[] rsvp;
 	protected String rsvpString;
 	protected boolean closedEvent;
+	protected String eventType;
+	protected String timeString;
 	protected int timeHrs;
 	protected int timeMins;
+	protected String locationLatString;
+	protected String locationLngString;
 	protected GeoPoint location;
 	protected String locationName;
 	protected int latE6;
 	protected int lngE6;
 	protected boolean originatorIsme;
-
 	protected boolean inEditMode;
 	private MyDataSource datasource;
+	long notifID;
 
+	private String username;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		Intent intent = getIntent();
-		long notifID = intent.getLongExtra("notifID", 0);
+		SharedPreferences prefs = getSharedPreferences("credentials",
+				Context.MODE_WORLD_READABLE);
+		username = prefs.getString("username", "none");
 
-		// datasource = new MyDataSource(this);
-		// datasource.open();
-		// Notif notif = datasource.getNotif(notifID);
-		// datasource.close();
-		String eventuid = "saqib01";
-		// notif.getDetail();
+		Intent intent = getIntent();
+		notifID = intent.getLongExtra("notifID", 0);
+
+		datasource = new MyDataSource(this);
+		datasource.open();
+		Notif notif = datasource.getNotif(notifID);
+		datasource.close();
+
+		String details = notif.getDetail();
+		eventuid = details;// "saqib01";
 		String eventRow = ServerLink.getEvent(eventuid);
 
 		
@@ -57,14 +70,15 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		participantsString = arg[1];
 		participants = participantsString.split(",");
 		rsvpString = arg[2];
-		String time = arg[3];
+		timeString = arg[3];
+		eventType = arg[7];
 		if (arg[7].equals("closed"))
 			closedEvent = true;
 		else
 			closedEvent = false;
 		originatorIsme = false;
-		timeHrs = Integer.valueOf((time.split(" "))[0]);
-		timeMins =  Integer.valueOf((time.split(" "))[1]);
+		timeHrs = Integer.valueOf((timeString.split(" "))[0]);
+		timeMins = Integer.valueOf((timeString.split(" "))[1]);
 		locationName = arg[4];
 		latE6 = (int) (Float.valueOf(arg[5]) * 10000000);
 																		// (((float)
@@ -187,6 +201,20 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'Yes' here.
 										dialog.dismiss();
+										Event event = new Event();
+										event.setId(0);
+										event.setEvent(eventuid, eventTitle,
+												participantsString, rsvpString,
+												timeString, locationName,
+												String.valueOf(latE6),
+												String.valueOf(lngE6),
+												eventType);
+										ServerLink.proposeChanges(event);// TODO
+										datasource.open();
+										Notif notif = datasource
+												.getNotif(notifID);
+										datasource.deleteNotif(notif);
+										datasource.close();
 										Toast.makeText(
 												getApplicationContext(),
 												getString(R.string.proposedChangeEventMsg),
@@ -218,10 +246,29 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'Yes' here.
 										dialog.dismiss();
+										ServerLink.sendRSVP(eventuid, "yes");// TODO
+										String newrsvpString = ServerLink
+												.changeOneRSVP(
+														participantsString,
+														rsvpString, username,
+														"yes");
+										datasource.open();
+										datasource.createEvent(eventuid,
+												eventTitle, participantsString,
+												newrsvpString, timeString,
+												locationName,
+												String.valueOf(latE6),
+												String.valueOf(latE6),
+												eventType);
+										Notif notif = datasource
+												.getNotif(notifID);
+										datasource.deleteNotif(notif);
+										datasource.close();
 										Toast.makeText(
 												getApplicationContext(),
 												getString(R.string.RSVPEventMsgAccept),
 												Toast.LENGTH_SHORT).show();
+
 										finish();
 									}
 								})
@@ -232,6 +279,15 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'No' here.
 										dialog.dismiss();
+
+										ServerLink.sendRSVP(eventuid, "no");// TODO
+										datasource.open();
+										ServerLink.deleteEventFromMyList(
+												eventuid, datasource);
+										Notif notif = datasource
+												.getNotif(notifID);
+										datasource.deleteNotif(notif);
+										datasource.close();
 										Toast.makeText(
 												getApplicationContext(),
 												getString(R.string.RSVPEventMsgDecline),

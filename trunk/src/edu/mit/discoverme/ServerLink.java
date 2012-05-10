@@ -114,6 +114,24 @@ public class ServerLink {
 
 	}
 
+	public static void sendRSVP(String eventID, String rsvp) {
+		CharSequence cs = null;
+		String exp = "";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			URL url = new URL(
+					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?eventID="
+							+ eventID + "&rsvp=" + rsvp);
+
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+		// datasource.createFriend("name", "fone", "email", "address");
+
+	}
+
 	public static void loadNotifs(String username, MyDataSource datasource,
 			DirDataSource dirdatasource) {
 		CharSequence cs = null;
@@ -360,36 +378,20 @@ public class ServerLink {
 		{/*do nothing*/}else if (type.equals("EventCanceled"))
 		{
 			String eventName = notif.getDetail().trim();
-			List<Event> events = dataSource.getAllEvents();
-			Event theEvent = new Event();
-			for (int event = 0; event < events.size(); event++) {
-				String eventUID = events.get(event).getEventID();
-				if (eventUID.equals(eventName)) {
-					theEvent = events.get(event);
-					dataSource.deleteEvent(theEvent);
-					break;
-				}
-			}
+			deleteEventFromMyList(eventName, dataSource);
 
 		} else if (type.equals("EventChanged")) {// delete old instance from
 													// users table
+
 			String eventName = notif.getDetail().trim();
-			List<Event> events = dataSource.getAllEvents();
-			Event theEvent = new Event();
-			for (int event = 0; event < events.size(); event++) {
-				String eventUID = events.get(event).getEventID();
-				if (eventUID.equals(eventName)) {
-					theEvent = events.get(event);
-					dataSource.deleteEvent(theEvent);
-					break;
-				}
-			}
+			deleteEventFromMyList(eventName, dataSource);
+
 
 		} else if (type.equals("EventAccepted")) {
 			String notifDetail = notif.getDetail();
 			String[] arg = notifDetail.split(",");
-			String oldrsvp = "";
-			String newrsvp = "";
+			String oldrsvp = "mt";
+			String newrsvp = "mt";
 
 			if (arg.length == 2) {
 				String participantName = arg[0].trim();
@@ -400,37 +402,32 @@ public class ServerLink {
 					String eventUID = events.get(event).getEventID();
 					if (eventUID.equals(eventName)) {
 						theEvent = events.get(event);
+
+						oldrsvp = theEvent.getResponses();
+						String newRsvp = changeOneRSVP(
+								theEvent.getParticipants(),
+								theEvent.getResponses(), participantName, "yes");
+						newrsvp = newRsvp;
+						dataSource.updateEventRSVP(theEvent.getId(), newRsvp);
+
+						// Event thisEvent =
+						// dataSource.getEvent(theEvent.getId());
+						// dataSource.createFriend(oldrsvp, "fone", newrsvp,
+						// thisEvent.getResponses());
+
 						break;
-					}
-				}
-				String participants = theEvent.getParticipants();
-				String rsvp = theEvent.getResponses();
-				oldrsvp = rsvp;
-				String[] arg1 = participants.split(",");
-				String[] arg2 = rsvp.split(",");
-				if (arg1.length == arg2.length) {
-					for (int part = 0; part < arg1.length; part = part + 1) {
-						if (arg1[part].trim().equals(participantName)) {
-							arg2[part] = "yes";
-						}
 
 					}
-					// participants = "";
-					rsvp = "";
-					for (int part = 0; part < arg1.length; part = part + 1) {
-						// participants = participants + "," + arg1[part];
-						rsvp = rsvp + arg2[part] + ",";
-					}
-					newrsvp = rsvp;
-					dataSource.updateEventRSVP(theEvent.getId(), rsvp);
-
 				}
+
 
 			}
 			// dataSource.createFriend(oldrsvp, "fone", newrsvp, "nonenow");
 			
 		} else if (type.equals("EventDeclined")) {
 			String notifDetail = notif.getDetail();
+			String oldrsvp = "mt";
+			String newrsvp = "mt";
 			String[] arg = notifDetail.split(",");
 			if (arg.length == 2) {
 				String participantName = arg[0].trim();
@@ -441,31 +438,24 @@ public class ServerLink {
 					String eventUID = events.get(event).getEventID();
 					if (eventUID.equals(eventName)) {
 						theEvent = events.get(event);
+						oldrsvp = theEvent.getResponses();
+						String newRsvp = changeOneRSVP(
+								theEvent.getParticipants(),
+								theEvent.getResponses(), participantName, "no");
+						newrsvp = newRsvp;
+						dataSource.updateEventRSVP(theEvent.getId(), newRsvp);
+						// Event thisEvent =
+						// dataSource.getEvent(theEvent.getId());
+						// dataSource.createFriend(oldrsvp, "fone", newrsvp,
+						// thisEvent.getResponses());
+
 						break;
 					}
 				}
-				String participants = theEvent.getParticipants();
-				String rsvp = theEvent.getResponses();
-				String[] arg1 = participants.split(",");
-				String[] arg2 = rsvp.split(",");
-				if (arg1.length == arg2.length) {
-					for (int part = 0; part < arg1.length; part = part + 1) {
-						if (arg1[part].trim().equals(participantName)) {
-							arg2[part] = "no";
-						}
-
-					}
-					// participants = "";
-					rsvp = "";
-					for (int part = 0; part < arg1.length; part = part + 1) {
-						// participants = participants + "," + arg1[part];
-						rsvp = rsvp + "," + arg2[part];
-					}
-					dataSource.updateEventRSVP(theEvent.getId(), rsvp);
-
-				}
+				// }
 
 			}
+			// dataSource.createFriend(oldrsvp, "fone", newrsvp, "nonenow");
 
 		} else if (type.equals("EventProposedChange")) {
 		}
@@ -484,5 +474,68 @@ public class ServerLink {
 				count = count + 1;
 		}
 		return count;
+	}
+
+	public static String changeOneRSVP(String participants, String rsvps,
+			String oneParticipant, String oneRsvp) {
+		String rsvp = "";
+		String[] arg1 = participants.split(",");
+		String[] arg2 = rsvps.split(",");
+		if (arg1.length == arg2.length) {
+			for (int part = 0; part < arg1.length; part = part + 1) {
+				if (arg1[part].trim().equals(oneParticipant)) {
+					arg2[part] = oneRsvp;
+				}
+
+			}
+			// participants = "";
+			
+			for (int part = 0; part < arg1.length; part = part + 1) {
+				// participants = participants + "," + arg1[part];
+				rsvp = rsvp + arg2[part] + ",";
+			}
+
+		} else
+			rsvp = rsvps;
+		return rsvp;
+	}
+
+	public static void deleteEventFromMyList(String eventName,
+			MyDataSource dataSource) {
+		List<Event> events = dataSource.getAllEvents();
+		Event theEvent = new Event();
+		for (int event = 0; event < events.size(); event++) {
+			String eventUID = events.get(event).getEventID();
+			if (eventUID.equals(eventName)) {
+				theEvent = events.get(event);
+				dataSource.deleteEvent(theEvent);
+				break;
+			}
+		}
+
+	}
+
+	public static void proposeChanges(Event event) {
+	}
+
+	public static String getFriendLocation(String friendemail) {
+		String locationName = "";
+		String locationLat = "";
+		String locationLng = "";
+
+			CharSequence cs = null;
+			String exp = "";
+			try {
+				// URL url = new URL("http://www.google.com/search?q=" + username);
+				URL url = new URL(
+						"http://people.csail.mit.edu/culim/projects/discoverme/script.php?username="
+								+ friendemail);
+
+				cs = Authenticate.getURLContent(url);
+				// do something with the URL...
+			} catch (IOException ioex) {
+				exp = ioex.toString();
+			}
+		return locationName + "," + locationLat + "," + locationLng;
 	}
 }
