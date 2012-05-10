@@ -2,6 +2,7 @@ package edu.mit.discoverme;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -26,6 +27,11 @@ public class SearchActivity extends ListActivity{
 	SearchActivity self;
 	String[] searchList;
 	String popup;
+	
+	DirDataSource dirdatasource;
+	
+	List<Friend> directory;
+
 	
 	ListView lv;
 	
@@ -54,16 +60,17 @@ public class SearchActivity extends ListActivity{
 	    Intent intent = getIntent();
 	    popup = intent.getStringExtra("popupCode");
 	    
-	    if(popup.equals("friendss")){
-			searchList = getResources().getStringArray(R.array.directory_array);
-	    }
-	    else if(popup.equals("eventss")){
-	    	searchList = getResources().getStringArray(R.array.events_array);
-	    }
-	    else{
-	    	searchList = getResources().getStringArray(R.array.notifs_array);
-	    }
-	    
+//	    if(popup.equals("friendss")){
+//			searchList = getResources().getStringArray(R.array.directory_array);
+//	    }
+//	    else if(popup.equals("eventss")){
+//	    	searchList = getResources().getStringArray(R.array.events_array);
+//	    }
+//	    else{
+//	    	searchList = getResources().getStringArray(R.array.notifs_array);
+//	    }
+
+	    popoulateList();
 	    
 	    searchBar = (EditText)(findViewById(R.id.searchInput));
 	    searchBar.addTextChangedListener(watcher);
@@ -78,6 +85,7 @@ public class SearchActivity extends ListActivity{
 
 				if (popup.equals("friendss")) {
 					Intent intent = new Intent(SearchActivity.this, ProfileActivity.class);
+					CharSequence words = ((TextView) view).getText();
 					intent.putExtra("personName", ((TextView) view).getText());
 					startActivity(intent);
 
@@ -97,6 +105,21 @@ public class SearchActivity extends ListActivity{
 	    
 	    
 	}
+	private void popoulateList() {
+		// TODO Auto-generated method stub
+		dirdatasource = new DirDataSource(this);
+		
+		dirdatasource.open();
+		directory = dirdatasource.getAllPeople();
+		dirdatasource.close();
+		
+		searchList = new String[directory.size()];
+		
+		for(int person = 0; person < directory.size(); person++){
+			searchList[person] = directory.get(person).getName();
+		}
+		
+	}
 	private final TextWatcher watcher = new TextWatcher(){
 
 		@Override
@@ -107,11 +130,19 @@ public class SearchActivity extends ListActivity{
 			
 			//only look if the text field has characters in it
 			//if it doesnt results will be blank
+			Editable text = searchBar.getText();
+			int len = text.length();
+			Editable comp = arg0;
 			if(searchBar.getText().length() != 0){
 				//iterate through the list we are looking for
 				for(int i = 0; i < searchList.length; i++){
+					String name = searchList[i];
+					String compareUpper = arg0.toString();
+					String compareLower = compareUpper.toLowerCase();
+					Boolean upperTrue = name.startsWith(compareUpper);
+					Boolean lowerTrue = name.startsWith(compareLower);
 					//see if it starts what the user queried
-					if(searchList[i].startsWith(arg0.toString().toLowerCase())){
+					if(searchList[i].toLowerCase().startsWith(arg0.toString().toLowerCase())){
 						results.add(searchList[i]);
 					}
 				}
