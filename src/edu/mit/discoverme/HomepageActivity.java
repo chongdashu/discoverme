@@ -346,14 +346,10 @@ public class HomepageActivity extends MapActivity {
 
 			datasource.open();
 			List<Notif> values = datasource.getAllNotifs();
-			String[] arrayS = { "sunila", "saqib", "onetwothree" };
 			Collections.sort(values, new NotifComparator());
-
 			ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
 					R.layout.list_item, values);
-
 			lv.setAdapter(adapter);
-
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
 			friend.setSelected(false);
@@ -361,7 +357,6 @@ public class HomepageActivity extends MapActivity {
 			notif.setSelected(true);
 			datasource.readAllNotif();
 			datasource.close();
-
 		}
 
 	}
