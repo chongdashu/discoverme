@@ -155,7 +155,7 @@ public class CreateEventActivity extends Activity {// implements
 
 			// We launch the "Select Participants Activity"
 			Intent intent = new Intent(CreateEventActivity.this,
-					ParticipantListingActivity.class);
+					AddParticipantsListActivity.class);
 			intent.putExtra("selectedArray", selectedArray);
 			
 			
