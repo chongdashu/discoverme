@@ -128,21 +128,26 @@ public class ServerLink {
 		} catch (IOException ioex) {
 			exp = ioex.toString();
 		}
-		// datasource.createFriend("name", "fone", "email", "address");
 
 		if (cs != null) {
 			String string = cs.toString();
 			String[] arg = string.split("\n");
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(":");
-				datasource.createNotification(one[2], one[0], one[1], "no",
-						"no");
+				Notif notif = new Notif();
+				notif.setId(0);
+				notif.setNotif(one[2], one[0], one[1], "no");
+				processNotif(notif, datasource);
+				if (one[0].equals("FriendDel")) {
+				} else {
+					datasource.createNotification(one[2], one[0], one[1], "no");
+				}
 				// datasource.createNotification(name, type, details, readFlag);
 			}
 		} else {
 
 		}
-		processAllNotifs(datasource);
+		// processAllNotifs(datasource);
 
 	}
 

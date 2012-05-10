@@ -5,11 +5,9 @@ package edu.mit.discoverme;
 public class Notif {
 	private long id;
 	private String name;
-
 	private String type;
 	private String detail;
 	private String readFlag;
-	private String procFlag;
 
 
 	public long getId() {
@@ -52,21 +50,14 @@ public class Notif {
 		this.readFlag = readFlag;
 	}
 
-	public String getProcFlag() {
-		return procFlag;
-	}
-
-	public void setProcFlag(String procFlag) {
-		this.procFlag = procFlag;
-	}
 
 	public void setNotif(String name, String type, String details,
-			String readFlag, String procFlag) {
+			String readFlag) {
 		this.name = name;
 		this.type = type;
 		this.detail = details;
 		this.readFlag = readFlag;
-		this.procFlag = procFlag;
+
 
 	}
 	// Will be used by the ArrayAdapter in the ListView

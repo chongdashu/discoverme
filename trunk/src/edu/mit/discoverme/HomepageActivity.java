@@ -345,7 +345,7 @@ public class HomepageActivity extends MapActivity {
 
 			datasource.open();
 			List<Notif> values = datasource.getAllNotifs();
-			datasource.close();
+
 			ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
 					R.layout.list_item, values);
 
@@ -356,8 +356,7 @@ public class HomepageActivity extends MapActivity {
 			friend.setSelected(false);
 			event.setSelected(false);
 			notif.setSelected(true);
-			datasource.open();
-			ServerLink.setAllNotifsAsSeen(datasource);
+			datasource.readAllNotif();
 			datasource.close();
 
 		}
