@@ -298,38 +298,50 @@ public class ServerLink {
 		String type = notif.getType();
 		if(type.equals("FriendReq"))
  {/* do nothing */
-		} else if (type.equals("FriendRes"))
- {
-			dirdatasource.open();
+		} else if (type.equals("FriendRes")) {
 			List<Friend> directory = dirdatasource.getAllPeople();
-			dirdatasource.close();
-
+			String newEmail = notif.getDetail().trim();
 			Friend newFriend = new Friend();
 			for (int person = 0; person < directory.size(); person++) {
 				String email = directory.get(person).getEmail().trim();
 				String[] arg = email.split("@");
 				if (arg.length > 1)
 					email = arg[0];
-				else
-					email = email; // just there for completeness
 
-				if (email.equals(notif.getDetail())) {
+				if (email.equals(newEmail)) {
 					newFriend = directory.get(person);
+					String name = newFriend.getName();
+					String emailAdd = newFriend.getEmail();
+					String fone = newFriend.getFone();
+					String address = newFriend.getAddress();
+					dataSource.createFriend(name, fone, emailAdd, address);
+					// dataSource.createFriend(name + newEmail, "fone",
+					// "emailAdd", "address");
+					// newFriend.getName(),
+					// newFriend.getFone(), newFriend.getEmail(),
+					// newFriend.getAddress());
+
 					break;
+				} else {
+					// dataSource.createFriend(email, "nonenoe",
+					// notif.getDetail(), "nonenow");
+
 				}
+				// dataSource.createFriend(email, "nonenoe", notif.getDetail(),
+				// "nonenow");
 			}
-			dataSource.createFriend(newFriend.getName(), newFriend.getFone(),
-					newFriend.getEmail(), newFriend.getAddress());
+			// dataSource.createFriend("added",
+			// String.valueOf(directory.size()),
+			// notif.getDetail(), "nonenow");
+
 
 		} else if (type.equals("FriendDel")) {
 			// delete this notif from the table so it never shows up in the list
-			dirdatasource.open();
-			List<Friend> directory = dirdatasource.getAllPeople();
-			dirdatasource.close();
+			List<Friend> allFriends = dataSource.getAllFriends();
 
 			Friend newFriend = new Friend();
-			for (int person = 0; person < directory.size(); person++) {
-				String email = directory.get(person).getEmail().trim();
+			for (int person = 0; person < allFriends.size(); person++) {
+				String email = allFriends.get(person).getEmail().trim();
 				String[] arg = email.split("@");
 				if (arg.length > 1)
 					email = arg[0];
@@ -337,21 +349,102 @@ public class ServerLink {
 					email = email; // just there for completeness
 
 				if (email.equals(notif.getDetail())) {
-					newFriend = directory.get(person);
+					newFriend = allFriends.get(person);
+					dataSource.deleteFriend(newFriend);
+
 					break;
 				}
 			}
-			dataSource.deleteFriend(newFriend);
-			// dataSource.deleteNotif(notif);
+
 		} else if (type.equals("EventInvite"))
 		{/*do nothing*/}else if (type.equals("EventCanceled"))
 		{
+
+		} else if (type.equals("EventChanged")) {/* do nothing */
+		} else if (type.equals("EventAccepted")) {
+			String notifDetail = notif.getDetail();
+			String[] arg = notifDetail.split(",");
+			String oldrsvp = "";
+			String newrsvp = "";
+
+			if (arg.length == 2) {
+				String participantName = arg[0].trim();
+				String eventName = arg[1].trim();
+				List<Event> events = dataSource.getAllEvents();
+				Event theEvent = new Event();
+				for (int event = 0; event < events.size(); event++) {
+					String eventUID = events.get(event).getEventID();
+					if (eventUID.equals(eventName)) {
+						theEvent = events.get(event);
+						break;
+					}
+				}
+				String participants = theEvent.getParticipants();
+				String rsvp = theEvent.getResponses();
+				oldrsvp = rsvp;
+				String[] arg1 = participants.split(",");
+				String[] arg2 = rsvp.split(",");
+				if (arg1.length == arg2.length) {
+					for (int part = 0; part < arg1.length; part = part + 1) {
+						if (arg1[part].trim().equals(participantName)) {
+							arg2[part] = "yes";
+						}
+
+					}
+					// participants = "";
+					rsvp = "";
+					for (int part = 0; part < arg1.length; part = part + 1) {
+						// participants = participants + "," + arg1[part];
+						rsvp = rsvp + arg2[part] + ",";
+					}
+					newrsvp = rsvp;
+					dataSource.updateEventRSVP(theEvent.getId(), rsvp);
+
+				}
+
+			}
+			// dataSource.createFriend(oldrsvp, "fone", newrsvp, "nonenow");
 			
-		}else if (type.equals("EventChanged"))
- {/* do nothing */
-		} else if (type.equals("EventAccepted"))
-		{}else if (type.equals("EventDeclined"))
-		{}else if (type.equals("EventProposedChange")){}
+		} else if (type.equals("EventDeclined")) {
+			String notifDetail = notif.getDetail();
+			String[] arg = notifDetail.split(",");
+			if (arg.length == 2) {
+				String participantName = arg[0].trim();
+				String eventName = arg[1].trim();
+				List<Event> events = dataSource.getAllEvents();
+				Event theEvent = new Event();
+				for (int event = 0; event < events.size(); event++) {
+					String eventUID = events.get(event).getEventID();
+					if (eventUID.equals(eventName)) {
+						theEvent = events.get(event);
+						break;
+					}
+				}
+				String participants = theEvent.getParticipants();
+				String rsvp = theEvent.getResponses();
+				String[] arg1 = participants.split(",");
+				String[] arg2 = rsvp.split(",");
+				if (arg1.length == arg2.length) {
+					for (int part = 0; part < arg1.length; part = part + 1) {
+						if (arg1[part].trim().equals(participantName)) {
+							arg2[part] = "no";
+						}
+
+					}
+					// participants = "";
+					rsvp = "";
+					for (int part = 0; part < arg1.length; part = part + 1) {
+						// participants = participants + "," + arg1[part];
+						rsvp = rsvp + "," + arg2[part];
+					}
+					dataSource.updateEventRSVP(theEvent.getId(), rsvp);
+
+				}
+
+			}
+
+		} else if (type.equals("EventProposedChange")) {
+		}
 		
 		
 	}

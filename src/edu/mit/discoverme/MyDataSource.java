@@ -29,7 +29,6 @@ public class MyDataSource {
 			MySQLiteHelper.COLUMN_NNAME, MySQLiteHelper.COLUMN_NTYPE,
 			MySQLiteHelper.COLUMN_NDETAIL, MySQLiteHelper.COLUMN_READ_FLAG };
 
-	// MySQLiteHelper.COLUMN_PROCESSED_FLAG };
 
 	public MyDataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
@@ -160,6 +159,7 @@ public class MyDataSource {
 				MySQLiteHelper.COLUMN_EID + " = " + id, null);
 	}
 
+
 	public List<Event> getAllEvents() {
 		List<Event> events = new ArrayList<Event>();
 
@@ -194,7 +194,6 @@ public class MyDataSource {
 		values.put(MySQLiteHelper.COLUMN_NTYPE, type);
 		values.put(MySQLiteHelper.COLUMN_NDETAIL, details);
 		values.put(MySQLiteHelper.COLUMN_READ_FLAG, readFlag);
-		// values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, procFlag);
 
 		long insertId = database.insert(MySQLiteHelper.TABLE_NOTIFS, null,
 				values);
@@ -225,18 +224,10 @@ public class MyDataSource {
 		values.put(MySQLiteHelper.COLUMN_NTYPE, notif.getType());
 		values.put(MySQLiteHelper.COLUMN_NDETAIL, notif.getDetail());
 		values.put(MySQLiteHelper.COLUMN_READ_FLAG, notif.getReadFlag());
-		// values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, "yes");
 		database.update(MySQLiteHelper.TABLE_NOTIFS, values,
 				MySQLiteHelper.COLUMN_NID + " = " + id, null);
 	}
 
-	/*
-	 * public void processAllNotif(Notif notif) {
-	 * 
-	 * long id = notif.getId(); ContentValues values = new ContentValues();
-	 * values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, "yes");
-	 * database.update(MySQLiteHelper.TABLE_NOTIFS, values, null, null); }
-	 */
 	public void updateSeenNotif(Notif notif) {
 
 		long id = notif.getId();
@@ -245,8 +236,6 @@ public class MyDataSource {
 		values.put(MySQLiteHelper.COLUMN_NTYPE, notif.getType());
 		values.put(MySQLiteHelper.COLUMN_NDETAIL, notif.getDetail());
 		values.put(MySQLiteHelper.COLUMN_READ_FLAG, "yes");
-		// values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG,
-		// notif.getProcFlag());
 		database.update(MySQLiteHelper.TABLE_NOTIFS, values,
 				MySQLiteHelper.COLUMN_NID + " = " + id, null);
 	}

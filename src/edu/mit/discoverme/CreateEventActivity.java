@@ -229,7 +229,7 @@ public class CreateEventActivity extends Activity {// implements
 				String[] arg = newParticipants.split(",");
 				String newRsvp = "";
 				for (int i = 0; i < arg.length; i++)
-					newRsvp = newRsvp + ",";
+					newRsvp = newRsvp + "pending,";
 				String newLocation = (editTextLocation.getText()).toString();
 				String newLocationLNG = locationLng;
 				String newLocationLAT = locationLat;

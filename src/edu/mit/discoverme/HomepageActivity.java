@@ -193,7 +193,7 @@ public class HomepageActivity extends MapActivity {
 			String username = prefs.getString("username", "none");
 			datasource.open();
 			dirdatasource.open();
-			ServerLink.loadNotifs(username, datasource, dirdatasource);
+			// ServerLink.loadNotifs(username, datasource, dirdatasource);
 			datasource.close();
 			dirdatasource.close();
 			String locationLat = String.valueOf(stateManager.userLat);

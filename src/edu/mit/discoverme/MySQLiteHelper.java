@@ -27,7 +27,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_LOCATION_LAT = "locationlat";
 	public static final String COLUMN_LOCATION_LNG = "locationlng";
 	public static final String COLUMN_TYPE = "type";
-	public static final String COLUMN_ORIGINATOR = "originator";
 
 	public static final String TABLE_NOTIFS = "notifications";
 	public static final String COLUMN_NID = "_nid";
@@ -35,7 +34,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_NTYPE = "ntype";
 	public static final String COLUMN_NDETAIL = "details";
 	public static final String COLUMN_READ_FLAG = "readflag";
-	public static final String COLUMN_PROCESSED_FLAG = "procflag";
 
 	private static final String DATABASE_NAME = "dm.db";
 	private static final int DATABASE_VERSION = 1;
@@ -66,8 +64,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			+ " integer primary key autoincrement, " + COLUMN_NNAME
 			+ " text not null," + COLUMN_NTYPE + " text not null,"
 			+ COLUMN_NDETAIL + " text not null," + COLUMN_READ_FLAG
-			+ " text not null);";// ," + COLUMN_PROCESSED_FLAG + " text not
-									// null);";
+			+ " text not null);";
 
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
