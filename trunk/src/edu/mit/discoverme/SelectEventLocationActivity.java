@@ -143,14 +143,6 @@ public class SelectEventLocationActivity extends MapActivity {
 				drawable, this);
 		mapOverlays.add(selectLocationOverlay);
 		
-		// Create overlay for User
-		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,
-				mapView);
-		mapOverlays.add(itemizedoverlay);
-
-		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint, stateManager.userName, stateManager.userAddress);
-		itemizedoverlay.addOverlay(overlayitem);
-
 		// Create overlay for Friends
 		HomepageMapOverlay friendsOverlay = new HomepageMapOverlay(
 				getResources().getDrawable(R.drawable.marker2), this, mapView);
@@ -167,6 +159,14 @@ public class SelectEventLocationActivity extends MapActivity {
 			friendsOverlay.addOverlay(item);
 			f++;
 		}
+		
+		// Create overlay for User
+				HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,
+						mapView);
+				mapOverlays.add(itemizedoverlay);
+
+				OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint, stateManager.userName, stateManager.userAddress);
+				itemizedoverlay.addOverlay(overlayitem);
 		
 		// Handle read-only mode
 		if (mode == MODE_VIEW || mode == MODE_PROPOSE){
