@@ -1,6 +1,7 @@
 package edu.mit.discoverme;
 
 import java.util.Arrays;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +17,17 @@ import android.widget.Toast;
 public class ProfileActivity extends Activity {
 
 	String personName;
+
+	MyDataSource mydatasource;
+	DirDataSource dirdatasource;
+
+	List<Friend> directory;
+	List<Friend> friends;
+
+	String[] emails;
+	String[] names;
+	String[] addresss;
+	String[] phones;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,20 +68,22 @@ public class ProfileActivity extends Activity {
 		TextView addressField = (TextView) findViewById(R.id.personAddress);
 
 		StateManager appState = ((StateManager) getApplicationContext());
-		String[] names = appState.getDirectoryNames();
+		// String[] names = appState.getDirectoryNames();
 		// String[] emails = appState.getDirectory_emails();
 		// String[] phones = appState.getDirectory_phones();
 		// String[] addresss = appState.getDirectory_addresses();
-		String[] types = appState.getDirectory_friendType();
+		// String[] types = appState.getDirectory_friendType();
 
 		// String[] names =
 		// getResources().getStringArray(R.array.directory_array);
-		String[] emails = getResources().getStringArray(R.array.email_array);
-		String[] phones = getResources().getStringArray(R.array.phone_array);
-		String[] addresss = getResources()
-				.getStringArray(R.array.address_array);
+		// String[] emails = getResources().getStringArray(R.array.email_array);
+		// String[] phones = getResources().getStringArray(R.array.phone_array);
+		// String[] addresss = getResources()
+		// .getStringArray(R.array.address_array);
 		// String[] types = getResources().getStringArray(
 		// R.array.friend_type_array);
+
+		populateFields();
 
 		int key = 0;
 		int len = names.length;
@@ -85,12 +99,13 @@ public class ProfileActivity extends Activity {
 		String stPreq = getString(R.string.typePendingReq);
 		String stPres = getString(R.string.typePendingRes);
 
-		profileType = types[key];
+		// profileType = types[key];
 		nameField.setText(personName);
 		emailField.setText(emails[key]);
 		phoneField.setText(phones[key]);
 		addressField.setText(addresss[key]);
-		profileType = types[key];
+		// profileType = types[key];
+		profileType = getProfileType(key);
 		// this check should be
 		if (profileType.equals(stF)) {
 			nameField.setText(personName);
@@ -106,22 +121,73 @@ public class ProfileActivity extends Activity {
 			approve.setVisibility(View.GONE);
 			decline.setVisibility(View.GONE);
 			addedAlready.setVisibility(View.GONE);
-		} else if (profileType.equals(stPreq)) {
-			nameField.setText(personName);
-			add.setVisibility(View.GONE);
-			deleteFriend.setVisibility(View.GONE);
-			approve.setVisibility(View.VISIBLE);
-			decline.setVisibility(View.VISIBLE);
-			addedAlready.setVisibility(View.GONE);
-		} else if (profileType.equals(stPres)) {
-			nameField.setText(personName);
-			add.setVisibility(View.GONE);
-			deleteFriend.setVisibility(View.GONE);
-			approve.setVisibility(View.GONE);
-			decline.setVisibility(View.GONE);
-			addedAlready.setVisibility(View.VISIBLE);
-		} else {
+		}
+		// else if (profileType.equals(stPreq)) {
+		// nameField.setText(personName);
+		// add.setVisibility(View.GONE);
+		// deleteFriend.setVisibility(View.GONE);
+		// approve.setVisibility(View.VISIBLE);
+		// decline.setVisibility(View.VISIBLE);
+		// addedAlready.setVisibility(View.GONE);
+		// } else if (profileType.equals(stPres)) {
+		// nameField.setText(personName);
+		// add.setVisibility(View.GONE);
+		// deleteFriend.setVisibility(View.GONE);
+		// approve.setVisibility(View.GONE);
+		// decline.setVisibility(View.GONE);
+		// addedAlready.setVisibility(View.VISIBLE);
+		// }
+		else {
 			nameField.setText(R.string.typeFriend);
+		}
+
+	}
+
+	private String getProfileType(int index) {
+		// TODO Auto-generated method stub
+		String result;
+		Friend direct = directory.get(index);
+		int i = friends.indexOf(direct);
+		Boolean rt = friends.contains(direct);
+		Boolean other = friends.equals(direct);
+		result = "stranger";
+		for (Friend friend : friends) {
+			if (friend.getEmail().split("@")[0].equals(direct.getEmail().split(
+					"@")[0])) {
+				result = "friend";
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	private void populateFields() {
+		// TODO Auto-generated method stub
+
+		// initialize friends list
+		mydatasource = new MyDataSource(this);
+		mydatasource.open();
+		friends = mydatasource.getAllFriends();
+		mydatasource.close();
+
+		// initialize directory
+		dirdatasource = new DirDataSource(this);
+		dirdatasource.open();
+		directory = dirdatasource.getAllPeople();
+		dirdatasource.close();
+
+		// set size of String[]
+		phones = new String[directory.size()];
+		emails = new String[directory.size()];
+		names = new String[directory.size()];
+		addresss = new String[directory.size()];
+
+		for (int person = 0; person < directory.size(); person++) {
+			phones[person] = directory.get(person).getFone();
+			emails[person] = directory.get(person).getEmail();
+			names[person] = directory.get(person).getName();
+			addresss[person] = directory.get(person).getAddress();
 		}
 
 	}
