@@ -51,6 +51,7 @@ public class HomepageActivity extends MapActivity {
 
 	private ListView lv;
 	private MyDataSource datasource;
+	private DirDataSource dirdatasource;
 	
 	private Handler backgroundNotificationsHandler;
 
@@ -78,6 +79,7 @@ public class HomepageActivity extends MapActivity {
 		hideEverything();
 
 		datasource = new MyDataSource(this);
+		dirdatasource = new DirDataSource(this);
 		//
 
 		// friend.setSelected(true);
@@ -190,8 +192,10 @@ public class HomepageActivity extends MapActivity {
 					Context.MODE_WORLD_READABLE);
 			String username = prefs.getString("username", "none");
 			datasource.open();
-			ServerLink.loadNotifs(username, datasource);
+			dirdatasource.open();
+			ServerLink.loadNotifs(username, datasource, dirdatasource);
 			datasource.close();
+			dirdatasource.close();
 			String locationLat = String.valueOf(stateManager.userLat);
 			String locationLng = String.valueOf(stateManager.userLon);
 			String location = stateManager.userAddress;

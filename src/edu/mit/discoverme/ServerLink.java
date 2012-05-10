@@ -114,7 +114,8 @@ public class ServerLink {
 
 	}
 
-	public static void loadNotifs(String username, MyDataSource datasource) {
+	public static void loadNotifs(String username, MyDataSource datasource,
+			DirDataSource dirdatasource) {
 		CharSequence cs = null;
 		String exp = "";
 		try {
@@ -137,7 +138,7 @@ public class ServerLink {
 				Notif notif = new Notif();
 				notif.setId(0);
 				notif.setNotif(one[2], one[0], one[1], "no");
-				processNotif(notif, datasource);
+				processNotif(notif, datasource, dirdatasource);
 				if (one[0].equals("FriendDel")) {
 				} else {
 					datasource.createNotification(one[2], one[0], one[1], "no");
@@ -284,26 +285,63 @@ public class ServerLink {
 
 	}
 
-	public static void processAllNotifs(MyDataSource datasource) {
-		datasource.open();
-		List<Notif> notifs = datasource.getAllNotifs();
-		datasource.close();
-		for (Notif notif : notifs) {
-			processNotif(notif, datasource);
-			// datasource.updateProcessedNotif(notif);
-		}
-	}
+	/*
+	 * public static void processAllNotifs(MyDataSource datasource) {
+	 * datasource.open(); List<Notif> notifs = datasource.getAllNotifs();
+	 * datasource.close(); for (Notif notif : notifs) { processNotif(notif,
+	 * datasource); // datasource.updateProcessedNotif(notif); } }
+	 */
 
-	public static void processNotif(Notif notif, MyDataSource dataSource) {
+	public static void processNotif(Notif notif, MyDataSource dataSource,
+			DirDataSource dirdatasource) {
 		CharSequence cs = null;
 		String type = notif.getType();
 		if(type.equals("FriendReq"))
  {/* do nothing */
 		} else if (type.equals("FriendRes"))
  {
+			dirdatasource.open();
+			List<Friend> directory = dirdatasource.getAllPeople();
+			dirdatasource.close();
+
+			Friend newFriend = new Friend();
+			for (int person = 0; person < directory.size(); person++) {
+				String email = directory.get(person).getEmail().trim();
+				String[] arg = email.split("@");
+				if (arg.length > 1)
+					email = arg[0];
+				else
+					email = email; // just there for completeness
+
+				if (email.equals(notif.getDetail())) {
+					newFriend = directory.get(person);
+					break;
+				}
+			}
+			dataSource.createFriend(newFriend.getName(), newFriend.getFone(),
+					newFriend.getEmail(), newFriend.getAddress());
 
 		} else if (type.equals("FriendDel")) {
 			// delete this notif from the table so it never shows up in the list
+			dirdatasource.open();
+			List<Friend> directory = dirdatasource.getAllPeople();
+			dirdatasource.close();
+
+			Friend newFriend = new Friend();
+			for (int person = 0; person < directory.size(); person++) {
+				String email = directory.get(person).getEmail().trim();
+				String[] arg = email.split("@");
+				if (arg.length > 1)
+					email = arg[0];
+				else
+					email = email; // just there for completeness
+
+				if (email.equals(notif.getDetail())) {
+					newFriend = directory.get(person);
+					break;
+				}
+			}
+			dataSource.deleteFriend(newFriend);
 			// dataSource.deleteNotif(notif);
 		} else if (type.equals("EventInvite"))
 		{/*do nothing*/}else if (type.equals("EventCanceled"))
@@ -318,14 +356,6 @@ public class ServerLink {
 		
 	}
 
-	public static void setAllNotifsAsSeen(MyDataSource datasource) {
-		datasource.open();
-		List<Notif> notifs = datasource.getAllNotifs();
-		datasource.close();
-		for (Notif notif : notifs) {
-			// datasource.updateSeenNotif(notif);
-		}
-	}
 
 	public static int countUnseenNotif(MyDataSource datasource) {
 		datasource.open();
