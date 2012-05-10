@@ -244,10 +244,15 @@ public class StateManager extends Application {
 
 	public Vector<GeoPoint> getGeoPointsFromFriends(String[] friendNames) {
 		Vector<GeoPoint> geoPoints = new Vector<GeoPoint>();
-		
+		GeoPoint gp;
 		for (int i=0; i < friendNames.length; i++)
 		{
-			geoPoints.add(geopointMap.get(friendNames[i]));
+			gp = geopointMap.get(friendNames[i]);
+			if (gp == null)
+			{
+				gp = Utils.getRandomGeopointsAround(userLat, userLon, 1).get(0);
+			}
+			geoPoints.add(gp);
 		}
 		
 		return geoPoints;
