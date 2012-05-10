@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ParticipantListingActivity extends Activity
+public class AddParticipantsListActivity extends Activity
 		implements
 			OnClickListener {
 
@@ -60,7 +60,7 @@ public class ParticipantListingActivity extends Activity
 				Context.MODE_WORLD_READABLE);
 		String username = prefs.getString("username", "none");
 
-		datasource = new MyDataSource(ParticipantListingActivity.this);
+		datasource = new MyDataSource(AddParticipantsListActivity.this);
 		datasource.open();
 		List<Friend> allFriends = datasource.getAllFriends();
 		friends = new String[allFriends.size()];
@@ -117,7 +117,7 @@ public class ParticipantListingActivity extends Activity
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra("participants", selectedList);
 			resultIntent.putExtra("selectedArray", selected);
-			Activity partSelActivity = ParticipantListingActivity.this;
+			Activity partSelActivity = AddParticipantsListActivity.this;
 			partSelActivity.setResult(Activity.RESULT_OK, resultIntent);
 			partSelActivity.finish();
 
@@ -136,7 +136,7 @@ public class ParticipantListingActivity extends Activity
 			selectedList = "";
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra("participants", selectedList);
-			Activity partSelActivity = ParticipantListingActivity.this;
+			Activity partSelActivity = AddParticipantsListActivity.this;
 			partSelActivity.setResult(Activity.RESULT_CANCELED, resultIntent);
 			partSelActivity.finish();
 
@@ -195,7 +195,7 @@ public class ParticipantListingActivity extends Activity
 			// tag it
 			ct.setTag(position);
 			mCheckedList.put(position, ct);
-			ct.setOnClickListener(ParticipantListingActivity.this);
+			ct.setOnClickListener(AddParticipantsListActivity.this);
 
 			if (mIsChecked.get(position) == null) {
 				if (selected[position] == 1) {
