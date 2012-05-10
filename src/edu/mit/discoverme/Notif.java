@@ -65,4 +65,8 @@ public class Notif {
 	public String toString() {
 		return name;
 	}
+	
+	public boolean isRead() {
+		return getReadFlag().equals("yes");
+	}
 }

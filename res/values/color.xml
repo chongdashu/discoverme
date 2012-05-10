@@ -6,5 +6,6 @@
   <color name="black">#000000</color>
   <color name="alice_blue">#F0F8FF</color>
   <color name="ivory">#FFFFF0</color>
+  <color name="notif_unread">#FFFBD1</color>
     
 </resources>
