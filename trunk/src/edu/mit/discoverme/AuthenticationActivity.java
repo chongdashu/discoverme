@@ -48,15 +48,13 @@ public class AuthenticationActivity extends Activity {
 				editor.commit();
 				datasource = new MyDataSource(AuthenticationActivity.this);
 				datasource.open();
-
-				ServerLink.loadFriends(usr, datasource);
-				ServerLink.loadEvents("saqib01", datasource);
-				// ServerLink.loadNotifs(usr, datasource);
-				datasource.close();
-
 				dirdatasource = new DirDataSource(AuthenticationActivity.this);
 				dirdatasource.open();
 				ServerLink.loadPeople(dirdatasource);
+				ServerLink.loadFriends(usr, datasource);
+				ServerLink.loadEvents("saqib01", datasource);
+				ServerLink.loadNotifs(usr, datasource, dirdatasource);
+				datasource.close();
 				dirdatasource.close();
 				Toast.makeText(getApplicationContext(), "valid credentials!!",
 						Toast.LENGTH_SHORT).show();
