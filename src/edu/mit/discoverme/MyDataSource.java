@@ -29,6 +29,8 @@ public class MyDataSource {
 			MySQLiteHelper.COLUMN_NNAME, MySQLiteHelper.COLUMN_NTYPE,
 			MySQLiteHelper.COLUMN_NDETAIL, MySQLiteHelper.COLUMN_READ_FLAG };
 
+	// MySQLiteHelper.COLUMN_PROCESSED_FLAG };
+
 	public MyDataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
 	}
@@ -186,13 +188,13 @@ public class MyDataSource {
 	}
 
 	public Notif createNotification(String name, String type, String details,
-			String readFlag, String procFlag) {
+			String readFlag) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_NNAME, name);
 		values.put(MySQLiteHelper.COLUMN_NTYPE, type);
 		values.put(MySQLiteHelper.COLUMN_NDETAIL, details);
 		values.put(MySQLiteHelper.COLUMN_READ_FLAG, readFlag);
-		values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, procFlag);
+		// values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, procFlag);
 
 		long insertId = database.insert(MySQLiteHelper.TABLE_NOTIFS, null,
 				values);
@@ -223,11 +225,18 @@ public class MyDataSource {
 		values.put(MySQLiteHelper.COLUMN_NTYPE, notif.getType());
 		values.put(MySQLiteHelper.COLUMN_NDETAIL, notif.getDetail());
 		values.put(MySQLiteHelper.COLUMN_READ_FLAG, notif.getReadFlag());
-		values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, "yes");
+		// values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, "yes");
 		database.update(MySQLiteHelper.TABLE_NOTIFS, values,
 				MySQLiteHelper.COLUMN_NID + " = " + id, null);
 	}
 
+	/*
+	 * public void processAllNotif(Notif notif) {
+	 * 
+	 * long id = notif.getId(); ContentValues values = new ContentValues();
+	 * values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, "yes");
+	 * database.update(MySQLiteHelper.TABLE_NOTIFS, values, null, null); }
+	 */
 	public void updateSeenNotif(Notif notif) {
 
 		long id = notif.getId();
@@ -236,9 +245,17 @@ public class MyDataSource {
 		values.put(MySQLiteHelper.COLUMN_NTYPE, notif.getType());
 		values.put(MySQLiteHelper.COLUMN_NDETAIL, notif.getDetail());
 		values.put(MySQLiteHelper.COLUMN_READ_FLAG, "yes");
-		values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG, notif.getProcFlag());
+		// values.put(MySQLiteHelper.COLUMN_PROCESSED_FLAG,
+		// notif.getProcFlag());
 		database.update(MySQLiteHelper.TABLE_NOTIFS, values,
 				MySQLiteHelper.COLUMN_NID + " = " + id, null);
+	}
+
+	public void readAllNotif() {
+
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUMN_READ_FLAG, "yes");
+		database.update(MySQLiteHelper.TABLE_NOTIFS, values, null, null);
 	}
 
 	public void deleteNotif(Notif notif) {
@@ -269,7 +286,7 @@ public class MyDataSource {
 		Notif notif = new Notif();
 		notif.setId(cursor.getLong(0));
 		notif.setNotif(cursor.getString(1), cursor.getString(2),
-				cursor.getString(3), cursor.getString(4), cursor.getString(4));
+				cursor.getString(3), cursor.getString(4));
 		return notif;
 	}
 

@@ -66,7 +66,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			+ " integer primary key autoincrement, " + COLUMN_NNAME
 			+ " text not null," + COLUMN_NTYPE + " text not null,"
 			+ COLUMN_NDETAIL + " text not null," + COLUMN_READ_FLAG
-			+ " text not null," + COLUMN_PROCESSED_FLAG + " text not null);";
+			+ " text not null);";// ," + COLUMN_PROCESSED_FLAG + " text not
+									// null);";
 
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
