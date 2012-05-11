@@ -207,7 +207,7 @@ public class SelectEventLocationActivity extends MapActivity {
 				SelectEventLocationActivity selectEventActivity = SelectEventLocationActivity.this;
 
 				MapView mapView = (MapView) (selectEventActivity
-						.findViewById(R.id.mapview));
+						.findViewById(R.id.select_event_location_mapview));
 				MapController mapController = mapView.getController();
 
 				mapController.animateTo(stateManager.userGeoPoint);
