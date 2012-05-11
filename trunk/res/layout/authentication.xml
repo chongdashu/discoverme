@@ -2,54 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/authentication_bg" >
+  
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" > 
 
         <LinearLayout
-			android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="31dp"
             android:orientation="vertical" >
-           <EditText
-        android:id="@+id/username"
-        android:layout_width="254dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress" >
 
-        <requestFocus />
-    </EditText>
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
-    
-<LinearLayout
-   android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            
-            android:orientation="horizontal" >
-    
-    <Button
-        android:id="@+id/enter"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:text="Enter" />
-
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="128dp"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress" 
+                android:hint="MIT ID"
+                android:background="@android:drawable/editbox_background"
+                >
 
-	</LinearLayout>
-	</LinearLayout>
-    </RelativeLayout>    
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" 
+                android:hint="Password"
+                android:background="@android:drawable/editbox_background"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/enter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enter"  />
+
+                <Button
+                    android:id="@+id/cancel"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel" 
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>
