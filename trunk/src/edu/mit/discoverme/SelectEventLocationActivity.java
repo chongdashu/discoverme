@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.google.android.maps.GeoPoint;
@@ -195,6 +196,24 @@ public class SelectEventLocationActivity extends MapActivity {
 			OverlayItem recItem = new OverlayItem(recPoint, "Phil's Cafe and Meeting Center", "100 Vassar St");
 			recommendedOverlay.addOverlay(recItem);
 		}
+		
+		// Add button listener
+		ImageButton userLocation = (ImageButton) findViewById(R.id.btn_my_location);
+		userLocation.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				StateManager stateManager = (StateManager) getApplicationContext();
+				SelectEventLocationActivity selectEventActivity = SelectEventLocationActivity.this;
+
+				MapView mapView = (MapView) (selectEventActivity
+						.findViewById(R.id.mapview));
+				MapController mapController = mapView.getController();
+
+				mapController.animateTo(stateManager.userGeoPoint);
+
+			}
+		});
 	}
 
 	private String getAddressAt(GeoPoint p) {
