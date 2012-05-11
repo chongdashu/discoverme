@@ -41,10 +41,11 @@ public class NotifAdapter extends ArrayAdapter<Notif> {
 		
 		if (isNotificationUnread.get(position) != null) {
 			if (isNotificationUnread.get(position)) {
-				tv.setBackgroundColor(activity.getResources().getColor(R.color.notif_unread));
+				 // tv.setBackgroundColor(activity.getResources().getColor(R.color.notif_unread));
+				tv.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.notif_background));
 			}
 			else {
-				tv.setBackgroundColor(activity.getResources().getColor(R.color.white));
+				// tv.setBackgroundColor(activity.getResources().getColor(R.color.white));
 			}
 		}
 		

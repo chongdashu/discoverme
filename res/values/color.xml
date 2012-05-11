@@ -1,11 +1,13 @@
 <resources>
 
-  <color name="activity_title">#808080</color>
-  <color name="activity_bg">#FFFFFF</color>
-  <color name="white">#FFFFFF</color>
-  <color name="black">#000000</color>
-  <color name="alice_blue">#F0F8FF</color>
-  <color name="ivory">#FFFFF0</color>
-  <color name="notif_unread">#FFFBD1</color>
-    
+    <color name="activity_title">#808080</color>
+    <color name="activity_bg">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="alice_blue">#F0F8FF</color>
+    <color name="ivory">#FFFFF0</color>
+    <color name="notif_unread">#FFFBD1</color>
+    <color name="notif_read">#FFFFFF</color>
+    <color name="notif_selected">#FF4D4F</color>
+
 </resources>
