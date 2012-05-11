@@ -231,34 +231,7 @@ public class HomepageActivity extends MapActivity {
 			backgroundNotificationsHandler.postDelayed(this, 5000);
 
 		}
-
-		private void updateNotificationsCount() {
-			int unreadCount = ServerLink.countUnseenNotif(datasource);
-			Activity a = HomepageActivity.this;
-			ImageView iv = (ImageView) a
-					.findViewById(R.id.notiicationButtonCounter);
-
-			if (iv != null) {
-				int resId = a.getResources().getIdentifier(
-						"action_bar_btn_notifications_counter_" + unreadCount,
-						"drawable", getPackageName());
-				if (unreadCount == 0)
-				{
-					iv.setVisibility(View.GONE);
-				}
-				else if (unreadCount > 5)
-				{
-					iv.setImageResource(R.drawable.action_bar_btn_notifications_counter_max);
-					iv.setVisibility(View.VISIBLE);
-				}
-				else
-				{
-					iv.setImageResource(resId);
-					iv.setVisibility(View.VISIBLE);
-				}
-
-			}
-		}
+		
 	};
 
 	private final OnClickListener onFriendClick = new OnClickListener() {
@@ -305,12 +278,12 @@ public class HomepageActivity extends MapActivity {
 			System.out.println(" while the pop is " + popup);
 			if (poped == 1 && popup.equals("notifss")) {
 				hideEverything();
+				updateNotificationsCount();
 
 			} else {
 				// make everything visible here
 				popup = "notifss";
 				showEverything();
-
 			}
 		}
 	};
@@ -628,6 +601,34 @@ public class HomepageActivity extends MapActivity {
 				return true;
 			default :
 				return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	private void updateNotificationsCount() {
+		int unreadCount = ServerLink.countUnseenNotif(datasource);
+		Activity a = this;
+		ImageView iv = (ImageView) a
+				.findViewById(R.id.notiicationButtonCounter);
+
+		if (iv != null) {
+			int resId = a.getResources().getIdentifier(
+					"action_bar_btn_notifications_counter_" + unreadCount,
+					"drawable", getPackageName());
+			if (unreadCount == 0)
+			{
+				iv.setVisibility(View.GONE);
+			}
+			else if (unreadCount > 5)
+			{
+				iv.setImageResource(R.drawable.action_bar_btn_notifications_counter_max);
+				iv.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				iv.setImageResource(resId);
+				iv.setVisibility(View.VISIBLE);
+			}
+
 		}
 	}
 
