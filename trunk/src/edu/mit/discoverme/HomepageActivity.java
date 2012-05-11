@@ -545,6 +545,19 @@ public class HomepageActivity extends MapActivity {
 
 	}
 
+	public Boolean logout() {
+		SharedPreferences prefs = getSharedPreferences("credentials",
+				Context.MODE_WORLD_READABLE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("username", "none");
+		editor.putString("password", "none");
+		editor.commit();
+		finish();// close the app instead
+		// call authentication webpage and get resposne true or false
+
+		return true;
+	}
+
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
@@ -572,3 +585,4 @@ public class HomepageActivity extends MapActivity {
 	}
 
 }
+
