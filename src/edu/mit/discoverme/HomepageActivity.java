@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -44,7 +46,7 @@ import com.google.android.maps.OverlayItem;
 public class HomepageActivity extends MapActivity {
 
 	public static final boolean NO_LOCATION_SEARCH = true;
-	
+
 	private String popup;
 	private TextView p;
 	private ImageButton b;
@@ -57,9 +59,8 @@ public class HomepageActivity extends MapActivity {
 	private ListView lv;
 	private MyDataSource datasource;
 	private DirDataSource dirdatasource;
-	
-	private Handler backgroundNotificationsHandler;
 
+	private Handler backgroundNotificationsHandler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -122,8 +123,7 @@ public class HomepageActivity extends MapActivity {
 					Notif oneNotif = (Notif) lv.getItemAtPosition(position);
 					String type = oneNotif.getType();
 
-					if(type.equals("FriendReq") || type.equals("FriendRes"))
-					{
+					if (type.equals("FriendReq") || type.equals("FriendRes")) {
 						Intent intent = new Intent(HomepageActivity.this,
 								StrangerProfileActivity.class);
 						intent.putExtra("email", oneNotif.getDetail());
@@ -148,10 +148,7 @@ public class HomepageActivity extends MapActivity {
 						// which will read the modified fiel in view event
 						// format
 					}
-					
-					
-					
-					
+
 					/*
 					 * if (type.equals("event")) {
 					 * 
@@ -181,37 +178,38 @@ public class HomepageActivity extends MapActivity {
 
 		initializeUser();
 		initializeMap();
-		
+
 		// Background thread that runs to check for notifications
 		backgroundNotificationsHandler = new Handler();
 		backgroundNotificationsHandler.removeCallbacks(checkNotificationsTask);
-		backgroundNotificationsHandler.postDelayed(checkNotificationsTask, 5000);
+		backgroundNotificationsHandler
+				.postDelayed(checkNotificationsTask, 5000);
 	}
-	
+
 	private void initializeUser() {
 		StateManager stateManager = (StateManager) getApplicationContext();
 		SharedPreferences prefs = getSharedPreferences("credentials",
 				Context.MODE_WORLD_READABLE);
 		String username = prefs.getString("username", "none");
-		
+
 		stateManager.userName = username;
 		dirdatasource.open();
-				
+
 		List<Friend> allPeople = dirdatasource.getAllPeople();
 		for (Friend friend : allPeople) {
-			if (friend.getMITId().equals(username)){
+			if (friend.getMITId().equals(username)) {
 				stateManager.fullName = friend.getName();
 			}
 		}
-			
+
 		dirdatasource.close();
 	}
 
 	private final Runnable checkNotificationsTask = new Runnable() {
-		   @Override
+		@Override
 		public void run() {
-		       long nextUpdateTime = System.currentTimeMillis() + 1000;
-		       System.out.println("checkNotificationsTask update");
+			long nextUpdateTime = System.currentTimeMillis() + 1000;
+			System.out.println("checkNotificationsTask update");
 			StateManager stateManager = (StateManager) getApplicationContext();
 			SharedPreferences prefs = getSharedPreferences("credentials",
 					Context.MODE_WORLD_READABLE);
@@ -219,6 +217,9 @@ public class HomepageActivity extends MapActivity {
 			datasource.open();
 			dirdatasource.open();
 			// ServerLink.loadNotifs(username, datasource, dirdatasource);
+
+			updateNotificationsCount();
+
 			datasource.close();
 			dirdatasource.close();
 			String locationLat = String.valueOf(stateManager.userLat);
@@ -227,10 +228,39 @@ public class HomepageActivity extends MapActivity {
 			ServerLink.updateLocation(username, location, locationLat,
 					locationLng);
 
-		       backgroundNotificationsHandler.postDelayed(this, 5000);
-		   }
-		};
-	
+			backgroundNotificationsHandler.postDelayed(this, 5000);
+
+		}
+
+		private void updateNotificationsCount() {
+			int unreadCount = ServerLink.countUnseenNotif(datasource);
+			Activity a = HomepageActivity.this;
+			ImageView iv = (ImageView) a
+					.findViewById(R.id.notiicationButtonCounter);
+
+			if (iv != null) {
+				int resId = a.getResources().getIdentifier(
+						"action_bar_btn_notifications_counter_" + unreadCount,
+						"drawable", getPackageName());
+				if (unreadCount == 0)
+				{
+					iv.setVisibility(View.GONE);
+				}
+				else if (unreadCount > 5)
+				{
+					iv.setImageResource(R.drawable.action_bar_btn_notifications_counter_max);
+					iv.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					iv.setImageResource(resId);
+					iv.setVisibility(View.VISIBLE);
+				}
+
+			}
+		}
+	};
+
 	private final OnClickListener onFriendClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -275,7 +305,6 @@ public class HomepageActivity extends MapActivity {
 			System.out.println(" while the pop is " + popup);
 			if (poped == 1 && popup.equals("notifss")) {
 				hideEverything();
-
 
 			} else {
 				// make everything visible here
@@ -376,9 +405,10 @@ public class HomepageActivity extends MapActivity {
 			datasource.open();
 			List<Notif> values = datasource.getAllNotifs();
 			Collections.sort(values, new NotifComparator());
-			//ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
-			//		R.layout.list_item, values);
-			NotifAdapter adapter = new NotifAdapter(this, R.layout.list_item, values);
+			// ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
+			// R.layout.list_item, values);
+			NotifAdapter adapter = new NotifAdapter(this, R.layout.list_item,
+					values);
 			lv.setAdapter(adapter);
 			b.setVisibility(View.GONE);
 			p.setText("Notifications");
@@ -415,7 +445,7 @@ public class HomepageActivity extends MapActivity {
 
 		Location locLast = locationManager.getLastKnownLocation(bestProvider);
 		StateManager stateManager = (StateManager) getApplicationContext();
-		
+
 		// GeoPoint test;
 
 		float lat = 42.360383f;
@@ -424,39 +454,40 @@ public class HomepageActivity extends MapActivity {
 			lat = (float) locLast.getLatitude();
 			lng = (float) locLast.getLongitude();
 
-			stateManager.userGeoPoint = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+			stateManager.userGeoPoint = new GeoPoint((int) (lat * 1000000),
+					(int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		} else {
 			lat = 42.360383f;
 			lng = -71.090899f;
 
-			stateManager.userGeoPoint = new GeoPoint((int) (lat * 1000000), (int) (lng * 1000000));
+			stateManager.userGeoPoint = new GeoPoint((int) (lat * 1000000),
+					(int) (lng * 1000000));
 			System.out.println("lat:" + lat + ", lng:" + lng);
 		}
-		
+
 		stateManager.userLat = lat;
 		stateManager.userLon = lng;
 
 		// Pan to user's current location
 		mapController.setZoom(18);
 		mapController.animateTo(stateManager.userGeoPoint);
-		
+
 		// Add button listener
-		ImageButton userLocation = (ImageButton)findViewById(R.id.btn_my_location);
+		ImageButton userLocation = (ImageButton) findViewById(R.id.btn_my_location);
 		userLocation.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				StateManager stateManager = (StateManager) getApplicationContext();
 				HomepageActivity homePageActivity = HomepageActivity.this;
-				
-				MapView mapView = (MapView) (homePageActivity.findViewById(R.id.mapview));
+
+				MapView mapView = (MapView) (homePageActivity
+						.findViewById(R.id.mapview));
 				MapController mapController = mapView.getController();
-				
+
 				mapController.animateTo(stateManager.userGeoPoint);
-				
-				
-				
+
 			}
 		});
 
@@ -466,10 +497,10 @@ public class HomepageActivity extends MapActivity {
 		HomepageMapOverlay itemizedoverlay = new HomepageMapOverlay(this,
 				mapView);
 		mapOverlays.add(itemizedoverlay);
-		
+
 		stateManager.userAddress = getAddressAt(stateManager.userGeoPoint);
-		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint, stateManager.fullName,
-				stateManager.userAddress);
+		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint,
+				stateManager.fullName, stateManager.userAddress);
 		itemizedoverlay.addOverlay(overlayitem);
 
 		// Create overlay for Friends
@@ -477,28 +508,33 @@ public class HomepageActivity extends MapActivity {
 				getResources().getDrawable(R.drawable.marker2), this, mapView);
 		mapOverlays.add(friendsOverlay);
 
-		// String[] friends = getResources().getStringArray(R.array.friends_array);
+		// String[] friends =
+		// getResources().getStringArray(R.array.friends_array);
 		datasource.open();
 		List<Friend> allFriends = datasource.getAllFriends();
 		datasource.close();
-		stateManager.friendPoints = getRandomGeopointsAround(lat, lng, allFriends.size());
+		stateManager.friendPoints = getRandomGeopointsAround(lat, lng,
+				allFriends.size());
 		stateManager.friendAddresses = new Vector<String>();
-		stateManager.addressMap = new HashMap<String,String>();
+		stateManager.addressMap = new HashMap<String, String>();
 		int f = 0;
 		for (GeoPoint geoPoint : stateManager.friendPoints) {
-			
+
 			String address = getAddressAt(geoPoint);
 			stateManager.friendAddresses.add(address);
-			
+
 			stateManager.addressMap.put(allFriends.get(f).getMITId(), address);
-			stateManager.geopointMap.put(allFriends.get(f).getMITId(), geoPoint);
-			
-			OverlayItem item = new OverlayItem(geoPoint, allFriends.get(f).getName(), address);
+			stateManager.geopointMap
+					.put(allFriends.get(f).getMITId(), geoPoint);
+
+			OverlayItem item = new OverlayItem(geoPoint, allFriends.get(f)
+					.getName(), address);
 			friendsOverlay.addOverlay(item);
 			f++;
 		}
-		
-		stateManager.geopointMap.put(stateManager.userName, stateManager.userGeoPoint);
+
+		stateManager.geopointMap.put(stateManager.userName,
+				stateManager.userGeoPoint);
 
 	}
 
@@ -526,8 +562,7 @@ public class HomepageActivity extends MapActivity {
 
 	private String getAddressAt(GeoPoint p) {
 		String add = "";
-		if (NO_LOCATION_SEARCH)
-		{
+		if (NO_LOCATION_SEARCH) {
 			return "Fake Location...";
 		}
 		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
@@ -579,22 +614,20 @@ public class HomepageActivity extends MapActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.logout:
-			logout();
-			Intent intent = new Intent(HomepageActivity.this,
-					GDDiscoverMeActivity.class);
-			hideEverything();
-			finish();
-			startActivity(intent);
-			return true;
-		case R.id.help:
-			Toast.makeText(getApplicationContext(),
- "help works .. co0l",
-					Toast.LENGTH_SHORT)
-					.show();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+			case R.id.logout :
+				logout();
+				Intent intent = new Intent(HomepageActivity.this,
+						GDDiscoverMeActivity.class);
+				hideEverything();
+				finish();
+				startActivity(intent);
+				return true;
+			case R.id.help :
+				Toast.makeText(getApplicationContext(), "help works .. co0l",
+						Toast.LENGTH_SHORT).show();
+				return true;
+			default :
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -603,13 +636,12 @@ public class HomepageActivity extends MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
-	public void onBackPressed(){
-		if(poped != 0){
+	public void onBackPressed() {
+		if (poped != 0) {
 			hideEverything();
-		}
-		else{
+		} else {
 			super.onBackPressed();
 		}
 	}
@@ -625,4 +657,3 @@ public class HomepageActivity extends MapActivity {
 	}
 
 }
-
