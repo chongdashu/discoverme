@@ -148,8 +148,9 @@ public class Utils {
 			minLon = Math.min(lon, minLon);
 		}
 
-		controller.zoomToSpan(Math.abs(maxLat - minLat),
-				Math.abs(maxLon - minLon));
+		double fitFactor = 1.5;
+		controller.zoomToSpan((int) (Math.abs(maxLat - minLat) * fitFactor),
+				(int) (Math.abs(maxLon - minLon) * fitFactor));
 		controller.animateTo(new GeoPoint((maxLat + minLat) / 2,
 				(maxLon + minLon) / 2));
 	}
