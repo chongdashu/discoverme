@@ -19,10 +19,22 @@
             android:src="@drawable/tool_bar_button_events"
             android:background="@null" />
 
-        <ImageButton
-            android:id="@+id/notificationButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/tool_bar_button_notif"
-            android:background="@null" />
+       <RelativeLayout 
+			    android:id="@+id/notificationButtonContainer"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/notificationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/action_bar_btn_notifications" />
+            <ImageView 
+                android:id="@+id/notiicationButtonCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/action_bar_btn_notifications_counter"
+                android:visibility="gone"
+                />
+            </RelativeLayout>
 </LinearLayout>

@@ -29,13 +29,23 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:src="@drawable/action_bar_btn_events" />
-
+			<RelativeLayout 
+			    android:id="@+id/notificationButtonContainer"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/notificationButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:src="@drawable/action_bar_btn_notifications" />
+            <ImageView 
+                android:id="@+id/notiicationButtonCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/action_bar_btn_notifications_counter"
+                />
+            </RelativeLayout>
 
         </LinearLayout>
 
