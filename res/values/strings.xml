@@ -168,5 +168,8 @@
         name="profile_action">Sample profile</string>
     <string
         name="view_profile">View Profile</string>
-    
+    <string
+        name="logout">Log out</string>
+    <string
+        name="help">Help</string>
 </resources>
