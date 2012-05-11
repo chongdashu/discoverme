@@ -127,6 +127,7 @@ public class HomepageActivity extends MapActivity {
 						Intent intent = new Intent(HomepageActivity.this,
 								StrangerProfileActivity.class);
 						intent.putExtra("email", oneNotif.getDetail());
+						intent.putExtra("notifID", oneNotif.getId());
 						hideEverything();
 						startActivity(intent);
 
