@@ -154,6 +154,11 @@
             android:label="View An Event"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
+            android:name=".ViewProposedChangeActivity"
+            android:screenOrientation="portrait"
+            android:label="View A Proposed Change"
+            android:theme="@android:style/Theme.Black.NoTitleBar"/>
+        <activity
             android:name=".ProposeEventChangeActivity"
             android:screenOrientation="portrait"
             android:label="View An Event or Propose Change"

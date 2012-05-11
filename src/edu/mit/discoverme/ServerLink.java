@@ -538,4 +538,8 @@ public class ServerLink {
 			}
 		return locationName + "," + locationLat + "," + locationLng;
 	}
+	
+	public static void acceptProposedChange(){
+		
+	}
 }
