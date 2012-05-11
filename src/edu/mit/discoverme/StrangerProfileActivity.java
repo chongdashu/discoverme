@@ -1,9 +1,14 @@
 package edu.mit.discoverme;
 
 import java.util.Arrays;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +18,7 @@ import android.widget.Toast;
 
 public class StrangerProfileActivity extends Activity {
 	private MyDataSource datasource;
+	private DirDataSource dirdatasource;
 
 	long notifID;
 	String friendName;
@@ -21,6 +27,8 @@ public class StrangerProfileActivity extends Activity {
 	String friendAddress;
 	String type;
 	private Notif theNotif;
+	List<Friend> people;
+	Friend theFriend;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,19 +49,32 @@ public class StrangerProfileActivity extends Activity {
 		Intent intent = getIntent();
 		notifID = intent.getLongExtra("notifID", 0);
 
-
 		datasource = new MyDataSource(this);
 		datasource.open();
 		theNotif = datasource.getNotif(notifID);
+		datasource.close();
 
 		type = theNotif.getType();
+
+		dirdatasource = new DirDataSource(this);
+		dirdatasource.open();
 		String details = theNotif.getDetail();
-		String[] arg = details.split(";");
-		if (arg != null) {
-		friendName = arg[0];
-		friendFone = arg[1];
-		friendEmail = arg[2];
-		friendAddress = arg[3];
+		// String[] arg = details.split(";");
+		people = dirdatasource.getAllPeople();
+		dirdatasource.close();
+
+		for (Friend person : people) {
+			if (person.getMITId().equals(details)) {
+				theFriend = person;
+				break;
+			}
+		}
+
+		if (theFriend != null) {
+			friendName = theFriend.getName();
+			friendFone = theFriend.getFone();
+			friendEmail = theFriend.getEmail();
+			friendAddress = theFriend.getAddress();
 		} else {
 
 			friendName = "you went the wrong way";
@@ -75,7 +96,7 @@ public class StrangerProfileActivity extends Activity {
 		Button addedAlready = (Button) findViewById(R.id.pendingResponseButton);
 
 		Button deleteFriend = (Button) findViewById(R.id.deleteFriendButton);
-		// deleteFriend.setOnClickListener(onDeleteClick);
+		deleteFriend.setOnClickListener(onDeleteClick);
 
 		Button approve = (Button) findViewById(R.id.addPendingYesButton);
 		approve.setOnClickListener(onApproveClick);
@@ -88,29 +109,27 @@ public class StrangerProfileActivity extends Activity {
 		TextView phoneField = (TextView) findViewById(R.id.personPhone);
 		TextView addressField = (TextView) findViewById(R.id.personAddress);
 
-
 		profileType = type;
 		nameField.setText(friendName);
 		emailField.setText(friendEmail);
 		phoneField.setText(friendFone);
 		addressField.setText(friendAddress);
 		// this check should be
-		if (profileType.equals("friendReq")) {
+		if (profileType.equals("FriendReq")) {
 			add.setVisibility(View.GONE);
 			deleteFriend.setVisibility(View.GONE);
 			approve.setVisibility(View.VISIBLE);
 			decline.setVisibility(View.VISIBLE);
 			addedAlready.setVisibility(View.GONE);
-		} else if (profileType.equals("friendRes")) {
+		} else if (profileType.equals("FriendRes")) {
 			add.setVisibility(View.GONE);
-			deleteFriend.setVisibility(View.GONE);
+			deleteFriend.setVisibility(View.VISIBLE);
 			approve.setVisibility(View.GONE);
 			decline.setVisibility(View.GONE);
-			addedAlready.setVisibility(View.VISIBLE);
+			addedAlready.setVisibility(View.GONE);
 		} else {
 			nameField.setText(R.string.typeFriend);
 		}
-
 
 	}
 
@@ -175,6 +194,54 @@ public class StrangerProfileActivity extends Activity {
 			// go back to last page
 			finish();
 
+		}
+	};
+
+	private final OnClickListener onDeleteClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					StrangerProfileActivity.this);
+			builder.setMessage("Are you sure you want to delete this friend?")
+					.setCancelable(false)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// TODO Auto-generated method stub
+									datasource.deleteFriend(theFriend);
+									datasource.close();
+									SharedPreferences prefs = getSharedPreferences(
+											"credentials",
+											Context.MODE_WORLD_READABLE);
+									String username = prefs.getString(
+											"username", "none");
+									ServerLink.deleteFriend(username,
+											theFriend.getEmail());
+
+									// something
+									Toast.makeText(
+											getApplicationContext(),
+											getString(R.string.deleteFriendMesg),
+											Toast.LENGTH_SHORT).show();
+									finish();
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// TODO Auto-generated method stub
+									dialog.cancel();
+								}
+							});
+			AlertDialog alert = builder.create();
+			alert.show();
 		}
 	};
 
