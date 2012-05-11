@@ -19,6 +19,9 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -29,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -556,6 +560,42 @@ public class HomepageActivity extends MapActivity {
 		// call authentication webpage and get resposne true or false
 
 		return true;
+	}
+
+	// @Override
+	// public void onCreateContextMenu(ContextMenu menu, View v,
+	// ContextMenuInfo menuInfo) {
+	// // TODO Auto-generated method stub
+	// super.onCreateContextMenu(menu, v, menuInfo);
+	//
+	// }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options_menu, menu);
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.logout:
+			logout();
+			Intent intent = new Intent(HomepageActivity.this,
+					GDDiscoverMeActivity.class);
+			hideEverything();
+			finish();
+			startActivity(intent);
+			return true;
+		case R.id.help:
+			Toast.makeText(getApplicationContext(),
+ "help works .. co0l",
+					Toast.LENGTH_SHORT)
+					.show();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
