@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, GDDiscoverMeActivity!</string>
-    <string name="app_name">GDDiscoverMe</string>
+    <string name="app_name">Discover.Me</string>
     
     <string name ="events">This is the events page</string>
     <string name = "friends">This is the friends page</string>
@@ -14,7 +14,7 @@
 	
 	<string name="button_text_friend">Friend</string>
 	<string name="button_text_done">Done</string>
-
+ 
     <string name="app_url">http://github.com/cyrilmottier/GreenDroid</string>
     
     <string name="more_info_on_greendroid">For more information on the GreenDroid library, go to the GitHub project\'s web page:</string>

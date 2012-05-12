@@ -42,7 +42,7 @@
 	<!-- (saqib) synched data base stuff ^^ -->
     <application
         android:name=".StateManager"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon_ios"
         android:label="@string/app_name" >
         <activity
             android:name=".GDDiscoverMeActivity"
@@ -53,7 +53,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" /> 
             </intent-filter>
         </activity>
 
