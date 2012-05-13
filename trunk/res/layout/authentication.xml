@@ -4,20 +4,19 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:gravity="center"
     android:background="@drawable/authentication_bg" >
   
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" > 
+        android:layout_height="wrap_content" 
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="140dp"> 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="31dp"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:layout_gravity="center_horizontal">
 
             <EditText
                 android:id="@+id/username"
@@ -60,6 +59,6 @@
                     android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </FrameLayout>
 
 </LinearLayout>
