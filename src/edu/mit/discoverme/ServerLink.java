@@ -617,7 +617,19 @@ public class ServerLink {
 		return friendsLocations;
 	}
 	
-	public static void acceptProposedChange(Event event) {
+	public static void acceptProposedChange(String username, Event event,
+			MyDataSource dataSource) {
+		
+		dataSource.deleteEvent(event);
+		cancelEvent(event);
+		
+		createEvent(username, event, dataSource);
+		dataSource.createEvent(event.getEventID(), event.getName(),
+				event.getParticipants(), event.getResponses(), event.getTime(),
+				event.getLocation(), event.getLocationLat(),
+				event.getLocationLng(), event.getType());
+		
+		
 		
 	}
 }
