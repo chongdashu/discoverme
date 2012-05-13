@@ -6,8 +6,6 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Vector;
 
-import com.google.android.maps.GeoPoint;
-
 public class ServerLink {
 	private static final String URLstring = "http://people.csail.mit.edu/saqib/";
 	
@@ -619,7 +617,7 @@ public class ServerLink {
 		return friendsLocations;
 	}
 	
-	public static void acceptProposedChange(){
+	public static void acceptProposedChange(Event event) {
 		
 	}
 }
