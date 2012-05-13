@@ -40,8 +40,8 @@ public class ViewEventActivity extends CreateEventActivity {
 	protected int latE6;
 	protected int lngE6;
 	protected boolean originatorIsme;
-	private MyDataSource datasource;
-	private Event theEvent;
+	protected MyDataSource datasource;
+	protected Event theEvent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

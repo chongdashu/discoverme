@@ -38,7 +38,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 	protected int lngE6;
 	protected boolean originatorIsme;
 	protected boolean inEditMode;
-	private MyDataSource datasource;
+	protected MyDataSource datasource;
 	long notifID;
 
 	private String username;
@@ -202,16 +202,68 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'Yes' here.
 										dialog.dismiss();
-										Event event = new Event();
-										event.setId(0);
-										event.setEvent(eventuid, eventTitle,
-												participantsString, rsvpString,
-												timeString, locationName,
-												String.valueOf(latE6),
-												String.valueOf(lngE6),
-												eventType);
-										ServerLink.proposeChanges(event);// TODO
+										SharedPreferences prefs = getSharedPreferences(
+												"credentials",
+												Context.MODE_WORLD_READABLE);
+										String username = prefs.getString(
+												"username", "none");
+										StateManager stm = (StateManager) getApplicationContext();
+										String firstname = stm.fullName;
+
+										String eventUniqueID = eventuid;
+										String newEventTitle = (editTextTitle
+												.getText()).toString();
+										String newParticipants = (editTextParticipants
+												.getText())
+														.toString();
+										newParticipants.replace(" ", "");
+										String[] arg = newParticipants
+												.split(",");
+										// String newRsvp = "";
+										String newRsvp = "";
+										for (int i = 0; i < arg.length - 1; i++)
+											newRsvp = newRsvp + "pending,";
+										String newLocation = (editTextLocation
+												.getText()).toString();
+										// float lat = latE6;
+										// float lng = latE6;
+										// lat = lat / 1000000;
+										// lng = lng / 1000000;
+
+										String newLocationLNG = String
+												.valueOf(0);
+										String newLocationLAT = String
+												.valueOf(0);
+										String newTime = (String
+												.valueOf(timePicker
+														.getCurrentHour()))
+												+ " "
+												+ (String.valueOf(timePicker
+														.getCurrentMinute()));
+										String newType = "";
+										if (check.isChecked())
+											newType = "closed";
+										else
+											newType = "open";
+										Event theEvent = new Event();
+										theEvent.setId(0);
+										theEvent.setEvent(eventUniqueID,
+												newEventTitle,
+														newParticipants,
+														newRsvp, newTime,
+														newLocation,
+														newLocationLAT,
+														newLocationLNG, newType);
+										// datasource.createFriend(
+										// // TODO delete this !!
+										// theEvent.getEventID(),
+										// theEvent.getLocation(),
+										// theEvent.getTime(),
+										// theEvent.getName());
+										ServerLink.proposeChanges(username,
+												firstname, theEvent);// TODO
 										datasource.open();
+
 										Notif notif = datasource
 												.getNotif(notifID);
 										datasource.deleteNotif(notif);
@@ -247,7 +299,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'Yes' here.
 										dialog.dismiss();
-										StateManager stm = new StateManager();
+										StateManager stm = (StateManager) getApplicationContext();
 										String firstname = stm.fullName;
 										datasource.open();
 										ServerLink.sendRSVP(username,
@@ -285,7 +337,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'No' here.
 										dialog.dismiss();
-										StateManager stm = new StateManager();
+										StateManager stm = (StateManager) getApplicationContext();
 										String firstname = stm.fullName;
 
 										datasource.open();
