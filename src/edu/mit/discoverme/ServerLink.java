@@ -173,23 +173,27 @@ public class ServerLink {
 			String[] arg = string.split("\n");
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(":");
-				Notif notif = new Notif();
-				notif.setId(0);
-				notif.setNotif(one[2], one[0], one[1], "no");
-				processNotif(notif, datasource, dirdatasource);
-					Boolean insert = true;
-					if (one[0].equals("EventAccepted")
-							|| one[0].equals("EventDeclined")) {
-						String[] arg1 = one[1].split(",");
-						insert = arg1[1].startsWith(username);
+					if (one.length == 3) {
+						Notif notif = new Notif();
+						notif.setId(0);
+						notif.setNotif(one[2], one[0], one[1], "no");
+						processNotif(notif, datasource, dirdatasource);
+						Boolean insert = true;
+						if (one[0].equals("EventAccepted")
+								|| one[0].equals("EventDeclined")) {
+							String[] arg1 = one[1].split(",");
+							insert = arg1[1].startsWith(username);
 
+						}
+						if (one[0].equals("FriendDel") && insert) {
+						} else {
+							datasource.createNotification(one[2], one[0],
+									one[1], "no");
+						}
+						// datasource.createNotification(name, type, details,
+						// readFlag);
 					}
-					if (one[0].equals("FriendDel") && insert) {
-				} else {
-					datasource.createNotification(one[2], one[0], one[1], "no");
-				}
-				// datasource.createNotification(name, type, details, readFlag);
-				}
+			}
 			}
 		} else {
 
@@ -236,7 +240,7 @@ public class ServerLink {
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			URL url = new URL(URLstring + "deleteFriend.php?username="
-							+ username + "&friendemail=" + friendemail);
+					+ username + "&friendID=" + friendemail);
 
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
@@ -254,10 +258,12 @@ public class ServerLink {
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			URL url = new URL(URLstring + "sendFriendRequest.php?username="
-					+ username + "&friendemail=" + friendemail
-					+ "&userFirstname" + firstname);
+					+ username + "&friendemail=" + friendemail + "&firstname="
+					+ firstname);
 
 			cs = Authenticate.getURLContent(url);
+			String st = cs.toString();
+			String nothing = "helo";
 			// do something with the URL...
 		} catch (IOException ioex) {
 			exp = ioex.toString();

@@ -1,6 +1,5 @@
 package edu.mit.discoverme;
 
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -30,6 +29,7 @@ public class ProfileActivity extends Activity {
 	String[] names;
 	String[] addresss;
 	String[] phones;
+	Friend theFriend;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -141,6 +141,7 @@ public class ProfileActivity extends Activity {
 			if (friend.getEmail().split("@")[0].equals(direct.getEmail().split(
 					"@")[0])) {
 				result = "friend";
+				theFriend = friend;
 				break;
 			}
 		}
@@ -182,35 +183,16 @@ public class ProfileActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			StateManager appState = ((StateManager) getApplicationContext());
-
-			// adding to friends list
-			String[] friends = appState.getFriends();//
-			String[] newFriends = new String[friends.length + 1];
-			int indexFriends = 0;
-			int added = 0;
-			for (int i = 0; i < friends.length; i++)
-				newFriends[i] = friends[i];
-			newFriends[friends.length] = personName;
-			Arrays.sort(newFriends);
-			appState.setFriends(newFriends);
-
-			// change type to pending res in directory list
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, personName);
-			String stPres = getString(R.string.typePendingRes);
-			directoryTypes[indexPerson] = stPres;
-			appState.setDirectory_friendType(directoryTypes);
-
 
 			// server activity
 			SharedPreferences prefs = getSharedPreferences("credentials",
 					Context.MODE_WORLD_READABLE);
+
 			String username = prefs.getString("username", "none");
+
 			StateManager stm = (StateManager) getApplicationContext();
 			String firstname = stm.fullName;
+
 			TextView emailField = (TextView) findViewById(R.id.personEmail);
 			String email = emailField.getText().toString();
 			String[] arg = email.split("@");
@@ -222,7 +204,9 @@ public class ProfileActivity extends Activity {
 			// go back to last page
 			// and flash a message on screen saying friend added
 			Toast.makeText(getApplicationContext(),
-					getString(R.string.addAsFriendMesg), Toast.LENGTH_SHORT)
+					": " + firstname + " :"
+							+ getString(R.string.addAsFriendMesg),
+					Toast.LENGTH_SHORT)
 					.show();
 			finish();
 
@@ -243,36 +227,23 @@ public class ProfileActivity extends Activity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									// TODO Auto-generated method stub
-									StateManager appState = ((StateManager) getApplicationContext());
-									// // delete from friends list
-									String[] friends = appState.getFriends();//
-									int len = friends.length;
-									String[] newFriends = new String[len - 1];
-									int j = 0;
-									int added = 0;
-									for (int i = 0; i < friends.length; i++)
-										if (!friends[i].equals(personName)) {
-											newFriends[j] = friends[i];
-											j++;
-										}
-									// Arrays.sort(newFriends);
-									appState.setFriends(newFriends);
 
-									// change type to stranger in directory list
+									// server activity
+									SharedPreferences prefs = getSharedPreferences(
+											"credentials",
+											Context.MODE_WORLD_READABLE);
+									String username = prefs.getString(
+											"username", "none");
+									StateManager stm = (StateManager) getApplicationContext();
 
-									String[] directorynames = appState
-											.getDirectoryNames();
-									String[] directoryTypes = appState
-											.getDirectory_friendType();
-									int indexPerson = Arrays.binarySearch(
-											directorynames, personName);
-									String stS = getString(R.string.typeStranger);
-									directoryTypes[indexPerson] = stS;
-									appState.setDirectory_friendType(directoryTypes);
-									// go back to last page
-									// and flash a message on screen saying
-									// something
+									String firstname = stm.fullName;
+
+									ServerLink.deleteFriend(username,
+											theFriend.getMITId());
+									mydatasource.open();
+									mydatasource.deleteFriend(theFriend);
+									mydatasource.close();
+									// server activity ends here
 									Toast.makeText(
 											getApplicationContext(),
 											getString(R.string.deleteFriendMesg),
