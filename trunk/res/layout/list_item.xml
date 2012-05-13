@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent" >
+
+<TextView 
     android:id="@+id/list_item_textview"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -8,3 +12,15 @@
     android:textColor="@android:color/black" 
     android:background="@drawable/popup_list_background" >
 </TextView>
+<ImageView
+    android:paddingRight="5dip"
+    android:id="@+id/list_item_imageview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/notifs_actionable_arrow" 
+    android:contentDescription="Indicates actionable notif"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true">
+    
+</ImageView>
+</RelativeLayout>

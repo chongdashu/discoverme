@@ -1,14 +1,34 @@
 package edu.mit.discoverme;
 
+import java.util.Arrays;
+import java.util.Vector;
+
 //package de.vogella.android.sqlite.first;
 
 public class Notif {
+
+	public static final String TYPE_FriendReq = "FriendReq";
+	public static final String TYPE_FriendRes = "FriendRes";
+	public static final String TYPE_FriendDel = "FriendDel";
+	public static final String TYPE_EventInvite = "EventInvite";
+	public static final String TYPE_EventCanceled = "EventCanceled";
+	public static final String TYPE_EventChanged = "EventChanged";
+	public static final String TYPE_EventAccepted = "EventAccepted";
+	public static final String TYPE_EventDeclined = "EventDeclined";
+	public static final String TYPE_EventProposedChange = "EventProposedChange";
+	
+	public static final String[] ACTIONABLE_TYPES = {
+		TYPE_FriendReq,
+		TYPE_FriendRes,
+		TYPE_EventInvite,
+		TYPE_EventProposedChange,
+	};
+
 	private long id;
 	private String name;
 	private String type;
 	private String detail;
 	private String readFlag;
-
 
 	public long getId() {
 		return id;
@@ -50,7 +70,6 @@ public class Notif {
 		this.readFlag = readFlag;
 	}
 
-
 	public void setNotif(String name, String type, String details,
 			String readFlag) {
 		this.name = name;
@@ -58,15 +77,19 @@ public class Notif {
 		this.detail = details;
 		this.readFlag = readFlag;
 
-
 	}
 	// Will be used by the ArrayAdapter in the ListView
 	@Override
 	public String toString() {
 		return name;
 	}
-	
+
 	public boolean isRead() {
 		return getReadFlag().equals("yes");
+	}
+
+	public boolean isActionable() {
+		Vector<String> v = new Vector<String>(Arrays.asList(ACTIONABLE_TYPES));
+		return v.contains(getType());
 	}
 }
