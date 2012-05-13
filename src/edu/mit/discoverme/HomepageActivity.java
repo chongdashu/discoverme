@@ -488,29 +488,20 @@ public class HomepageActivity extends MapActivity {
 				getResources().getDrawable(R.drawable.marker2), this, mapView);
 		mapOverlays.add(friendsOverlay);
 
-		// String[] friends =
-		// getResources().getStringArray(R.array.friends_array);
 		datasource.open();
 		List<Friend> allFriends = datasource.getAllFriends();
+		Vector<GeoLocation> allFriendsLocation = ServerLink.getLocationForAllFriend(datasource);
+		for (GeoLocation geoLocation : allFriendsLocation) {
+			stateManager.addressMap.put(geoLocation.getUsername(), geoLocation.getAddressName());
+			stateManager.geopointMap.put(geoLocation.getUsername(), geoLocation.getGeoPoint());
+		}
 		datasource.close();
-		stateManager.friendPoints = getRandomGeopointsAround(lat, lng,
-				allFriends.size());
-		stateManager.friendAddresses = new Vector<String>();
-		stateManager.addressMap = new HashMap<String, String>();
-		int f = 0;
-		for (GeoPoint geoPoint : stateManager.friendPoints) {
-
-			String address = Utils.getAddressAt(getBaseContext(), geoPoint);
-			stateManager.friendAddresses.add(address);
-
-			stateManager.addressMap.put(allFriends.get(f).getMITId(), address);
-			stateManager.geopointMap
-					.put(allFriends.get(f).getMITId(), geoPoint);
-
-			OverlayItem item = new OverlayItem(geoPoint, allFriends.get(f)
-					.getName(), address);
+		
+		for (Friend friend : allFriends) {
+			GeoPoint p = stateManager.geopointMap.get(friend.getMITId());
+			String add = stateManager.addressMap.get(friend.getMITId());
+			OverlayItem item = new OverlayItem(p, friend.getName(), add);
 			friendsOverlay.addOverlay(item);
-			f++;
 		}
 
 		stateManager.geopointMap.put(stateManager.userName,

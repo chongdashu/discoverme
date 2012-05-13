@@ -10,6 +10,7 @@ public class GeoLocation {
 	public float lat;
 
 	public GeoLocation(String username, String name, String lat, String lon) {
+		this.username = username;
 		this.addressName = name;
 		this.lat = Float.parseFloat(lat);
 		this.lon = Float.parseFloat(lon);

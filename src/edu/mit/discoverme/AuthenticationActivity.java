@@ -1,5 +1,7 @@
 package edu.mit.discoverme;
 
+import java.util.Vector;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +25,7 @@ public class AuthenticationActivity extends Activity {
 	Button enterB;
 	EditText password;
 	EditText userName;
+	StateManager stateManager;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class AuthenticationActivity extends Activity {
 		setContentView(R.layout.authentication);
 		Button cancelB = (Button) (findViewById(R.id.cancel));
 		cancelB.setOnClickListener(onCancelClick);
+		
+		stateManager = (StateManager)(getApplicationContext());
 
 		enterB = (Button) (findViewById(R.id.enter));
 		enterB.setOnClickListener(onEnterClick);
@@ -115,6 +120,11 @@ public class AuthenticationActivity extends Activity {
 			ServerLink.loadPeople(dirdatasource);
 			ServerLink.loadFriends(usr, datasource);
 			ServerLink.loadEvents("saqib01", datasource);
+			Vector<GeoLocation> allFriendsLocation = ServerLink.getLocationForAllFriend(datasource);
+			for (GeoLocation geoLocation : allFriendsLocation) {
+				stateManager.addressMap.put(geoLocation.getUsername(), geoLocation.getAddressName());
+				stateManager.geopointMap.put(geoLocation.getUsername(), geoLocation.getGeoPoint());
+			}
 			// ServerLink.loadEvents("pmerc02", datasource);
 			// ServerLink.loadEvents("pmerc03", datasource);
 			ServerLink.loadNotifs(usr, datasource, dirdatasource);

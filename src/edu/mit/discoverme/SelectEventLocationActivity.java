@@ -156,7 +156,7 @@ public class SelectEventLocationActivity extends MapActivity {
 		
 		int f = 0;
 		for (GeoPoint geoPoint : friendpoints) {
-			OverlayItem item = new OverlayItem(geoPoint, participants[f], stateManager.friendAddresses.get(f));
+			OverlayItem item = new OverlayItem(geoPoint, participants[f], stateManager.addressMap.get(participants[f]));
 			friendsOverlay.addOverlay(item);
 			f++;
 		}

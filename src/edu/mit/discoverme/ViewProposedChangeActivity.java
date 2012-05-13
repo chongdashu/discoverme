@@ -33,8 +33,7 @@ public class ViewProposedChangeActivity extends ViewEventActivity {
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dialog.dismiss();
-									ServerLink
-											.acceptProposedChange(new Event());// TODO
+					// ServerLink.acceptProposedChange(new Event());// TODO
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {
