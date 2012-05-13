@@ -225,15 +225,15 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											newRsvp = newRsvp + "pending,";
 										String newLocation = (editTextLocation
 												.getText()).toString();
-										// float lat = latE6;
-										// float lng = latE6;
-										// lat = lat / 1000000;
-										// lng = lng / 1000000;
+										float lat = latE6;
+										float lng = lngE6;
+										lat = lat / 1000000;
+										lng = lng / 1000000;
 
 										String newLocationLNG = String
-												.valueOf(0);
+												.valueOf(lng);
 										String newLocationLAT = String
-												.valueOf(0);
+												.valueOf(lat);
 										String newTime = (String
 												.valueOf(timePicker
 														.getCurrentHour()))
