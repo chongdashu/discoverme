@@ -477,7 +477,7 @@ public class HomepageActivity extends MapActivity {
 				mapView);
 		mapOverlays.add(itemizedoverlay);
 
-		stateManager.userAddress = getAddressAt(stateManager.userGeoPoint);
+		stateManager.userAddress = Utils.getAddressAt(getBaseContext(), stateManager.userGeoPoint);
 		System.out.println("stateManager.userAddress=" + stateManager.userAddress);
 		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint,
 				stateManager.fullName, stateManager.userAddress);
@@ -500,7 +500,7 @@ public class HomepageActivity extends MapActivity {
 		int f = 0;
 		for (GeoPoint geoPoint : stateManager.friendPoints) {
 
-			String address = getAddressAt(geoPoint);
+			String address = Utils.getAddressAt(getBaseContext(), geoPoint);
 			stateManager.friendAddresses.add(address);
 
 			stateManager.addressMap.put(allFriends.get(f).getMITId(), address);
@@ -540,29 +540,6 @@ public class HomepageActivity extends MapActivity {
 		return geopoints;
 	}
 
-	private String getAddressAt(GeoPoint p) {
-		String add = "";
-		if (NO_LOCATION_SEARCH) {
-			return "Fake Address Goes Here";
-		}
-		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
-		try {
-			List<Address> addresses = geoCoder.getFromLocation(
-					p.getLatitudeE6() / 1E6, p.getLongitudeE6() / 1E6, 1);
-
-			add = "";
-			if (addresses.size() > 0) {
-				for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex(); i++)
-					add += addresses.get(0).getAddressLine(i) + "\n";
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return add;
-
-	}
 
 	public Boolean logout() {
 		SharedPreferences prefs = getSharedPreferences("credentials",
