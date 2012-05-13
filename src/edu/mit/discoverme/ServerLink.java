@@ -623,6 +623,10 @@ public class ServerLink {
 		dataSource.deleteEvent(event);
 		cancelEvent(event);
 		
+		Event update = event;
+		update.setEventID(update.getEventID() + "_update");
+		cancelEvent(update);
+
 		createEvent(username, event, dataSource);
 		dataSource.createEvent(event.getEventID(), event.getName(),
 				event.getParticipants(), event.getResponses(), event.getTime(),
@@ -631,5 +635,6 @@ public class ServerLink {
 		
 		
 		
+
 	}
 }
