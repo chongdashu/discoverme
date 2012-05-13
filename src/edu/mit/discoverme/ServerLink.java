@@ -311,11 +311,16 @@ public class ServerLink {
 			String locationLng = event.getLocationLng();
 			String type = event.getType();
 			String time = event.getTime();
-			URL url = new URL(URLstring + "createEvent.php?eventid=" + eventID
-					+ "&eventname=" + eventname + "&participants=" + part
-					+ "&rsvp=" + rsvp + "&time=" + time + "&location="
-					+ location + "&locationLat=" + locationLat
-					+ "&locationLng=" + locationLng + "&type=" + type);
+			URL url = new URL(URLstring + "createEvent.php?eventid="
+					+ URLEncoder.encode(eventID, "UTF-8") + "&eventname="
+					+ URLEncoder.encode(eventname, "UTF-8") + "&participants="
+					+ URLEncoder.encode(part, "UTF-8") + "&rsvp="
+					+ URLEncoder.encode(rsvp, "UTF-8") + "&time="
+					+ URLEncoder.encode(time, "UTF-8") + "&location="
+					+ URLEncoder.encode(location, "UTF-8") + "&locationLat="
+					+ URLEncoder.encode(locationLat, "UTF-8") + "&locationLng="
+					+ URLEncoder.encode(locationLng, "UTF-8") + "&type="
+					+ URLEncoder.encode(type, "UTF-8"));
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
@@ -332,7 +337,8 @@ public class ServerLink {
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			String eventID = event.getEventID();
-			URL url = new URL(URLstring + "cancelEvent.php?eventid=" + eventID);
+			URL url = new URL(URLstring + "cancelEvent.php?eventid="
+					+ URLEncoder.encode(eventID, "UTF-8"));
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
@@ -636,20 +642,23 @@ public class ServerLink {
 		
 		Event event = updatedEvent;
 		String[] arg = event.getEventID().split("_update");
-		if (arg.length > 1) {
-			event.setEventID(arg[0]);
-			cancelEvent(event);
-			deleteEventFromMyList(event.getEventID(), dataSource);
-			cancelEvent(updatedEvent);
-			
+		if (arg.length >= 1) {
+			{
+				event.setEventID(arg[0]);
+				cancelEvent(event);
+				deleteEventFromMyList(event.getEventID(), dataSource);
+				cancelEvent(updatedEvent);
+
+				createEvent(username, event, dataSource);
+				dataSource.createEvent(updatedEvent.getEventID(),
+						updatedEvent.getName(),
+						updatedEvent.getParticipants(),
+						updatedEvent.getResponses(), updatedEvent.getTime(),
+						updatedEvent.getLocation(),
+						updatedEvent.getLocationLat(),
+						updatedEvent.getLocationLng(), updatedEvent.getType());
+			}
 		}
-		createEvent(username, updatedEvent, dataSource);
-		dataSource.createEvent(updatedEvent.getEventID(), updatedEvent.getName(),
-				updatedEvent.getParticipants(), updatedEvent.getResponses(), updatedEvent.getTime(),
-				updatedEvent.getLocation(), updatedEvent.getLocationLat(),
-				updatedEvent.getLocationLng(), updatedEvent.getType());
-		
-		
 		
 
 	}

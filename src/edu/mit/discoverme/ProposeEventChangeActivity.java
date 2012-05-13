@@ -60,7 +60,11 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		datasource.close();
 
 		String details = notif.getDetail();
-		eventuid = details;// "saqib01";
+		String[] detailArr = details.split(",");
+		if (detailArr.length == 2)
+			eventuid = detailArr[1];
+		else eventuid = details;
+		// eventuid = details;// "saqib01";
 		String eventRow = ServerLink.getEvent(eventuid);
 
 		
