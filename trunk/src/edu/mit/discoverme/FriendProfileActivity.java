@@ -116,7 +116,7 @@ public class FriendProfileActivity extends Activity {
 											Context.MODE_WORLD_READABLE);
 									String username = prefs.getString("username", "none");
 									ServerLink.deleteFriend(username,
-											theFriend.getEmail());
+											theFriend.getMITId());
 									
 									// something
 									Toast.makeText(
