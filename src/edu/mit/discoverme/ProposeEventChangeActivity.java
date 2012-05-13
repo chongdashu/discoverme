@@ -81,10 +81,10 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		timeHrs = Integer.valueOf((timeString.split(" "))[0]);
 		timeMins = Integer.valueOf((timeString.split(" "))[1]);
 		locationName = arg[4];
-		latE6 = (int) (Float.valueOf(arg[5]) * 10000000);
+		latE6 = (int) (Float.valueOf(arg[5]) * 1000000);
 																		// (((float)
 																		// Float.valueOf(locations_lat[eventID]))*1000000);
-		lngE6 = (int) (Float.valueOf(arg[6]) * 10000000);
+		lngE6 = (int) (Float.valueOf(arg[6]) * 1000000);
 
 																			// (((float)
 																			// Float.valueOf(locations_lng[eventID]))*1000000);
