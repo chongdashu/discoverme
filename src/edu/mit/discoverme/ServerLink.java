@@ -3,6 +3,9 @@ package edu.mit.discoverme;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Vector;
+
+import com.google.android.maps.GeoPoint;
 
 public class ServerLink {
 	private static final String URLstring = "http://people.csail.mit.edu/saqib/";
@@ -116,7 +119,7 @@ public class ServerLink {
 			URL url = new URL(URLstring + "updateMyLocation.php?username="
 							+ username + "&location=" + location
 							+ "&locationLat=" + locationLat + "&locationLng="
-							+ locationLat);
+							+ locationLng);
 					
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
@@ -597,8 +600,23 @@ public class ServerLink {
 		return retVal;
 	}
 	
-	public static void getLocationForAllFriend(MyDataSource dataSource) {
+	public static Vector<GeoLocation> getLocationForAllFriend(MyDataSource dataSource) {
+		Vector<GeoLocation> friendsLocations = new Vector<GeoLocation>();
+		dataSource.open();
+		
+		List<Friend> allFriends = dataSource.getAllFriends();
+		for (Friend friend : allFriends) {
+			String locationString = ServerLink.getFriendLocation(friend.getMITId());
+			String[] locationArray = locationString.split(",");
+			GeoLocation geoLocation = new GeoLocation(friend.getMITId(), locationArray[0], locationArray[1], locationArray[2]);
+			
+			friendsLocations.add(geoLocation);
+		}
+		
+		dataSource.close();
+		return friendsLocations;
 	}
+	
 	public static void acceptProposedChange(){
 		
 	}

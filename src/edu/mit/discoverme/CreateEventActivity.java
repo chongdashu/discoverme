@@ -213,10 +213,11 @@ public class CreateEventActivity extends Activity {// implements
 				String newParticipants = 
 						username +	"," + // Add event creator to participants
 						(editTextParticipants.getText()).toString();
+				newParticipants.replace(" ", "");
 				String[] arg = newParticipants.split(",");
 				//String newRsvp = "";
 				String newRsvp = "yes,"; // Add event creator's yes-response
-				for (int i = 0; i < arg.length; i++)
+				for (int i = 0; i < arg.length-1; i++)
 					newRsvp = newRsvp + "pending,";
 				String newLocation = (editTextLocation.getText()).toString();
 				String newLocationLNG = locationLng;

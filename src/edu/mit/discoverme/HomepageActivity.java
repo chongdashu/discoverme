@@ -219,6 +219,12 @@ public class HomepageActivity extends MapActivity {
 			dirdatasource.open();
 			ServerLink.loadNotifs(username, datasource, dirdatasource);
 			updateNotificationsCount();
+			
+			Vector<GeoLocation> allFriendsLocation = ServerLink.getLocationForAllFriend(datasource);
+			for (GeoLocation geoLocation : allFriendsLocation) {
+				stateManager.addressMap.put(geoLocation.getUsername(), geoLocation.getAddressName());
+				stateManager.geopointMap.put(geoLocation.getUsername(), geoLocation.getGeoPoint());
+			}
 
 			datasource.close();
 			dirdatasource.close();
@@ -536,7 +542,7 @@ public class HomepageActivity extends MapActivity {
 	private String getAddressAt(GeoPoint p) {
 		String add = "";
 		if (NO_LOCATION_SEARCH) {
-			return "Fake Location...";
+			return "FakeLocation...";
 		}
 		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
 		try {
