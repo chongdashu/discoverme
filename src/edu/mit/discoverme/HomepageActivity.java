@@ -145,6 +145,11 @@ public class HomepageActivity extends MapActivity {
 							|| type.equals("FriendDel")) {
 						// do nothing
 					} else if (type.equals("EventProposedChange")) {
+						Intent intent = new Intent(HomepageActivity.this,
+								ProposeEventChangeActivity.class);
+						intent.putExtra("notifID", oneNotif.getId());
+						hideEverything();
+						startActivity(intent);
 						// go to this new page now which ius not there yet ...
 						// which will read the modified fiel in view event
 						// format

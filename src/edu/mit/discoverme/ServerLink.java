@@ -138,16 +138,19 @@ public class ServerLink {
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			URL url = new URL(URLstring + "sendRSVP.php?username="
-							+ username + "&firstname=" + userFirstname
-							+ "&eventname=" + eventname
-							+ "&eventID=" + eventID + "&rsvp=" + rsvp);
+					+ URLEncoder.encode(username, "UTF-8") + "&firstname="
+					+ URLEncoder.encode(userFirstname, "UTF-8") + "&eventname="
+					+ URLEncoder.encode(eventname, "UTF-8") + "&eventID="
+					+ URLEncoder.encode(eventID, "UTF-8") + "&rsvp="
+					+ URLEncoder.encode(rsvp, "UTF-8"));
 
 			cs = Authenticate.getURLContent(url);
+			exp = cs.toString();
 			// do something with the URL...
 		} catch (IOException ioex) {
 			exp = ioex.toString();
 		}
-		datasource.createFriend(username, eventname, rsvp, eventID);
+		// datasource.createFriend(exp, eventname, rsvp, eventID);
 
 	}
 
@@ -529,13 +532,13 @@ public class ServerLink {
 		return rsvp;
 	}
 
-	public static void deleteEventFromMyList(String eventName,
+	public static void deleteEventFromMyList(String eventUniqueID,
 			MyDataSource dataSource) {
 		List<Event> events = dataSource.getAllEvents();
 		Event theEvent = new Event();
 		for (int event = 0; event < events.size(); event++) {
 			String eventUID = events.get(event).getEventID();
-			if (eventUID.equals(eventName)) {
+			if (eventUID.equals(eventUniqueID)) {
 				theEvent = events.get(event);
 				dataSource.deleteEvent(theEvent);
 				break;
@@ -544,7 +547,8 @@ public class ServerLink {
 
 	}
 
-	public static void proposeChanges(Event event) {
+	public static void proposeChanges(String username, String firstname,
+			Event event) {
 		CharSequence cs = null;
 		String exp = "";
 		try {
@@ -558,11 +562,20 @@ public class ServerLink {
 			String locationLng = event.getLocationLng();
 			String type = event.getType();
 			String time = event.getTime();
-			URL url = new URL(URLstring + "proposeChange.php?eventid="
-					+ eventID + "&eventname=" + eventname + "&participants="
-					+ part + "&rsvp=" + rsvp + "&time=" + time + "&location="
-					+ location + "&locationLat=" + locationLat
-					+ "&locationLng=" + locationLng + "&type=" + type);
+
+			URL url = new URL(URLstring + "proposeChange.php?username="
+					+ URLEncoder.encode(username, "UTF-8") + "&firstname="
+					+ URLEncoder.encode(firstname, "UTF-8") + "&eventid="
+					+ URLEncoder.encode(eventID, "UTF-8") + "&eventname="
+					+ URLEncoder.encode(eventname, "UTF-8") + "&participants="
+					+ URLEncoder.encode(part, "UTF-8") + "&rsvp="
+					+ URLEncoder.encode(rsvp, "UTF-8") + "&time="
+					+ URLEncoder.encode(time, "UTF-8") + "&location="
+					+ URLEncoder.encode(location, "UTF-8") + "&locationLat="
+					+ URLEncoder.encode(locationLat, "UTF-8") + "&locationLng="
+					+ URLEncoder.encode(locationLng, "UTF-8") + "&type="
+					+ URLEncoder.encode(type, "UTF-8"));
+
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
@@ -571,10 +584,10 @@ public class ServerLink {
 
 	}
 
-	public static String getProposedChange(String eventname) {
-		String event = getEvent(eventname.trim() + "_update");
-		return event;
-	}
+	// public static String getProposedChange(String eventname, String nine) {
+	// String event = getEvent(eventname.trim() + "_update");
+	// return event;
+	// }
 
 	public static String getFriendLocation(String friendemail) {
 		String retVal = "none;0;0";
@@ -584,6 +597,7 @@ public class ServerLink {
 				// URL url = new URL("http://www.google.com/search?q=" + username);
 			URL url = new URL(URLstring + "fetchFriendLocation.php?username="
 								+ friendemail);
+
 
 				cs = Authenticate.getURLContent(url);
 				// do something with the URL...
@@ -617,21 +631,23 @@ public class ServerLink {
 		return friendsLocations;
 	}
 	
-	public static void acceptProposedChange(String username, Event event,
+	public static void acceptProposedChange(String username, Event updatedEvent,
 			MyDataSource dataSource) {
 		
-		dataSource.deleteEvent(event);
-		cancelEvent(event);
-		
-		Event update = event;
-		update.setEventID(update.getEventID() + "_update");
-		cancelEvent(update);
-
-		createEvent(username, event, dataSource);
-		dataSource.createEvent(event.getEventID(), event.getName(),
-				event.getParticipants(), event.getResponses(), event.getTime(),
-				event.getLocation(), event.getLocationLat(),
-				event.getLocationLng(), event.getType());
+		Event event = updatedEvent;
+		String[] arg = event.getEventID().split("_update");
+		if (arg.length > 1) {
+			event.setEventID(arg[0]);
+			cancelEvent(event);
+			deleteEventFromMyList(event.getEventID(), dataSource);
+			cancelEvent(updatedEvent);
+			
+		}
+		createEvent(username, updatedEvent, dataSource);
+		dataSource.createEvent(updatedEvent.getEventID(), updatedEvent.getName(),
+				updatedEvent.getParticipants(), updatedEvent.getResponses(), updatedEvent.getTime(),
+				updatedEvent.getLocation(), updatedEvent.getLocationLat(),
+				updatedEvent.getLocationLng(), updatedEvent.getType());
 		
 		
 		
