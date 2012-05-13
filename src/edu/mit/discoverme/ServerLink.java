@@ -607,7 +607,7 @@ public class ServerLink {
 		List<Friend> allFriends = dataSource.getAllFriends();
 		for (Friend friend : allFriends) {
 			String locationString = ServerLink.getFriendLocation(friend.getMITId());
-			String[] locationArray = locationString.split(",");
+			String[] locationArray = locationString.split(";");
 			GeoLocation geoLocation = new GeoLocation(friend.getMITId(), locationArray[0], locationArray[1], locationArray[2]);
 			
 			friendsLocations.add(geoLocation);
