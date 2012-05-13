@@ -2,6 +2,7 @@ package edu.mit.discoverme;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Vector;
 
@@ -117,9 +118,10 @@ public class ServerLink {
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			URL url = new URL(URLstring + "updateMyLocation.php?username="
-							+ username + "&location=" + location
-							+ "&locationLat=" + locationLat + "&locationLng="
-							+ locationLng);
+					+ username + "&location="
+					+ URLEncoder.encode(location, "UTF-8") + "&locationLat="
+					+ URLEncoder.encode(locationLat, "UTF-8") + "&locationLng="
+					+ URLEncoder.encode(locationLng, "UTF-8"));
 					
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
