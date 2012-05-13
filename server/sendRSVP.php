@@ -1,10 +1,3 @@
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>descover me</title>
-</head>
-
-<body>
 <?php
 	$username = $_GET["username"];
 	$firstname = $_GET["firstname"];
@@ -19,7 +12,7 @@
 	$pieces = null;
 	$pieces = explode(";", $data);
 	
-	echo count($pieces)."</br>";
+	//echo count($pieces)."</br>";
 	$participants = explode(",",$pieces[1]);
 	$rsvps = explode(",",$pieces[2]);
 	$newrsvp="";
@@ -56,11 +49,11 @@
 		else
 			$newevent=$newevent.$pieces[$i].";";		
 	
-	echo "new event is now :".$newevent."</br>";
+	//echo "new event is now :".$newevent."</br>";
 	
 	
-	echo "number of partiicpants = ".count($participants)."</br>";
-	echo "number of rsvps = ".count($rsvps)."</br>";
+	//echo "number of partiicpants = ".count($participants)."</br>";
+	//echo "number of rsvps = ".count($rsvps)."</br>";
 	
 	echo $username."\n </br>";
 	echo $eventID."\n </br>";
@@ -75,9 +68,6 @@
 
 
 ?>
-
-</body>
-</html>
 
 <?php function sendNotifTo($friendname, $notif)
 {

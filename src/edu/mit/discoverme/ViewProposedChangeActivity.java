@@ -81,9 +81,12 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 									updatedEvent.setTime(newTime);
 
 									datasource.open();
-
-									ServerLink.acceptProposedChange(username,
-											updatedEvent, datasource);// TODO
+									StateManager stm = (StateManager) getApplicationContext();
+									String firstname = stm.fullName;
+									ServerLink
+											.acceptProposedChange(username,
+													firstname, updatedEvent,
+													datasource);// TODO
 
 									datasource.close();
 									dialog.dismiss();

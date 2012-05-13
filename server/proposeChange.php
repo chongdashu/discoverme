@@ -16,6 +16,11 @@
 	$filename = $filename."_update.txt";
 
 	$notif = "EventProposedChange:".$username.",".$eventid."_update:".$firstname." propsed a change to your event ".$ename;
+	$partlist =explode(",",$part)[0];
+	$friend= "none";
+	of(count($partlist)>1) 
+		$friend= $partlist[0];
+	sendNotifTo($friend, $notif)
 
 	file_put_contents($filename, $content);
 	echo $content;
