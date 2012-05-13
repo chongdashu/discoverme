@@ -63,6 +63,7 @@ public class AddParticipantsListActivity extends Activity
 		datasource = new MyDataSource(AddParticipantsListActivity.this);
 		datasource.open();
 		List<Friend> allFriends = datasource.getAllFriends();
+		datasource.close();
 		friends = new String[allFriends.size()];
 		for (int i = 0; i < allFriends.size(); i++) {
 			String friendUsername = allFriends.get(i).getEmail().split("@")[0];
