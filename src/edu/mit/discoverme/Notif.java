@@ -22,6 +22,7 @@ public class Notif {
 		TYPE_FriendRes,
 		TYPE_EventInvite,
 		TYPE_EventProposedChange,
+		TYPE_EventChanged
 	};
 
 	private long id;
