@@ -137,25 +137,6 @@ public class StrangerProfileActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			// StateManager appState = ((StateManager) getApplicationContext());
-			//
-			// // add to friends list
-			// String[] friends = appState.getFriends();//
-			// String[] newFriends = new String[friends.length + 1];
-			// for (int i = 0; i < friends.length; i++)
-			// newFriends[i] = friends[i];
-			// newFriends[friends.length] = friendName;
-			// Arrays.sort(newFriends);
-			// appState.setFriends(newFriends);
-			//
-			// // change type to friends in the directory
-			// String[] directorynames = appState.getDirectoryNames();
-			// String[] directoryTypes = appState.getDirectory_friendType();
-			// int indexPerson = Arrays.binarySearch(directorynames,
-			// friendName);
-			// String stF = getString(R.string.typeFriend);
-			// directoryTypes[indexPerson] = stF;
-			// appState.setDirectory_friendType(directoryTypes);
 
 			// server activity
 			SharedPreferences prefs = getSharedPreferences("credentials",
@@ -167,8 +148,8 @@ public class StrangerProfileActivity extends Activity {
 			String email = theFriend.getMITId();
 			ServerLink.addFriend(username, email, firstname);
 			datasource.open();
-			datasource.createFriend(theFriend.getName(), theFriend.getEmail(),
-					theFriend.getFone(), theFriend.getAddress());
+			datasource.createFriend(theFriend.getName(), theFriend.getFone(),
+					theFriend.getEmail(), theFriend.getAddress());
 			Notif notif = datasource.getNotif(notifID);
 			datasource.deleteNotif(notif);
 			datasource.close();

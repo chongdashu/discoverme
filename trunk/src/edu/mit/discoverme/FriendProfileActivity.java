@@ -146,6 +146,7 @@ public class FriendProfileActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			// go back to last page
+			datasource.close();
 			finish();
 
 		}
