@@ -13,6 +13,7 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
+
 		super.onCreate(savedInstanceState);
 		
 //		back.setText("Reject");
@@ -24,6 +25,7 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 		theEvent.setEvent(eventuid, eventTitle, participantsString, rsvpString,
 				timeString, locationName, String.valueOf(latE6),
 				String.valueOf(lngE6), eventType);
+		proposeChange.setVisibility(View.GONE);
 	}
 	
 	
@@ -60,8 +62,14 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 										newRsvp = newRsvp + "pending,";
 									String newLocation = (editTextLocation
 											.getText()).toString();
-									String newLocationLNG = locationLng;
-									String newLocationLAT = locationLat;
+
+									float lat = latE6;
+									float lng = lngE6;
+									lat = lat / 1000000;
+									lng = lng / 1000000;
+
+									String newLocationLNG = String.valueOf(lat);
+									String newLocationLAT = String.valueOf(lng);
 									updatedEvent.setLocation(newLocation);
 									updatedEvent.setLocationLat(newLocationLAT);
 									updatedEvent.setLocationLng(newLocationLNG);
@@ -75,7 +83,7 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 									datasource.open();
 
 									ServerLink.acceptProposedChange(username,
-											theEvent, datasource);// TODO
+											updatedEvent, datasource);// TODO
 
 									datasource.close();
 									dialog.dismiss();

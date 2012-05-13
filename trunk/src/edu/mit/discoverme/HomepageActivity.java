@@ -1,10 +1,7 @@
 package edu.mit.discoverme;
 
-import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Vector;
 
 import android.app.Activity;
@@ -13,9 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.location.Address;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -146,7 +141,7 @@ public class HomepageActivity extends MapActivity {
 						// do nothing
 					} else if (type.equals("EventProposedChange")) {
 						Intent intent = new Intent(HomepageActivity.this,
-								ProposeEventChangeActivity.class);
+								ViewProposedChangeActivity.class);
 						intent.putExtra("notifID", oneNotif.getId());
 						hideEverything();
 						startActivity(intent);
