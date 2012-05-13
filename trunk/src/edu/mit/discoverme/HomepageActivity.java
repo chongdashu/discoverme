@@ -478,6 +478,7 @@ public class HomepageActivity extends MapActivity {
 		mapOverlays.add(itemizedoverlay);
 
 		stateManager.userAddress = getAddressAt(stateManager.userGeoPoint);
+		System.out.println("stateManager.userAddress=" + stateManager.userAddress);
 		OverlayItem overlayitem = new OverlayItem(stateManager.userGeoPoint,
 				stateManager.fullName, stateManager.userAddress);
 		itemizedoverlay.addOverlay(overlayitem);
@@ -542,7 +543,7 @@ public class HomepageActivity extends MapActivity {
 	private String getAddressAt(GeoPoint p) {
 		String add = "";
 		if (NO_LOCATION_SEARCH) {
-			return "FakeLocation...";
+			return "Fake Address Goes Here";
 		}
 		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
 		try {
