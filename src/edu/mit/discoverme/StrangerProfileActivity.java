@@ -1,6 +1,5 @@
 package edu.mit.discoverme;
 
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -138,24 +137,43 @@ public class StrangerProfileActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			StateManager appState = ((StateManager) getApplicationContext());
+			// StateManager appState = ((StateManager) getApplicationContext());
+			//
+			// // add to friends list
+			// String[] friends = appState.getFriends();//
+			// String[] newFriends = new String[friends.length + 1];
+			// for (int i = 0; i < friends.length; i++)
+			// newFriends[i] = friends[i];
+			// newFriends[friends.length] = friendName;
+			// Arrays.sort(newFriends);
+			// appState.setFriends(newFriends);
+			//
+			// // change type to friends in the directory
+			// String[] directorynames = appState.getDirectoryNames();
+			// String[] directoryTypes = appState.getDirectory_friendType();
+			// int indexPerson = Arrays.binarySearch(directorynames,
+			// friendName);
+			// String stF = getString(R.string.typeFriend);
+			// directoryTypes[indexPerson] = stF;
+			// appState.setDirectory_friendType(directoryTypes);
 
-			// add to friends list
-			String[] friends = appState.getFriends();//
-			String[] newFriends = new String[friends.length + 1];
-			for (int i = 0; i < friends.length; i++)
-				newFriends[i] = friends[i];
-			newFriends[friends.length] = friendName;
-			Arrays.sort(newFriends);
-			appState.setFriends(newFriends);
+			// server activity
+			SharedPreferences prefs = getSharedPreferences("credentials",
+					Context.MODE_WORLD_READABLE);
+			String username = prefs.getString("username", "none");
+			StateManager stm = (StateManager) getApplicationContext();
+			String firstname = stm.fullName;
 
-			// change type to friends in the directory
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, friendName);
-			String stF = getString(R.string.typeFriend);
-			directoryTypes[indexPerson] = stF;
-			appState.setDirectory_friendType(directoryTypes);
+			String email = theFriend.getMITId();
+			ServerLink.addFriend(username, email, firstname);
+			datasource.open();
+			datasource.createFriend(theFriend.getName(), theFriend.getEmail(),
+					theFriend.getFone(), theFriend.getAddress());
+			Notif notif = datasource.getNotif(notifID);
+			datasource.deleteNotif(notif);
+			datasource.close();
+
+			// server activity ends here
 
 			// and flash a message on screen saying something
 			Toast.makeText(getApplicationContext(),
@@ -170,15 +188,21 @@ public class StrangerProfileActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			// change type to stranger in directory list
-			StateManager appState = ((StateManager) getApplicationContext());
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, friendName);
-			String stS = getString(R.string.typeStranger);
-			directoryTypes[indexPerson] = stS;
-			appState.setDirectory_friendType(directoryTypes);
+			// StateManager appState = ((StateManager) getApplicationContext());
+			// String[] directorynames = appState.getDirectoryNames();
+			// String[] directoryTypes = appState.getDirectory_friendType();
+			// int indexPerson = Arrays.binarySearch(directorynames,
+			// friendName);
+			// String stS = getString(R.string.typeStranger);
+			// directoryTypes[indexPerson] = stS;
+			// appState.setDirectory_friendType(directoryTypes);
 			// go back to last page
 			// and flash a message on screen saying something
+			datasource.open();
+			Notif notif = datasource.getNotif(notifID);
+			datasource.deleteNotif(notif);
+			datasource.close();
+
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.addPendingNoMesg), Toast.LENGTH_SHORT)
 					.show();

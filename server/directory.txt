@@ -47,5 +47,5 @@ Susan Komen;617321654876;susan@mit.edu;NE25-455
 Tara Patrick;6178887788;hot@mit.edu;NE25-207
 Ualana Smith;6172461357;uulana@mit.edu;NE25-G718
 Vera Wang;6171234567;vera@mit.edu;NE25-807
-William Clinton;61798765432;pmerc@mit.edu;32G-123
+William Clinton;61798765432;will@mit.edu;32G-123
 Zoe Zain;617321654876;ethanxu@mit.edu;32H-455

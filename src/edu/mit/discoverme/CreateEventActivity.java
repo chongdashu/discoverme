@@ -229,15 +229,15 @@ public class CreateEventActivity extends Activity {// implements
 				else
 					newType = "open";
 				Event theEvent = datasource.createEvent(eventUniqueID,
-						newEvent,
-						newParticipants, newRsvp, newTime, newLocation,
-						newLocationLAT, newLocationLNG, newType);
-				datasource.close();
+						newEvent, newParticipants, newRsvp, newTime,
+						newLocation, newLocationLAT, newLocationLNG, newType);
 
-				ServerLink.createEvent(username, theEvent);
+				ServerLink.createEvent(username, theEvent, datasource);
+				datasource.close();
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.publishEventMesg),
 						Toast.LENGTH_SHORT).show();
+
 				finish();
 			}
 

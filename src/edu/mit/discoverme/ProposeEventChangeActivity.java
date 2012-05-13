@@ -246,13 +246,18 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'Yes' here.
 										dialog.dismiss();
-										ServerLink.sendRSVP(eventuid, "yes");// TODO
+										StateManager stm = new StateManager();
+										String firstname = stm.fullName;
+										datasource.open();
+										ServerLink.sendRSVP(username,
+												firstname, eventTitle,
+												eventuid, "yes", datasource);
 										String newrsvpString = ServerLink
 												.changeOneRSVP(
 														participantsString,
 														rsvpString, username,
 														"yes");
-										datasource.open();
+
 										datasource.createEvent(eventuid,
 												eventTitle, participantsString,
 												newrsvpString, timeString,
@@ -279,9 +284,15 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											int id) {
 										// Do whatever you want for 'No' here.
 										dialog.dismiss();
+										StateManager stm = new StateManager();
+										String firstname = stm.fullName;
 
-										ServerLink.sendRSVP(eventuid, "no");// TODO
 										datasource.open();
+										ServerLink.sendRSVP(username,
+												firstname, eventTitle,
+												eventuid, "no", datasource);// TODO
+
+
 										ServerLink.deleteEventFromMyList(
 												eventuid, datasource);
 										Notif notif = datasource
