@@ -625,12 +625,17 @@ public class HomepageActivity extends MapActivity {
 	}
 	@Override
 	protected void onResume() {
+		
+		backgroundNotificationsHandler = new Handler();
+		backgroundNotificationsHandler.removeCallbacks(checkNotificationsTask);
+		backgroundNotificationsHandler.postDelayed(checkNotificationsTask, 5000);
 		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		datasource.close();
+		backgroundNotificationsHandler.removeCallbacks(checkNotificationsTask);
 		super.onPause();
 	}
 
