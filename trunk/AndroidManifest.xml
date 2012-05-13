@@ -182,6 +182,11 @@
             android:name=".InfoTabActivity"
             android:screenOrientation="portrait"
             android:label="@string/general_info_label" />
+        <activity
+            android:name=".TutorialActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/general_info_label" 
+            android:theme="@android:style/Theme.Black.NoTitleBar"/>
         
         
         
