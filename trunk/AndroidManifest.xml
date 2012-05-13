@@ -138,6 +138,7 @@
         <activity
             android:name=".SearchActivity"
             android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" 
             android:label="SearchActivityLabel" />
         <activity
             android:name=".DialogBoxActivity"

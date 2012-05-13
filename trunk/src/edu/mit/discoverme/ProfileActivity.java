@@ -204,8 +204,7 @@ public class ProfileActivity extends Activity {
 			// go back to last page
 			// and flash a message on screen saying friend added
 			Toast.makeText(getApplicationContext(),
-					": " + firstname + " :"
-							+ getString(R.string.addAsFriendMesg),
+					getString(R.string.addAsFriendMesg),
 					Toast.LENGTH_SHORT)
 					.show();
 			finish();

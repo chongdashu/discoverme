@@ -119,7 +119,7 @@ public class AuthenticationActivity extends Activity {
 			dirdatasource.open();
 			ServerLink.loadPeople(dirdatasource);
 			ServerLink.loadFriends(usr, datasource);
-			ServerLink.loadEvents("saqib01", datasource);
+			// ServerLink.loadEvents("saqib01", datasource);
 			Vector<GeoLocation> allFriendsLocation = ServerLink.getLocationForAllFriend(datasource);
 			for (GeoLocation geoLocation : allFriendsLocation) {
 				stateManager.addressMap.put(geoLocation.getUsername(), geoLocation.getAddressName());
