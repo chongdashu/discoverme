@@ -1,8 +1,13 @@
 package edu.mit.discoverme;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -153,6 +158,32 @@ public class Utils {
 				(int) (Math.abs(maxLon - minLon) * fitFactor));
 		controller.animateTo(new GeoPoint((maxLat + minLat) / 2,
 				(maxLon + minLon) / 2));
+	}
+	
+	public static String getAddressAt(Context context, GeoPoint p) {
+		String add = "";
+		if (HomepageActivity.NO_LOCATION_SEARCH) {
+			add = "Location Searching Turned Off.";
+			return add;
+		}
+		Geocoder geoCoder = new Geocoder(context, Locale.getDefault());
+		try {
+			List<Address> addresses = geoCoder.getFromLocation(
+					p.getLatitudeE6() / 1E6, p.getLongitudeE6() / 1E6, 1);
+
+			add = "";
+			if (addresses.size() > 0) {
+				for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex(); i++)
+					add += addresses.get(0).getAddressLine(i) + "\n";
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			add = "Location address temporarily unavailable.";
+		}
+
+		return add;
+
 	}
 
 }

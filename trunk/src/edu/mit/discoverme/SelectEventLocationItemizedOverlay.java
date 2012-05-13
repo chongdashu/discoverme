@@ -57,7 +57,7 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 				mOverlays.clear();
 			}
 			
-			final OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", "Building 32, Stata Center");
+			final OverlayItem overlayitem = new OverlayItem(p, "Set the location of the event to:", Utils.getAddressAt(mapView.getContext(), p));
 			addOverlay(overlayitem);
 			 
 			 MapController mapController = mapView.getController();
