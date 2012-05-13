@@ -70,6 +70,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		participantsString = arg[1];
 		participants = participantsString.split(",");
 		rsvpString = arg[2];
+		rsvp = rsvpString.split(",");
 		timeString = arg[3];
 		eventType = arg[7];
 		if (arg[7].equals("closed"))
@@ -365,6 +366,8 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 					SelectEventLocationActivity.class);
 			intent.putExtra("lat", latE6);
 			intent.putExtra("lng", lngE6);
+			intent.putExtra("participants", participants);
+			intent.putExtra("responses", rsvp);
 
 			if (inEditMode) {
 				intent.putExtra("mode",
