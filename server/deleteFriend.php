@@ -3,6 +3,11 @@
 	$username = $_GET["username"];
 	removeFriend($friend,$username);
 	removeFriend($username,$friend);
+
+	$notif = "FriendDel:".$username.": deleted You as friend";
+	sendNotifTo($friend, $notif);
+
+
 ?>
 <?php
 function removeFriend($friend, $username)
@@ -39,4 +44,13 @@ function removeFriend($friend, $username)
 }
 
 
+?>
+
+
+<?php function sendNotifTo($friend, $notif)
+{
+$file = "users/".$friend."_notif.txt";
+$stringData = "\n".$notif;
+file_put_contents($file, $stringData, FILE_APPEND);
+}
 ?>
