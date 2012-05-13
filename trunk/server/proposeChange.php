@@ -1,5 +1,6 @@
 <?php
-	$filename = $_GET["eventid"];
+	$file = $_GET["eventid"];
+	$filename = "events/".$file;
 	$ename = $_GET["eventname"];
 	$part = $_GET["participants"];
 	$rsvp = $_GET["rsvp"];
