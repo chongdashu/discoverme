@@ -225,7 +225,7 @@ public class StrangerProfileActivity extends Activity {
 									String username = prefs.getString(
 											"username", "none");
 									ServerLink.deleteFriend(username,
-											theFriend.getEmail());
+											theFriend.getMITId());
 
 									// something
 									Toast.makeText(
