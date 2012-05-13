@@ -296,7 +296,8 @@ public class ServerLink {
 
 	}
 
-	public static void createEvent(String username, Event event,
+	public static void createEvent(String username, String firstname,
+			Event event,
 			MyDataSource datasource) {// TODO - delete this datasource thingy
 		CharSequence cs = null;
 		String exp = "";
@@ -311,7 +312,10 @@ public class ServerLink {
 			String locationLng = event.getLocationLng();
 			String type = event.getType();
 			String time = event.getTime();
-			URL url = new URL(URLstring + "createEvent.php?eventid="
+
+			URL url = new URL(URLstring + "createEvent.php?username="
+					+ URLEncoder.encode(username, "UTF-8") + "&firstname="
+					+ URLEncoder.encode(firstname, "UTF-8") + "&eventid="
 					+ URLEncoder.encode(eventID, "UTF-8") + "&eventname="
 					+ URLEncoder.encode(eventname, "UTF-8") + "&participants="
 					+ URLEncoder.encode(part, "UTF-8") + "&rsvp="
@@ -327,7 +331,7 @@ public class ServerLink {
 			exp = ioex.toString();
 		}
 		indx = indx + 1;
-		datasource.createFriend(cs.toString(), "fone", "email", "address");
+		// datasource.createFriend(cs.toString(), "fone", "email", "address");
 
 	}
 
@@ -637,8 +641,8 @@ public class ServerLink {
 		return friendsLocations;
 	}
 	
-	public static void acceptProposedChange(String username, Event updatedEvent,
-			MyDataSource dataSource) {
+	public static void acceptProposedChange(String username, String firstname,
+			Event updatedEvent, MyDataSource dataSource) {
 		
 		Event event = updatedEvent;
 		String[] arg = event.getEventID().split("_update");
@@ -649,7 +653,7 @@ public class ServerLink {
 				deleteEventFromMyList(event.getEventID(), dataSource);
 				cancelEvent(updatedEvent);
 
-				createEvent(username, event, dataSource);
+				createEvent(username, firstname, event, dataSource);
 				dataSource.createEvent(updatedEvent.getEventID(),
 						updatedEvent.getName(),
 						updatedEvent.getParticipants(),

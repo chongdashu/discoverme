@@ -233,7 +233,10 @@ public class CreateEventActivity extends Activity {// implements
 						newEvent, newParticipants, newRsvp, newTime,
 						newLocation, newLocationLAT, newLocationLNG, newType);
 
-				ServerLink.createEvent(username, theEvent, datasource);
+				StateManager stm = (StateManager) getApplicationContext();
+				String firstname = stm.fullName;
+				ServerLink.createEvent(username, firstname, theEvent,
+						datasource);
 				datasource.close();
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.publishEventMesg),

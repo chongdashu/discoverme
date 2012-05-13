@@ -219,14 +219,12 @@ public class StrangerProfileActivity extends Activity {
 									// TODO Auto-generated method stub
 									datasource.deleteFriend(theFriend);
 									datasource.close();
-									SharedPreferences prefs = getSharedPreferences(
-											"credentials",
+									SharedPreferences prefs = getSharedPreferences("credentials",
 											Context.MODE_WORLD_READABLE);
-									String username = prefs.getString(
-											"username", "none");
+									String username = prefs.getString("username", "none");
 									ServerLink.deleteFriend(username,
 											theFriend.getMITId());
-
+									
 									// something
 									Toast.makeText(
 											getApplicationContext(),
@@ -249,5 +247,5 @@ public class StrangerProfileActivity extends Activity {
 			alert.show();
 		}
 	};
-
+	
 }

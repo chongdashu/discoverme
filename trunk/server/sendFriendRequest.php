@@ -2,7 +2,7 @@
 	$friend = $_GET["friendemail"];
 	$username = $_GET["username"];
 	$firstname = $_GET["firstname"];
-	$notif = "FriendRes:".$username.":".$firstname." Added You as friend";
+	$notif = "FriendReq:".$username.":".$firstname." Added You as friend";
 	echo "</br>".$notif."</br>";
 	sendNotifTo($friend, $notif);
 
