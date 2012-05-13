@@ -564,6 +564,8 @@ public class HomepageActivity extends MapActivity {
 		editor.putString("username", "none");
 		editor.putString("password", "none");
 		editor.commit();
+		datasource.open();
+		datasource.emptyNotifTable();
 		finish();// close the app instead
 		// call authentication webpage and get resposne true or false
 

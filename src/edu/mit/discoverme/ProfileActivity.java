@@ -59,10 +59,8 @@ public class ProfileActivity extends Activity {
 		deleteFriend.setOnClickListener(onDeleteClick);
 
 		Button approve = (Button) findViewById(R.id.addPendingYesButton);
-		approve.setOnClickListener(onApproveClick);
-
 		Button decline = (Button) findViewById(R.id.addPendingNoButton);
-		decline.setOnClickListener(onDeclineClick);
+
 
 		TextView nameField = (TextView) findViewById(R.id.personName);
 		TextView emailField = (TextView) findViewById(R.id.personEmail);
@@ -70,20 +68,6 @@ public class ProfileActivity extends Activity {
 		TextView addressField = (TextView) findViewById(R.id.personAddress);
 
 		StateManager appState = ((StateManager) getApplicationContext());
-		// String[] names = appState.getDirectoryNames();
-		// String[] emails = appState.getDirectory_emails();
-		// String[] phones = appState.getDirectory_phones();
-		// String[] addresss = appState.getDirectory_addresses();
-		// String[] types = appState.getDirectory_friendType();
-
-		// String[] names =
-		// getResources().getStringArray(R.array.directory_array);
-		// String[] emails = getResources().getStringArray(R.array.email_array);
-		// String[] phones = getResources().getStringArray(R.array.phone_array);
-		// String[] addresss = getResources()
-		// .getStringArray(R.array.address_array);
-		// String[] types = getResources().getStringArray(
-		// R.array.friend_type_array);
 
 		populateFields();
 
@@ -220,14 +204,15 @@ public class ProfileActivity extends Activity {
 			directoryTypes[indexPerson] = stPres;
 			appState.setDirectory_friendType(directoryTypes);
 
+
 			// server activity
 			SharedPreferences prefs = getSharedPreferences("credentials",
 					Context.MODE_WORLD_READABLE);
 			String username = prefs.getString("username", "none");
-			StateManager stm = new StateManager();
+			StateManager stm = (StateManager) getApplicationContext();
 			String firstname = stm.fullName;
 			TextView emailField = (TextView) findViewById(R.id.personEmail);
-			String email = emailField.toString();
+			String email = emailField.getText().toString();
 			String[] arg = email.split("@");
 			if (arg.length > 1)
 				email = arg[0];
@@ -241,72 +226,6 @@ public class ProfileActivity extends Activity {
 					.show();
 			finish();
 
-		}
-	};
-	private final OnClickListener onApproveClick = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			StateManager appState = ((StateManager) getApplicationContext());
-
-			// add to friends list
-			String[] friends = appState.getFriends();//
-			String[] newFriends = new String[friends.length + 1];
-			for (int i = 0; i < friends.length; i++)
-				newFriends[i] = friends[i];
-			newFriends[friends.length] = personName;
-			Arrays.sort(newFriends);
-			appState.setFriends(newFriends);
-
-			// change type to friends in the directory
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, personName);
-			String stF = getString(R.string.typeFriend);
-			directoryTypes[indexPerson] = stF;
-			appState.setDirectory_friendType(directoryTypes);
-
-			// server activity
-			SharedPreferences prefs = getSharedPreferences("credentials",
-					Context.MODE_WORLD_READABLE);
-			String username = prefs.getString("username", "none");
-			StateManager stm = new StateManager();
-			String firstname = stm.fullName;
-			TextView emailField = (TextView) findViewById(R.id.personEmail);
-			String email = emailField.toString();
-			String[] arg = email.split("@");
-			if (arg.length > 1)
-				email = arg[0];
-			ServerLink.addFriend(username, email, firstname);
-			// server activity ends here
-
-			// and flash a message on screen saying something
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.addPendingYesMesg), Toast.LENGTH_SHORT)
-					.show();
-			finish();
-		}
-	};
-	private final OnClickListener onDeclineClick = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			// change type to stranger in directory list
-			StateManager appState = ((StateManager) getApplicationContext());
-			String[] directorynames = appState.getDirectoryNames();
-			String[] directoryTypes = appState.getDirectory_friendType();
-			int indexPerson = Arrays.binarySearch(directorynames, personName);
-			String stS = getString(R.string.typeStranger);
-			directoryTypes[indexPerson] = stS;
-			appState.setDirectory_friendType(directoryTypes);
-			// go back to last page
-			// and flash a message on screen saying something
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.addPendingNoMesg), Toast.LENGTH_SHORT)
-					.show();
-			finish();
 		}
 	};
 

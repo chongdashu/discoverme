@@ -187,6 +187,11 @@ public class MyDataSource {
 		return event;
 	}
 
+	public void emptyEventTable() {
+		System.out.println("All events deleted with id: ");
+		database.delete(MySQLiteHelper.TABLE_EVENTS, null, null);
+	}
+
 	public Notif createNotification(String name, String type, String details,
 			String readFlag) {
 		ContentValues values = new ContentValues();
@@ -277,6 +282,11 @@ public class MyDataSource {
 		notif.setNotif(cursor.getString(1), cursor.getString(2),
 				cursor.getString(3), cursor.getString(4));
 		return notif;
+	}
+
+	public void emptyNotifTable() {
+		System.out.println("All notifs deleted with id: ");
+		database.delete(MySQLiteHelper.TABLE_NOTIFS, null, null);
 	}
 
 }

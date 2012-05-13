@@ -137,7 +137,48 @@ public class AuthenticationActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 
+
+			TextView username = (TextView) findViewById(R.id.username);
+			TextView password = (TextView) findViewById(R.id.password);
+
+			String usr = username.getText().toString();
+			String pswrd = password.getText().toString();
+
+			Boolean auth = Authenticate.check(usr, pswrd);
+			if (auth) {
+				SharedPreferences prefs = getSharedPreferences("credentials",
+						Context.MODE_WORLD_READABLE);
+				SharedPreferences.Editor editor = prefs.edit();
+				editor.putString("username", usr);
+				editor.putString("password", pswrd);
+				editor.commit();
+				datasource = new MyDataSource(AuthenticationActivity.this);
+				datasource.open();
+				dirdatasource = new DirDataSource(AuthenticationActivity.this);
+				dirdatasource.open();
+				ServerLink.loadPeople(dirdatasource);
+
+				ServerLink.loadFriends(usr, datasource);
+				ServerLink.loadEvents("saqib01", datasource);
+				// ServerLink.loadEvents("pmerc02", datasource);
+				// ServerLink.loadEvents("pmerc03", datasource);
+				ServerLink.loadNotifs(usr, datasource, dirdatasource);
+				datasource.close();
+				dirdatasource.close();
+				Toast.makeText(getApplicationContext(), "valid credentials!!",
+						Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(AuthenticationActivity.this,
+						GDDiscoverMeActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				finish();
+			} else {
+				Toast.makeText(getApplicationContext(), "invalid credentials",
+						Toast.LENGTH_SHORT).show();
+			}
+
 			doLogin();
+
 			
 		}
 	};
