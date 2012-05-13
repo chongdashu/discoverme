@@ -16,9 +16,9 @@ public class StateManager extends Application {
 	public float userLat;
 	public float userLon;
 	public String userAddress;
-	public Vector<GeoPoint> friendPoints;
-	public Vector<String> friendAddresses;
-	public HashMap<String, String> addressMap;
+	//public Vector<GeoPoint> friendPoints;
+	// public Vector<String> friendAddresses;
+	public HashMap<String, String> addressMap = new HashMap<String,String>();
 	public HashMap<String, GeoPoint> geopointMap = new HashMap<String,GeoPoint>();
 	
 	// people
