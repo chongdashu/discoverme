@@ -380,7 +380,7 @@ public class HomepageActivity extends MapActivity {
 			Collections.sort(values, new NotifComparator());
 			// ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this,
 			// R.layout.list_item, values);
-			NotifAdapter adapter = new NotifAdapter(this, R.layout.list_item,
+			NotifAdapter adapter = new NotifAdapter(this, R.layout.list_item_notif,
 					values);
 			lv.setAdapter(adapter);
 			b.setVisibility(View.GONE);

@@ -29,7 +29,7 @@ public class NotifAdapter extends ArrayAdapter<Notif> {
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
 		LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		view = (View) vi.inflate(R.layout.list_item, null);
+		view = (View) vi.inflate(R.layout.list_item_notif, null);
 		
 		TextView tv = (TextView) view.findViewById(R.id.list_item_textview);
 		Notif notif = notifications.get(position);
