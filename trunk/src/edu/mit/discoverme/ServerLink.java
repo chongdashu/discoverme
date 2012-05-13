@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 
 public class ServerLink {
+	private static final String URLstring = "http://people.csail.mit.edu/saqib/";
 	
 	public static int indx = 0;// number of events i created
 	public static void loadFriends(String username, MyDataSource datasource) {
@@ -12,12 +13,9 @@ public class ServerLink {
 		CharSequence cs = null;
 		String exp = "";
 		try {
-			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/users/"
-							+ username.trim() + "_friends.txt");
+			URL url = new URL(URLstring + "users/" + username.trim()
+					+ "_friends.txt");
 			cs = Authenticate.getURLContent(url);
-			// do something with the URL...
 		} catch (IOException ioex) {
 			exp = ioex.toString();
 		}
@@ -25,26 +23,44 @@ public class ServerLink {
 		// datasource.createFriend("name", "fone", "email", "address");
 
 		if (cs != null) {
+			if (!cs.toString().trim().equals("")) {
 			String string = cs.toString();
 			String[] arg = string.split("\n");
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(";");
 				datasource.createFriend(one[0], one[1], one[2], one[3]);
-				// datasource.createFriend(arg[0], "fone", "email", "address");
 			}
+			}
+
 		} else {
 			datasource.createFriend(exp, "fone", "email", "address");
+			// create new user
+			String ret = createNewUser(username);
+			ret = ret;
+
 		}
 	}
 
+	public static String createNewUser(String username) {
+		CharSequence cs = null;
+		String exp = "";
+		String st = "";
+		try {
+			URL url = new URL(URLstring + "newUser.php?username="
+					+ username.trim());
+			cs = Authenticate.getURLContent(url);
+			st = cs.toString();
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+		return st;
+	}
 	public static void loadEvents(String eventname, MyDataSource datasource) {
 		CharSequence cs = null;
 		String exp = "none";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/events/"
-							+ eventname.trim() + ".txt");
+			URL url = new URL(URLstring + "events/" + eventname.trim() + ".txt");
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
@@ -75,9 +91,7 @@ public class ServerLink {
 		String exp = "none";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/events/"
-							+ eventname.trim() + ".txt");
+			URL url = new URL(URLstring + "events/" + eventname.trim() + ".txt");
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
@@ -99,8 +113,7 @@ public class ServerLink {
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?username="
+			URL url = new URL(URLstring + "updateMyLocation.php?username="
 							+ username + "&location=" + location
 							+ "&locationLat=" + locationLat + "&locationLng="
 							+ locationLat);
@@ -114,21 +127,24 @@ public class ServerLink {
 
 	}
 
-	public static void sendRSVP(String eventID, String rsvp) {
+	public static void sendRSVP(String username, String userFirstname,
+			String eventname, String eventID, String rsvp,
+			MyDataSource datasource) {
 		CharSequence cs = null;
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?eventID="
-							+ eventID + "&rsvp=" + rsvp);
+			URL url = new URL(URLstring + "sendRSVP.php?username="
+							+ username + "&firstname=" + userFirstname
+							+ "&eventname=" + eventname
+							+ "&eventID=" + eventID + "&rsvp=" + rsvp);
 
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
 			exp = ioex.toString();
 		}
-		// datasource.createFriend("name", "fone", "email", "address");
+		datasource.createFriend(username, eventname, rsvp, eventID);
 
 	}
 
@@ -138,17 +154,21 @@ public class ServerLink {
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/users/"
-							+ username.trim() + "_notif.txt");
+			// URL url = new URL(URLstring + "users/" + username.trim()
+			// + "_notif.txt");
+			URL url = new URL(URLstring + "loadNotif.php?username="
+					+ username.trim());
 
 			cs = Authenticate.getURLContent(url);
+			String st = cs.toString();
+			st = st;
 			// do something with the URL...
 		} catch (IOException ioex) {
 			exp = ioex.toString();
 		}
 
 		if (cs != null) {
+			if (!cs.toString().trim().equals("")) {
 			String string = cs.toString();
 			String[] arg = string.split("\n");
 			for (int i = 0; i < arg.length; i = i + 1) {
@@ -157,11 +177,19 @@ public class ServerLink {
 				notif.setId(0);
 				notif.setNotif(one[2], one[0], one[1], "no");
 				processNotif(notif, datasource, dirdatasource);
-				if (one[0].equals("FriendDel")) {
+					Boolean insert = true;
+					if (one[0].equals("EventAccepted")
+							|| one[0].equals("EventDeclined")) {
+						String[] arg1 = one[1].split(",");
+						insert = arg1[1].startsWith(username);
+
+					}
+					if (one[0].equals("FriendDel") && insert) {
 				} else {
 					datasource.createNotification(one[2], one[0], one[1], "no");
 				}
 				// datasource.createNotification(name, type, details, readFlag);
+				}
 			}
 		} else {
 
@@ -173,10 +201,10 @@ public class ServerLink {
 	public static final void loadPeople(DirDataSource dirdatasource) {
 		CharSequence cs = null;
 		String exp = "";
+
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/directory.txt");
+			URL url = new URL(URLstring + "directory.txt");
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
@@ -191,20 +219,23 @@ public class ServerLink {
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(";");
 				dirdatasource.createPerson(one[0], one[1], one[2], one[3]);
+
 				// datasource.createFriend(arg[0], "fone", "email", "address");
 			}
+			exp = arg[0];
 		} else {
 			dirdatasource.createPerson(exp, "fone", "email", "address");
 		}
+
+		dirdatasource.createPerson(exp, "fone", "email", "address");
 	}
 
-	public static void deleteFriend(String username, String friendemail) {
+	public static void deleteFriend(String username, String friendemail) {// TODO
 		CharSequence cs = null;
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?username="
+			URL url = new URL(URLstring + "deleteFriend.php?username="
 							+ username + "&friendemail=" + friendemail);
 
 			cs = Authenticate.getURLContent(url);
@@ -216,14 +247,15 @@ public class ServerLink {
 
 	}
 
-	public static void addFriend(String username, String friendemail) {
+	public static void sendFriendRequest(String username, String friendemail,
+			String firstname) {// TODO
 		CharSequence cs = null;
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?username="
-							+ username + "&friendemail=" + friendemail);
+			URL url = new URL(URLstring + "sendFriendRequest.php?username="
+					+ username + "&friendemail=" + friendemail
+					+ "&userFirstname" + firstname);
 
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
@@ -234,46 +266,61 @@ public class ServerLink {
 
 	}
 
-	public static void createEvent(String username, Event event) {
+	public static void addFriend(String username, String friendemail,
+			String firstname) {// TODO
+		CharSequence cs = null;
+		String exp = "";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			URL url = new URL(URLstring + "addFriend.php?username=" + username
+					+ "&friendemail=" + friendemail + "&firstname=" + firstname);
+
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+		// datasource.createFriend("name", "fone", "email", "address");
+
+	}
+
+	public static void createEvent(String username, Event event,
+			MyDataSource datasource) {// TODO - delete this datasource thingy
 		CharSequence cs = null;
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			String eventID = event.getEventID();
+			String eventname = event.getName();
 			String part = event.getParticipants();
 			String rsvp = event.getResponses();
 			String location = event.getLocation();
 			String locationLat = event.getLocationLat();
-			String locationlng = event.getLocationLng();
+			String locationLng = event.getLocationLng();
 			String type = event.getType();
 			String time = event.getTime();
-
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?eventid="
-							+ eventID + "&participants=" + part + "&rsvp="
-							+ rsvp + "&time=" + time + "&location=" + location
-							+ "&locationLat=" + locationLat + "&locationLng="
-							+ locationLat + "&type=" + type);
-
+			URL url = new URL(URLstring + "createEvent.php?eventid=" + eventID
+					+ "&eventname=" + eventname + "&participants=" + part
+					+ "&rsvp=" + rsvp + "&time=" + time + "&location="
+					+ location + "&locationLat=" + locationLat
+					+ "&locationLng=" + locationLng + "&type=" + type);
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
 			exp = ioex.toString();
 		}
 		indx = indx + 1;
-		// datasource.createFriend("name", "fone", "email", "address");
+		datasource.createFriend(cs.toString(), "fone", "email", "address");
 
 	}
 
-	public static void cancelEvent(Event event) {
+	public static void cancelEvent(Event event) {// TODO
 		CharSequence cs = null;
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			String eventID = event.getEventID();
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?eventid="
-							+ eventID);
+			URL url = new URL(URLstring + "cancelEvent.php?eventid=" + eventID);
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
 		} catch (IOException ioex) {
@@ -282,33 +329,6 @@ public class ServerLink {
 		// datasource.createFriend("name", "fone", "email", "address");
 
 	}
-
-	public static void rsvpEvent(String username, String response, Event event) {
-		CharSequence cs = null;
-		String exp = "";
-		try {
-			// URL url = new URL("http://www.google.com/search?q=" + username);
-			String eventID = event.getEventID();
-
-			URL url = new URL(
-					"http://people.csail.mit.edu/culim/projects/discoverme/script.php?eventid="
-							+ eventID + "&usename=" + username + "&rsvp="
-							+ response);
-			cs = Authenticate.getURLContent(url);
-			// do something with the URL...
-		} catch (IOException ioex) {
-			exp = ioex.toString();
-		}
-		// datasource.createFriend("name", "fone", "email", "address");
-
-	}
-
-	/*
-	 * public static void processAllNotifs(MyDataSource datasource) {
-	 * datasource.open(); List<Notif> notifs = datasource.getAllNotifs();
-	 * datasource.close(); for (Notif notif : notifs) { processNotif(notif,
-	 * datasource); // datasource.updateProcessedNotif(notif); } }
-	 */
 
 	public static void processNotif(Notif notif, MyDataSource dataSource,
 			DirDataSource dirdatasource) {
@@ -516,29 +536,63 @@ public class ServerLink {
 	}
 
 	public static void proposeChanges(Event event) {
+		CharSequence cs = null;
+		String exp = "";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			String eventID = event.getEventID();
+			String eventname = event.getName();
+			String part = event.getParticipants();
+			String rsvp = event.getResponses();
+			String location = event.getLocation();
+			String locationLat = event.getLocationLat();
+			String locationLng = event.getLocationLng();
+			String type = event.getType();
+			String time = event.getTime();
+			URL url = new URL(URLstring + "proposeChange.php?eventid="
+					+ eventID + "&eventname=" + eventname + "&participants="
+					+ part + "&rsvp=" + rsvp + "&time=" + time + "&location="
+					+ location + "&locationLat=" + locationLat
+					+ "&locationLng=" + locationLng + "&type=" + type);
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+
+	}
+
+	public static String getProposedChange(String eventname) {
+		String event = getEvent(eventname.trim() + "_update");
+		return event;
 	}
 
 	public static String getFriendLocation(String friendemail) {
-		String locationName = "";
-		String locationLat = "";
-		String locationLng = "";
-
+		String retVal = "none;0;0";
 			CharSequence cs = null;
 			String exp = "";
 			try {
 				// URL url = new URL("http://www.google.com/search?q=" + username);
-				URL url = new URL(
-						"http://people.csail.mit.edu/culim/projects/discoverme/script.php?username="
+			URL url = new URL(URLstring + "fetchFriendLocation.php?username="
 								+ friendemail);
 
 				cs = Authenticate.getURLContent(url);
 				// do something with the URL...
+				if(cs!=null)
+				{
+					String []arg =cs.toString().trim().split(";");
+					if(arg.length==3)
+					retVal = cs.toString().trim();
+						
+				}
 			} catch (IOException ioex) {
 				exp = ioex.toString();
 			}
-		return locationName + "," + locationLat + "," + locationLng;
+		return retVal;
 	}
 	
+	public static void getLocationForAllFriend(MyDataSource dataSource) {
+	}
 	public static void acceptProposedChange(){
 		
 	}

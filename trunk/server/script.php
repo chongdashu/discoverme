@@ -18,3 +18,15 @@ hi there
 </body>
 </html>
 
+<?php 
+function http_file_exists($url) 
+{ 
+$f=@fopen($url,"r"); 
+if($f) 
+{ 
+fclose($f); 
+return true; 
+} 
+return false; 
+} 
+?>

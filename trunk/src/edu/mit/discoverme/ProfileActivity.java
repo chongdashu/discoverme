@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -218,6 +220,20 @@ public class ProfileActivity extends Activity {
 			directoryTypes[indexPerson] = stPres;
 			appState.setDirectory_friendType(directoryTypes);
 
+			// server activity
+			SharedPreferences prefs = getSharedPreferences("credentials",
+					Context.MODE_WORLD_READABLE);
+			String username = prefs.getString("username", "none");
+			StateManager stm = new StateManager();
+			String firstname = stm.fullName;
+			TextView emailField = (TextView) findViewById(R.id.personEmail);
+			String email = emailField.toString();
+			String[] arg = email.split("@");
+			if (arg.length > 1)
+				email = arg[0];
+			ServerLink.sendFriendRequest(username, email, firstname);
+			// server activity ends here
+
 			// go back to last page
 			// and flash a message on screen saying friend added
 			Toast.makeText(getApplicationContext(),
@@ -250,6 +266,20 @@ public class ProfileActivity extends Activity {
 			String stF = getString(R.string.typeFriend);
 			directoryTypes[indexPerson] = stF;
 			appState.setDirectory_friendType(directoryTypes);
+
+			// server activity
+			SharedPreferences prefs = getSharedPreferences("credentials",
+					Context.MODE_WORLD_READABLE);
+			String username = prefs.getString("username", "none");
+			StateManager stm = new StateManager();
+			String firstname = stm.fullName;
+			TextView emailField = (TextView) findViewById(R.id.personEmail);
+			String email = emailField.toString();
+			String[] arg = email.split("@");
+			if (arg.length > 1)
+				email = arg[0];
+			ServerLink.addFriend(username, email, firstname);
+			// server activity ends here
 
 			// and flash a message on screen saying something
 			Toast.makeText(getApplicationContext(),
