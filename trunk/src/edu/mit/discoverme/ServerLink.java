@@ -645,7 +645,9 @@ public class ServerLink {
 	public static void acceptProposedChange(String username, String firstname,
 			Event updatedEvent, MyDataSource dataSource) {
 		
-		Event event = updatedEvent;
+		Event event = new Event ();
+		event.setId(0);
+		event.setEvent(updatedEvent.getEventID(), updatedEvent.getName(), updatedEvent.getParticipants(), updatedEvent.getResponses(),updatedEvent.getTime(), updatedEvent.getLocation(), updatedEvent.getLocationLat(), updatedEvent.getLocationLng(), updatedEvent.getType());
 		String[] arg = event.getEventID().split("_update");
 		if (arg.length >= 1) {
 			{
