@@ -262,7 +262,7 @@ public class SelectEventLocationActivity extends MapActivity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			// go back to last page
-			finish();
+			finish(); 
 
 		}
 	};
