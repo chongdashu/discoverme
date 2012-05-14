@@ -77,7 +77,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		rsvp = rsvpString.split(",");
 		timeString = arg[3];
 		eventType = arg[7];
-		if (arg[7].equals("closed"))
+		if (arg[7].trim().equals("closed"))
 			closedEvent = true;
 		else
 			closedEvent = false;
