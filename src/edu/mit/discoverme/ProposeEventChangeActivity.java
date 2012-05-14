@@ -86,9 +86,12 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		timeMins = Integer.valueOf((timeString.split(" "))[1]);
 		locationName = arg[4];
 		latE6 = (int) (Float.valueOf(arg[5]) * 1000000);
+		locationLatString=arg[5].trim();
+				
 																		// (((float)
 																		// Float.valueOf(locations_lat[eventID]))*1000000);
 		lngE6 = (int) (Float.valueOf(arg[6]) * 1000000);
+		locationLngString=arg[6].trim();
 
 																			// (((float)
 																			// Float.valueOf(locations_lng[eventID]))*1000000);
@@ -234,15 +237,16 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 											newRsvp = newRsvp + "pending,";
 										String newLocation = (editTextLocation
 												.getText()).toString();
-										float lat = latE6;
-										float lng = lngE6;
-										lat = lat / 1000000;
-										lng = lng / 1000000;
+										int latI = latE6;
+										float latF = ((float) latI) / 1000000;
+										String latS = String.valueOf(latF);
 
-										String newLocationLNG = String
-												.valueOf(lng);
-										String newLocationLAT = String
-												.valueOf(lat);
+										int lngI = lngE6;
+										float lngF = ((float) lngI) / 1000000;
+										String lngS = String.valueOf(lngF);
+
+										String newLocationLNG = lngS;//String												.valueOf(lng);
+										String newLocationLAT = latS;//String												.valueOf(lat);
 										String newTime = (String
 												.valueOf(timePicker
 														.getCurrentHour()))
@@ -316,12 +320,19 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 														rsvpString, username,
 														"yes");
 
+										int latI = latE6;
+										float latF = ((float) latI) / 1000000;
+										String latS = String.valueOf(latF);
+
+										int lngI = lngE6;
+										float lngF = ((float) lngI) / 1000000;
+										String lngS = String.valueOf(lngF);
 										datasource.createEvent(eventuid,
 												eventTitle, participantsString,
 												newrsvpString, timeString,
 												locationName,
-												String.valueOf(latE6),
-												String.valueOf(latE6),
+												latS,
+												lngS,
 												eventType);
 										Notif notif = datasource
 												.getNotif(notifID);
