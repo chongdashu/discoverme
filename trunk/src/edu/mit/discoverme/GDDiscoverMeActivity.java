@@ -43,16 +43,16 @@ public class GDDiscoverMeActivity extends Activity {
 		String password = prefs.getString("password", "none");
 
 		if(username.equals("none")){
-			Toast.makeText(getApplicationContext(), "no credentials",
-					Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getApplicationContext(), "Please insert valid user ID",
+//					Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
 				AuthenticationActivity.class);
 			startActivity(intent);
 		}
 		else 
 		{
-			Toast.makeText(getApplicationContext(), "credentials found!!",
-					Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getApplicationContext(), "credentials found!!",
+//					Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(GDDiscoverMeActivity.this,
 					HomepageActivity.class);// MyDatabaseActivity.class);//
 			startActivity(intent);

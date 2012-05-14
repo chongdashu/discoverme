@@ -130,7 +130,7 @@ public class AuthenticationActivity extends Activity {
 			ServerLink.loadNotifs(usr, datasource, dirdatasource);
 			datasource.close();
 			dirdatasource.close();
-			Toast.makeText(getApplicationContext(), "valid credentials!!",
+			Toast.makeText(getApplicationContext(), "Welcome " + usr + "!!",
 					Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(AuthenticationActivity.this,
 					GDDiscoverMeActivity.class);
@@ -138,7 +138,7 @@ public class AuthenticationActivity extends Activity {
 			startActivity(intent);
 			finish();
 		} else {
-			Toast.makeText(getApplicationContext(), "invalid credentials",
+			Toast.makeText(getApplicationContext(), "Incorrect user ID or password.",
 					Toast.LENGTH_SHORT).show();
 		}
 	}
