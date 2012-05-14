@@ -96,5 +96,9 @@ public class DirDataSource {
 		return friend;
 	}
 
+	public void emptyNotifTable() {
+		System.out.println("directory deleted with id: ");
+		database.delete(DirSQLiteHelper.TABLE_DIRECTORY, null, null);
+	}
 
 }
