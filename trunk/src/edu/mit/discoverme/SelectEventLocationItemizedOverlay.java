@@ -92,7 +92,7 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 											((float) p.getLatitudeE6()) / 1000000,
 											((float) p.getLongitudeE6()) / 1000000);
   	        	   
-  	        	   selectEventActivity.drawMapLinesTo(p);
+  	        	 selectEventActivity.drawMapLinesTo(p);
   	        	   
   	        	 ImageButton userLocation = (ImageButton) activity.findViewById(R.id.select_event_location_my_location);
   	        	 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
