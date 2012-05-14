@@ -372,13 +372,17 @@ public class ServerLink {
 	}
 
 	public static void notifyChangeRejection(String friendname,
-			String username, Event event) {// TODO
+			String username, String eventname, String firstname, String eventID) {// TODO
 		CharSequence cs = null;
+
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
-			String eventID = event.getEventID();
-			URL url = new URL(URLstring + "deleteEvent.php?eventid="
+			URL url = new URL(URLstring + "notifyChangeRejection.php?username="
+					+ URLEncoder.encode(username, "UTF-8") + "friendname="
+					+ URLEncoder.encode(friendname, "UTF-8") + "eventname="
+					+ URLEncoder.encode(eventname, "UTF-8") + "firstname="
+					+ URLEncoder.encode(firstname, "UTF-8") + "eventID="
 					+ URLEncoder.encode(eventID, "UTF-8"));
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
@@ -537,6 +541,7 @@ public class ServerLink {
 			// dataSource.createFriend(oldrsvp, "fone", newrsvp, "nonenow");
 
 		} else if (type.equals("EventProposedChange")) {
+		} else if (type.equals("ProposedChangeRejected")) {
 		}
 		
 		
@@ -705,6 +710,7 @@ public class ServerLink {
 		
 
 	}
+
 
 
 }
