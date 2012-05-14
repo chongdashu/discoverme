@@ -101,15 +101,19 @@
         <activity
             android:name=".EventsActivity"
             android:screenOrientation="portrait"
-            android:label="EventsActivityLabel" />
+            android:label="EventsActivityLabel" 
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ViewEventsActivity"
             android:screenOrientation="portrait"
-            android:label="ViewEventsActivityLabel" />
+            android:label="ViewEventsActivityLabel" 
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ViewParticipantsListActivity"
             android:screenOrientation="portrait"
-            android:label="ViewParticipantsListActivityLabel" />
+            android:label="ViewParticipantsListActivityLabel" 
+            android:theme="@android:style/Theme.NoTitleBar" 
+           />
         <activity
             android:name=".SuggestLocationsActivity"
             android:screenOrientation="portrait"

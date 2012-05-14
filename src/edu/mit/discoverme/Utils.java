@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
+import javax.sql.DataSource;
+
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -184,6 +186,25 @@ public class Utils {
 
 		return add;
 
+	}
+	
+	public static String getFriendNameFromMITId(String mitId, Context context, boolean includeMITId) {
+		DirDataSource datasource = new DirDataSource(context);
+		datasource.open();
+		List<Friend> allFriends = datasource.getAllPeople();
+		datasource.close();
+		
+		for (Friend friend : allFriends) {
+			if (friend.getMITId().equals(mitId)) {
+				String name = friend.getName();
+				if (includeMITId) {
+					name = name.concat(" ("+mitId+")");
+				}
+				return name;
+			}
+		}
+		
+		return "none (null)";
 	}
 
 }

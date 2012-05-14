@@ -27,6 +27,8 @@ public class AddParticipantsListActivity extends Activity
 	String selectedList;
 	String[] friends;
 	int[] selected;
+	
+	List<Friend> allFriends;
 
 	private MyDataSource datasource;
 
@@ -62,7 +64,7 @@ public class AddParticipantsListActivity extends Activity
 
 		datasource = new MyDataSource(AddParticipantsListActivity.this);
 		datasource.open();
-		List<Friend> allFriends = datasource.getAllFriends();
+		allFriends = datasource.getAllFriends();
 		datasource.close();
 		friends = new String[allFriends.size()];
 		for (int i = 0; i < allFriends.size(); i++) {
@@ -191,7 +193,7 @@ public class AddParticipantsListActivity extends Activity
 
 			CheckedTextView ct = (CheckedTextView) view
 					.findViewById(R.id.participant_checked_textview);
-			ct.setText(items[position]);
+			ct.setText(Utils.getFriendNameFromMITId(items[position], AddParticipantsListActivity.this, true));
 
 			// tag it
 			ct.setTag(position);
