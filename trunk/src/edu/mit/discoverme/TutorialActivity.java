@@ -28,6 +28,7 @@ public class TutorialActivity extends Activity {
 		R.drawable.tutorial_notifs,
 		R.drawable.tutorial_user_location,
 		R.drawable.tutorial_friend_location,
+		R.drawable.tutorial_end
 	};
 	
 	@Override
