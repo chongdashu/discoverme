@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -119,6 +120,12 @@ public class SelectEventLocationActivity extends MapActivity {
 			Button next = (Button) (findViewById(R.id.nextButton));
 			next.setVisibility(View.INVISIBLE);
 			selectLocationOverlay.clearOverlays();
+			
+			 ImageButton userLocation = (ImageButton) findViewById(R.id.select_event_location_my_location);
+        	 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        	 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        	 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        	 userLocation.setLayoutParams(params);
 
 		}
 	};
@@ -129,6 +136,7 @@ public class SelectEventLocationActivity extends MapActivity {
 
 		// Get the map controller
 		MapController mapController = mapView.getController();
+		mapView.setBuiltInZoomControls(true);
 		
 		StateManager stateManager = (StateManager) getApplicationContext();
 
@@ -198,7 +206,7 @@ public class SelectEventLocationActivity extends MapActivity {
 		}
 		
 		// Add button listener
-		ImageButton userLocation = (ImageButton) findViewById(R.id.btn_my_location);
+		ImageButton userLocation = (ImageButton) findViewById(R.id.select_event_location_my_location);
 		userLocation.setOnClickListener(new OnClickListener() {
 
 			@Override

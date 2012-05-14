@@ -40,7 +40,7 @@ import com.google.android.maps.OverlayItem;
 
 public class HomepageActivity extends MapActivity {
 
-	public static final boolean NO_LOCATION_SEARCH = true;
+	public static final boolean NO_LOCATION_SEARCH = false;
 
 	private String popup;
 	private TextView p;
