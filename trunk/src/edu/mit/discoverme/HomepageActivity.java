@@ -203,6 +203,16 @@ public class HomepageActivity extends MapActivity {
 				stateManager.fullName = friend.getName();
 			}
 		}
+		
+		boolean hasDoneTutorial = prefs.getBoolean("tutorial_done:" + username, false);
+		if (!hasDoneTutorial)
+		{
+			Intent intent2 = new Intent(HomepageActivity.this,
+					TutorialActivity.class);
+			startActivity(intent2);
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putBoolean("tutorial_done:" + username, true);
+		}
 
 		dirdatasource.close();
 	}
@@ -576,8 +586,6 @@ public class HomepageActivity extends MapActivity {
 				startActivity(intent);
 				return true;
 			case R.id.help :
-				Toast.makeText(getApplicationContext(), "help works .. co0l",
-						Toast.LENGTH_SHORT).show();
 				Intent intent2 = new Intent(HomepageActivity.this,
 						TutorialActivity.class);
 				startActivity(intent2);
