@@ -352,6 +352,7 @@ public class HomepageActivity extends MapActivity {
 		if (popup.equals("friendss")) {
 			datasource.open();
 			List<Friend> values = datasource.getAllFriends();
+			Collections.sort(values, new FriendComparator());
 			datasource.close();
 			ArrayAdapter<Friend> adapter = new ArrayAdapter<Friend>(this,
 					R.layout.list_item, values);
@@ -368,6 +369,7 @@ public class HomepageActivity extends MapActivity {
 
 			datasource.open();
 			List<Event> values = datasource.getAllEvents();
+			Collections.sort(values, new EventComparator());
 			datasource.close();
 			ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(this,
 					R.layout.list_item, values);
