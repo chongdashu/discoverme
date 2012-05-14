@@ -88,9 +88,14 @@ public class SelectEventLocationActivity extends MapActivity {
 		if (linesOverlay != null) {
 			mapView.getOverlays().remove(linesOverlay);
 		}
-		
+		StateManager sm = (StateManager) getApplicationContext();
+		friendpoints.add(sm.userGeoPoint);
 		linesOverlay = new SelectEventLocationLinesOverlay(target, friendpoints);
 		mapView.getOverlays().add(linesOverlay);
+		
+		Vector<GeoPoint> geopoints = new Vector<GeoPoint>(friendpoints);
+		geopoints.add(target);
+		Utils.animateAndZoomToFit(mapView.getController(), geopoints);
 	}
 	
 	public void drawColorMapLinesTo(GeoPoint target)
