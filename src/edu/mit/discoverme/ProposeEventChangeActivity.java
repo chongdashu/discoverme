@@ -214,8 +214,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 										StateManager stm = (StateManager) getApplicationContext();
 										String firstname = stm.fullName;
 
-										String eventUniqueID = eventuid
-												+ "_update";
+										String eventUniqueID = eventuid;
 										String newEventTitle = (editTextTitle
 												.getText()).toString();
 										String newParticipants = (editTextParticipants
