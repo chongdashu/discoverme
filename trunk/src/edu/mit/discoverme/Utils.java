@@ -194,6 +194,8 @@ public class Utils {
 		List<Friend> allFriends = datasource.getAllPeople();
 		datasource.close();
 		
+		mitId = mitId.trim();
+		
 		for (Friend friend : allFriends) {
 			if (friend.getMITId().equals(mitId)) {
 				String name = friend.getName();
