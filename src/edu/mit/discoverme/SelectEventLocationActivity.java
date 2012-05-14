@@ -187,7 +187,10 @@ public class SelectEventLocationActivity extends MapActivity {
 			GeoPoint loc = new GeoPoint(latE6, lngE6);
 			OverlayItem locItem = new OverlayItem(loc, "", "");
 			// mapController.animateTo(loc);
-			Utils.animateAndZoomToFit(mapController, friendpoints);
+			
+			Vector<GeoPoint> allpoints = new Vector<GeoPoint>(friendpoints);
+			allpoints.add(loc);
+			Utils.animateAndZoomToFit(mapController, allpoints);
 			selectLocationOverlay.addOverlay(locItem);
 			
 			drawColorMapLinesTo(loc);
