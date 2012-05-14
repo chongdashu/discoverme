@@ -20,13 +20,15 @@
             android:layout_above="@+id/select_event_location_confirmation_area"
             android:apiKey="@string/google_map_api_key_cu"
             android:clickable="true" />
+        
         <ImageButton 
+        android:id="@+id/select_event_location_my_location" 
     	android:src="@drawable/ic_menu_compass"
     	android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" 
-        android:id="@+id/btn_my_location" 
+        android:layout_alignTop="@id/select_event_location_confirmation_area"
         android:contentDescription="Show User Location"/>
        
         <ImageView 

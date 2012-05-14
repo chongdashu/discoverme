@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
@@ -91,6 +93,12 @@ public class SelectEventLocationItemizedOverlay extends ItemizedOverlay<OverlayI
 											((float) p.getLongitudeE6()) / 1000000);
   	        	   
   	        	   selectEventActivity.drawMapLinesTo(p);
+  	        	   
+  	        	 ImageButton userLocation = (ImageButton) activity.findViewById(R.id.select_event_location_my_location);
+  	        	 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+  	        	 params.addRule(RelativeLayout.ABOVE, confirmationArea.getId());
+  	        	 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+  	        	 userLocation.setLayoutParams(params);
   	        	 
   	        	   // Uncomment this when ready.
 //  	        	   Activity mapActivity = (Activity) mContext;
