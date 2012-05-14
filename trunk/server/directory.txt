@@ -14,6 +14,7 @@ Farina Farouk;617322654876;farina@mit.edu;26-455
 George Bush;6178887388;dubya@mit.edu;26-207
 Henna Hot;6172461354;hh@mit.edu;26-G718
 Iram Izmir;6171234527;ii@mit.edu;46-807
+Sacha Zyto;6172536570;sacha@mit.edu;32-G578
 Jane Austen;61798763432;manybooks@mit.edu;46-123
 Karl von Clauswitz;517321654876;fighter@mit.edu;46-455
 Laila Laloo;6178887788;ll@mit.edu;46-207
