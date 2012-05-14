@@ -15,10 +15,10 @@
 	echo $content;
 
 	$partArr = explode(",",$part);
-	for($i=1;$i<count($partArr);$i=$i+1)
+	for($i=1;$i<count($partArr)-1;$i=$i+1)
 	{
 		$notif = "EventInvite:".$file.":".$firstname." invited you to ".$ename;
-		$friend = $partArr[$i];
+		$friend = trim($partArr[$i]);
 		sendNotifTo($friend, $notif);
 
 
@@ -27,7 +27,7 @@
 
 <?php function sendNotifTo($friend, $notif)
 {
-$file = "users/".$friend."_notif.txt";
+$file = "users/".trim($friend)."_notif.txt";
 $stringData = "\n".$notif;
 file_put_contents($file, $stringData, FILE_APPEND);
 }
