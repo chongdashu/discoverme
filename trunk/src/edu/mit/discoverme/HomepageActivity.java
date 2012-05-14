@@ -586,6 +586,8 @@ public class HomepageActivity extends MapActivity {
 				startActivity(intent);
 				return true;
 			case R.id.help :
+//				Toast.makeText(getApplicationContext(), "help works .. co0l",
+//						Toast.LENGTH_SHORT).show();
 				Intent intent2 = new Intent(HomepageActivity.this,
 						TutorialActivity.class);
 				startActivity(intent2);
