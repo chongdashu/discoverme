@@ -258,6 +258,8 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 														newLocation,
 														newLocationLAT,
 														newLocationLNG, newType);
+										datasource.open();
+
 										datasource.createFriend(
 												// TODO delete this !!
 												theEvent.getEventID(),
@@ -266,7 +268,6 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 												theEvent.getName());
 										ServerLink.proposeChanges(username,
 												firstname, theEvent);// TODO
-										datasource.open();
 
 										Notif notif = datasource
 												.getNotif(notifID);
