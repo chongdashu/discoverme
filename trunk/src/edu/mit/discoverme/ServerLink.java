@@ -30,7 +30,8 @@ public class ServerLink {
 			String[] arg = string.split("\n");
 			for (int i = 0; i < arg.length; i = i + 1) {
 				String[] one = arg[i].split(";");
-				datasource.createFriend(one[0], one[1], one[2], one[3]);
+					if (one.length == 4)
+						datasource.createFriend(one[0], one[1], one[2], one[3]);
 			}
 			}
 
