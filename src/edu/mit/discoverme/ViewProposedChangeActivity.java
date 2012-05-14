@@ -102,8 +102,25 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					SharedPreferences prefs = getSharedPreferences(
+							"credentials",
+							Context.MODE_WORLD_READABLE);
+					String username = prefs.getString(
+							"username", "none");
+					StateManager stm = (StateManager) getApplicationContext();
+					String firstname = stm.fullName;
+
+
 									datasource.open();
 									Notif notif = datasource.getNotif(notifID);
+									String details = notif.getDetail();
+									String[] arg = details.split(",");
+									String friend = "";
+									if (arg.length == 2)
+										friend = arg[0];
+									ServerLink.notifyChangeRejection(friend,
+											username, theEvent.getName(),
+											firstname, theEvent.getEventID());
 									datasource.deleteNotif(notif);
 									datasource.close();
 									dialog.cancel();

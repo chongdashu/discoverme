@@ -137,7 +137,8 @@ public class HomepageActivity extends MapActivity {
 					} else if (type.equals("EventAccepted")
 							|| type.equals("EventDeclined")
 							|| type.equals("EventCanceled")
-							|| type.equals("FriendDel")) {
+							|| type.equals("FriendDel")
+							|| type.equals("ProposedChangeRejected")) {
 						// do nothing
 					} else if (type.equals("EventProposedChange")) {
 						Intent intent = new Intent(HomepageActivity.this,
