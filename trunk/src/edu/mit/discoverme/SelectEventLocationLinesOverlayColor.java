@@ -90,7 +90,7 @@ public class SelectEventLocationLinesOverlayColor
 			paint.setColor(colors.get(i));
 			paint.setAntiAlias(true);
 			paint.setStyle(Style.STROKE);
-			paint.setStrokeWidth(3);
+			paint.setStrokeWidth(5);
 			paint.setPathEffect(pathEffects.get(i));
 			Point pt1 = new Point();
 			Point pt2 = new Point();
