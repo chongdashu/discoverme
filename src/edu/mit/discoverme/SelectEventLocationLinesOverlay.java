@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
@@ -29,6 +30,7 @@ public class SelectEventLocationLinesOverlay extends Overlay {
 		for (GeoPoint point : sources) {
 			paint = new Paint();
 			paint.setColor(Color.GRAY);
+			paint.setPathEffect(new DashPathEffect(new float[] {20,5}, 0));
 			paint.setAntiAlias(true);
 			paint.setStyle(Style.STROKE);
 			paint.setStrokeWidth(5);

@@ -212,6 +212,7 @@ public class HomepageActivity extends MapActivity {
 			startActivity(intent2);
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putBoolean("tutorial_done:" + username, true);
+			editor.commit();
 		}
 
 		dirdatasource.close();
