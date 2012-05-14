@@ -72,7 +72,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 		String [] arg = eventRow.split(";");
 		eventTitle = arg[0];
 		participantsString = arg[1];
-		participants = participantsString.split(",");
+		participants = participantsString.trim().split(",");
 		rsvpString = arg[2];
 		rsvp = rsvpString.split(",");
 		timeString = arg[3];
