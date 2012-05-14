@@ -174,7 +174,7 @@ public class Utils {
 			add = "";
 			if (addresses.size() > 0) {
 				for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex(); i++)
-					add += addresses.get(0).getAddressLine(i) + "\n";
+					add += addresses.get(0).getAddressLine(i) + " "; // + "\n";
 			}
 
 		} catch (IOException e) {
