@@ -221,6 +221,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 												.getText())
 														.toString();
 										newParticipants.replace(" ", "");
+										newParticipants.replace(",,", ",");
 										String[] arg = newParticipants
 												.split(",");
 										// String newRsvp = "";
