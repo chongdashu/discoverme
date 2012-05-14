@@ -31,7 +31,7 @@ public class SelectEventLocationLinesOverlay extends Overlay {
 			paint.setColor(Color.GRAY);
 			paint.setAntiAlias(true);
 			paint.setStyle(Style.STROKE);
-			paint.setStrokeWidth(3);
+			paint.setStrokeWidth(5);
 			Point pt1 = new Point();
 			Point pt2 = new Point();
 			Projection projection = mapView.getProjection();
