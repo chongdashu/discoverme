@@ -88,8 +88,13 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 													firstname, updatedEvent,
 													datasource);// TODO
 
+									Notif notif = datasource.getNotif(notifID);
+									datasource.deleteNotif(notif);
+
+
 									datasource.close();
 									dialog.dismiss();
+									finish();
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -97,7 +102,12 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					dialog.cancel();
+									datasource.open();
+									Notif notif = datasource.getNotif(notifID);
+									datasource.deleteNotif(notif);
+									datasource.close();
+									dialog.cancel();
+									finish();
 				}
 			});
 			
