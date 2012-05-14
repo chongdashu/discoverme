@@ -118,13 +118,13 @@ public class ViewEventActivity extends CreateEventActivity {
 		eventID = (int) eventId;
 		eventTitle = eventName;
 		participantsString = eventPart;
-		participantsString.trim();
-		participants = participantsString.split(",");
+		//participantsString.trim();
+		participants = participantsString.trim().split(",");
 		
 		responsesString = eventResponses;
 		responses = responsesString.split(",");
 
-		if (eventType == "open")
+		if (eventType.equals("open"))
 			closedEvent = false;
 		else
 			closedEvent = true;

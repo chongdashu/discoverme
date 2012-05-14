@@ -93,6 +93,17 @@ public class CreateEventActivity extends Activity {// implements
 		it = (CheckedTextView) findViewById(R.id.itButton);
 		locationSuggestionLabel = (TextView) findViewById(R.id.locations_req_text);
 		
+		//well we don't want the above section anymore and this is an
+		//easy way to get rid of them
+		food.setVisibility(View.GONE);
+		silence.setVisibility(View.GONE);
+		it.setVisibility(View.GONE);
+		locationSuggestionLabel.setVisibility(View.GONE);
+		findViewById(R.id.foodText).setVisibility(View.GONE);
+		findViewById(R.id.silenceText).setVisibility(View.GONE);
+		findViewById(R.id.itText).setVisibility(View.GONE);
+		
+		
 		viewTextParticipants = (TextView)findViewById(R.id.view_event_view_participants);
 		viewParticipantsButton = (Button)findViewById(R.id.view_event_participants_button);
 		viewTextMap = (TextView)findViewById(R.id.view_event_view_map);
