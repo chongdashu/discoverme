@@ -116,11 +116,17 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 									String details = notif.getDetail();
 									String[] arg = details.split(",");
 									String friend = "";
+									String eventname = "";
 									if (arg.length == 2)
+ {
 										friend = arg[0];
+										eventname = arg[1];
+										eventname = eventname.trim().split(
+												"_update")[0];
+									}
 									ServerLink.notifyChangeRejection(friend,
 											username, theEvent.getName(),
-											firstname, theEvent.getEventID());
+											firstname, eventname);
 									datasource.deleteNotif(notif);
 									datasource.close();
 									dialog.cancel();
