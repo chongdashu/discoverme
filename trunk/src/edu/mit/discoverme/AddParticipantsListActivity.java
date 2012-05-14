@@ -150,10 +150,15 @@ public class AddParticipantsListActivity extends Activity
 		if (selected != null && friends != null) {
 			selectedList = "";
 			for (int i = 0; i < selected.length; i++) {
-				if (selected[i] == 1)
-					selectedList = selectedList + friends[i] + ", ";
+				if (selected[i] == 1) {
+					selectedList = selectedList + friends[i].trim() + ",";
+
+				}
 
 			}
+			
+			selectedList = selectedList.substring(0, selectedList.length() - 1);
+
 		} else
 			selectedList = "84038y";
 	}

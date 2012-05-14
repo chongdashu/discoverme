@@ -1,7 +1,6 @@
 <?php
 	$username = $_GET["username"];
 	$firstname = $_GET["firstname"];
-
 	$file = $_GET["eventid"];
 	$filename = "events/".$file;
 	$ename = $_GET["eventname"];
@@ -15,12 +14,12 @@
 	$content = $ename.";".$part.";".$rsvp.";".$time.";".$loc.";".$lat.";".$lng.";".$type;
 	$filename = $filename."_update.txt";
 
-	$notif = "EventProposedChange:".$username.",".$eventid."_update:".$firstname." propsed a change to your event ".$ename;
-	$partlist =explode(",",$part)[0];
+	$notif = "EventProposedChange:".$username.",".$file."_update:".$firstname." proposed a change to your event ".$ename;
+	$partlist = explode(",",$part);
 	$friend= "none";
-	of(count($partlist)>1) 
+	if(count($partlist)>1) 
 		$friend= $partlist[0];
-	sendNotifTo($friend, $notif)
+	sendNotifTo($friend, $notif);
 
 	file_put_contents($filename, $content);
 	echo $content;

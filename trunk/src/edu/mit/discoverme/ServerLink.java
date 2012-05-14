@@ -379,10 +379,10 @@ public class ServerLink {
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			URL url = new URL(URLstring + "notifyChangeRejection.php?username="
-					+ URLEncoder.encode(username, "UTF-8") + "friendname="
-					+ URLEncoder.encode(friendname, "UTF-8") + "eventname="
-					+ URLEncoder.encode(eventname, "UTF-8") + "firstname="
-					+ URLEncoder.encode(firstname, "UTF-8") + "eventID="
+					+ URLEncoder.encode(username, "UTF-8") + "&friendname="
+					+ URLEncoder.encode(friendname, "UTF-8") + "&eventname="
+					+ URLEncoder.encode(eventname, "UTF-8") + "&firstname="
+					+ URLEncoder.encode(firstname, "UTF-8") + "&eventID="
 					+ URLEncoder.encode(eventID, "UTF-8"));
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
