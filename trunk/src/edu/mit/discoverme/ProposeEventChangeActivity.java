@@ -265,12 +265,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 														newLocationLNG, newType);
 										datasource.open();
 
-										datasource.createFriend(
-												// TODO delete this !!
-												theEvent.getEventID(),
-												theEvent.getLocation(),
-												theEvent.getTime(),
-												theEvent.getName());
+
 										ServerLink.proposeChanges(username,
 												firstname, theEvent);// TODO
 
