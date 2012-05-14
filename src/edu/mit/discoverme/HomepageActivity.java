@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -557,7 +556,7 @@ public class HomepageActivity extends MapActivity {
 		datasource.emptyNotifTable();
 		datasource.close();
 		dirdatasource.open();
-		dirdatasource.emptyNotifTable();
+		dirdatasource.emptyDirTable();
 		dirdatasource.close();
 		finish();// close the app instead
 		// call authentication webpage and get resposne true or false
