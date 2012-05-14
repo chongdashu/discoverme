@@ -112,6 +112,10 @@ public class ProfileActivity extends Activity {
 			addedAlready.setVisibility(View.GONE);
 		}
 		
+		else {
+			nameField.setText(R.string.typeFriend);
+		}
+		
 		String username = email.trim().split("@")[0];
 		StateManager stateManager= (StateManager) getApplicationContext();
 		if (username.equals(stateManager.userName)) {
@@ -137,9 +141,7 @@ public class ProfileActivity extends Activity {
 		// decline.setVisibility(View.GONE);
 		// addedAlready.setVisibility(View.VISIBLE);
 		// }
-		else {
-			nameField.setText(R.string.typeFriend);
-		}
+	
 
 	}
 
