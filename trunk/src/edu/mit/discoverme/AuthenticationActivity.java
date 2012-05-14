@@ -147,7 +147,10 @@ public class AuthenticationActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 
-			doLogin();
+			// doLogin();
+			Intent intent = new Intent(AuthenticationActivity.this,
+					TutorialActivity.class);
+			startActivity(intent);
 
 			
 		}
