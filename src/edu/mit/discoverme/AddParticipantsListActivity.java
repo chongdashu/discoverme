@@ -114,8 +114,8 @@ public class AddParticipantsListActivity extends Activity
 			// and flash a message on screen saying friend added
 
 			getSelected();
-			Toast.makeText(getApplicationContext(), selectedList,
-					Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getApplicationContext(), selectedList,
+//					Toast.LENGTH_SHORT).show();
 			// selectedList = "sunila is there !";
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra("participants", selectedList);

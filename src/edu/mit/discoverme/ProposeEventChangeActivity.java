@@ -178,6 +178,8 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 			food.setEnabled(true);
 			silence.setEnabled(true);
 			it.setEnabled(true);
+//			timePicker.setFocusable(true);
+			timePicker.setEnabled(true);
 		} else {
 			next.setText("RSVP");
 			back.setText("Back");
@@ -186,6 +188,8 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 			food.setEnabled(false);
 			silence.setEnabled(false);
 			it.setEnabled(false);
+//			timePicker.setFocusable(false);
+			timePicker.setEnabled(false);
 		}
 	}
 
