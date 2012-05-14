@@ -210,7 +210,13 @@ public class ViewEventActivity extends CreateEventActivity {
 									datasource.open();
 									datasource.deleteEvent(theEvent);
 									// end of deleting entry
-									ServerLink.cancelEvent(theEvent);
+									SharedPreferences prefs = getSharedPreferences(
+											"credentials",
+											Context.MODE_WORLD_READABLE);
+									String username = prefs.getString(
+											"username", "none");
+
+									ServerLink.cancelEvent(username, theEvent);
 									datasource.close();
 	    	        	   Toast.makeText(getApplicationContext(),
 	    	   					getString(R.string.cancelEventMsg), Toast.LENGTH_SHORT)

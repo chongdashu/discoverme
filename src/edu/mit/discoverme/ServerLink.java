@@ -36,7 +36,7 @@ public class ServerLink {
 			}
 
 		} else {
-			datasource.createFriend(exp, "fone", "email", "address");
+			// datasource.createFriend(exp, "fone", "email", "address");
 			// create new user
 			String ret = createNewUser(username);
 			ret = ret;
@@ -336,13 +336,49 @@ public class ServerLink {
 
 	}
 
-	public static void cancelEvent(Event event) {// TODO
+	public static void cancelEvent(String username, Event event) {// TODO
 		CharSequence cs = null;
 		String exp = "";
 		try {
 			// URL url = new URL("http://www.google.com/search?q=" + username);
 			String eventID = event.getEventID();
 			URL url = new URL(URLstring + "cancelEvent.php?eventid="
+					+ URLEncoder.encode(eventID, "UTF-8") + "&username="
+					+ username);
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+		// datasource.createFriend("name", "fone", "email", "address");
+
+	}
+
+	public static void deleteEvent(Event event) {// TODO
+		CharSequence cs = null;
+		String exp = "";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			String eventID = event.getEventID();
+			URL url = new URL(URLstring + "deleteEvent.php?eventid="
+					+ URLEncoder.encode(eventID, "UTF-8"));
+			cs = Authenticate.getURLContent(url);
+			// do something with the URL...
+		} catch (IOException ioex) {
+			exp = ioex.toString();
+		}
+		// datasource.createFriend("name", "fone", "email", "address");
+
+	}
+
+	public static void notifyChangeRejection(String friendname,
+			String username, Event event) {// TODO
+		CharSequence cs = null;
+		String exp = "";
+		try {
+			// URL url = new URL("http://www.google.com/search?q=" + username);
+			String eventID = event.getEventID();
+			URL url = new URL(URLstring + "deleteEvent.php?eventid="
 					+ URLEncoder.encode(eventID, "UTF-8"));
 			cs = Authenticate.getURLContent(url);
 			// do something with the URL...
@@ -652,9 +688,9 @@ public class ServerLink {
 		if (arg.length >= 1) {
 			{
 				event.setEventID(arg[0]);
-				cancelEvent(event);
+				cancelEvent(username, event);
 				deleteEventFromMyList(event.getEventID(), dataSource);
-				cancelEvent(updatedEvent);
+				deleteEvent(updatedEvent);
 
 				createEvent(username, firstname, event, dataSource);
 				dataSource.createEvent(updatedEvent.getEventID(),
@@ -669,4 +705,6 @@ public class ServerLink {
 		
 
 	}
+
+
 }
