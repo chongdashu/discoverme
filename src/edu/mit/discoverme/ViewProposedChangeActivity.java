@@ -56,7 +56,7 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 									updatedEvent
 											.setParticipants(newParticipants);
 
-									String[] arg = newParticipants.split(",");
+									String[] arg = newParticipants.trim().split(",");
 									String newRsvp = "yes,";
 									for (int i = 0; i < arg.length - 1; i++)
 										newRsvp = newRsvp + "pending,";
