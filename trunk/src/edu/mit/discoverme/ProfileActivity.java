@@ -18,6 +18,7 @@ import android.widget.Toast;
 public class ProfileActivity extends Activity {
 
 	String personName;
+	String email;
 
 	MyDataSource mydatasource;
 	DirDataSource dirdatasource;
@@ -84,6 +85,8 @@ public class ProfileActivity extends Activity {
 		String stS = getString(R.string.typeStranger);
 		String stPreq = getString(R.string.typePendingReq);
 		String stPres = getString(R.string.typePendingRes);
+		
+		email = emails[key];
 
 		// profileType = types[key];
 		nameField.setText(personName);
@@ -108,6 +111,17 @@ public class ProfileActivity extends Activity {
 			decline.setVisibility(View.GONE);
 			addedAlready.setVisibility(View.GONE);
 		}
+		
+		String username = email.trim().split("@")[0];
+		StateManager stateManager= (StateManager) getApplicationContext();
+		if (username.equals(stateManager.userName)) {
+			add.setVisibility(View.GONE);
+			deleteFriend.setVisibility(View.GONE);
+			approve.setVisibility(View.GONE);
+			decline.setVisibility(View.GONE);
+			addedAlready.setVisibility(View.GONE);
+		}
+		
 		// else if (profileType.equals(stPreq)) {
 		// nameField.setText(personName);
 		// add.setVisibility(View.GONE);
