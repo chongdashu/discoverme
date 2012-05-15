@@ -174,7 +174,7 @@ public class ProposeEventChangeActivity extends CreateEventActivity {
 
 	private void initMode() {
 		if (inEditMode) {
-			next.setText("Propose Change");
+			next.setText("Send");
 			back.setText("Cancel");
 			proposeChangeArea.setVisibility(View.GONE);
 			activityTitle.setText(R.string.activityTitleEventPropose);

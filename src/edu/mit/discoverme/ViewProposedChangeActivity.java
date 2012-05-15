@@ -4,12 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 	private Event theEvent;
+	private Boolean participantsChangedFlag;
+	private Boolean locationChangedFlag;
+	private Boolean timeChangdeFlag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -26,6 +32,66 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 				timeString, locationName, String.valueOf(latE6),
 				String.valueOf(lngE6), eventType);
 		proposeChange.setVisibility(View.GONE);
+
+		String[] euid = eventuid.split("_update");
+		String originalEvent = ";;;;;;;";
+
+		if (euid.length >= 1) {
+			originalEvent = euid[0];
+			String event = ServerLink.getEvent(originalEvent);
+			String[] arg = event.split(";");
+			arg[1] = arg[1].replace(" ", "");
+			arg[1] = arg[1].replace(",", "");
+			String temp = participantsString.trim();
+			temp = temp.replace(" ", "");
+			temp = temp.replace(",", "");
+			if (arg[1].trim().equals(temp))
+				participantsChangedFlag = false;
+			else
+				participantsChangedFlag = true;
+			if (arg[3].trim().equals(timeString.trim()))
+				timeChangdeFlag = false;
+			else
+				timeChangdeFlag = true;
+			if (arg[4].trim().equals(locationName.trim()))
+				locationChangedFlag = false;
+			else
+				locationChangedFlag = true;
+			
+			// if(participantsChangedFlag)
+
+			TextView labelPart = (TextView) (findViewById(R.id.create_event_textview_participants));
+			TextView labelLocation = (TextView) (findViewById(R.id.textView2));
+			TextView labelTime = (TextView) (findViewById(R.id.create_event_textview_starttime));
+
+			if (participantsChangedFlag) {
+				labelPart.setTextColor(Color.RED);
+				labelPart
+						.setText(R.string.proposed_change_event_page_labels_participants);
+
+			}
+			if (timeChangdeFlag) {
+				labelTime.setTextColor(Color.RED);
+				labelTime
+						.setText(R.string.proposed_change_event_page_labels_time);
+
+			}
+			if (locationChangedFlag) {
+				labelLocation.setTextColor(Color.RED);
+				labelLocation
+						.setText(R.string.proposed_change_event_page_labels_location);
+
+			}
+			// Set up listeners for "Selecting Participants"
+			editTextParticipants = (EditText) (findViewById(R.id.create_event_edittext_participants));
+			
+			// Set up listeners for "Selecting Location"
+			editTextLocation = (EditText) (findViewById(R.id.create_event_edittext_location));
+			
+
+
+
+		}
 	}
 	
 	

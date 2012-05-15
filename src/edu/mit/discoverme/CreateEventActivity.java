@@ -267,10 +267,16 @@ public class CreateEventActivity extends Activity {// implements
 			if (!check.isChecked()) {
 				check.setChecked(true);
 				check.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
+				Toast.makeText(getApplicationContext(),
+						"Friends can not add participants to this event",
+						Toast.LENGTH_SHORT).show();
 
 			} else {
 				check.setChecked(false);
 				check.setCheckMarkDrawable(android.R.drawable.checkbox_off_background);
+				Toast.makeText(getApplicationContext(),
+						"Friends can suggest new participants for this event",
+						Toast.LENGTH_SHORT).show();
 			}
 
 		}
