@@ -71,9 +71,15 @@ public class ViewProposedChangeActivity extends ProposeEventChangeActivity {
 
 			}
 			if (timeChangdeFlag) {
+				String newtimelabel = getString(R.string.proposed_change_event_page_labels_time);
+				String[] time = timeString.split(" ");
+				String newTimeString = time[0] + ":" + time[1];
+
+				newtimelabel = newtimelabel + " (Compare to:" + newTimeString
+						+ ")";
 				labelTime.setTextColor(Color.RED);
 				labelTime
-						.setText(R.string.proposed_change_event_page_labels_time);
+.setText(newtimelabel);
 
 			}
 			if (locationChangedFlag) {
