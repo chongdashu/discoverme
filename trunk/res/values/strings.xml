@@ -11,6 +11,7 @@
     <!-- Release key is in the p_strings.xml file ignored by Git -->
 	<string name="google_map_api_key_debug">0IgVgWFseCoAyOOEFSXlrEhfjQE99UGBY_sh2CA</string>
 	<string name="google_map_api_key_cu">0I96sqMfhOqXlgURxjMNRD6cXxS2C8ZokiwAVfg</string>
+	<string name="google_map_api_key_sun">0ElKMGDO6cC8DPx8-Yk5gdfTw4Ay00H4DM73uyw</string>
 	
 	<string name="button_text_friend">Friend</string>
 	<string name="button_text_done">Done</string>
