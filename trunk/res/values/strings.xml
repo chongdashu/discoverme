@@ -172,4 +172,10 @@
         name="logout">Log out</string>
     <string
         name="help">Help</string>
+    <string
+        name="proposed_change_event_page_labels_participants">Proposed List of participants</string>
+    <string
+        name="proposed_change_event_page_labels_location">Proposed Location</string>
+    <string
+        name="proposed_change_event_page_labels_time">Proposed Start Time</string>
 </resources>

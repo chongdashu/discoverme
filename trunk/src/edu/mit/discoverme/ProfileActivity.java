@@ -117,7 +117,7 @@ public class ProfileActivity extends Activity {
 		}
 		
 		String username = email.trim().split("@")[0];
-		StateManager stateManager= (StateManager) getApplicationContext();
+		StateManager stateManager = (StateManager) getApplicationContext();
 		if (username.equals(stateManager.userName)) {
 			add.setVisibility(View.GONE);
 			deleteFriend.setVisibility(View.GONE);
